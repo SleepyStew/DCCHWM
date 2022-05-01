@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect
 import requests
+import os
 
 auth = Blueprint('auth', __name__)  
 
@@ -23,7 +24,9 @@ def login():
             if login.status_code == 400 or login.status_code == 401:
                 flash("Incorrect username or password.", category='error')
             elif login.status_code == 200:
-                flash("Sucessfully authenticated. This had no effect.", category='success')
+                id = login.text.split('= {"id":')[1].split("\"")[0][:-1]
+                external_id = login.text.split('= {"id":')[1].split("\"")[3]
+                flash(f"Sucessfully authenticated. This had no effect. ID: {id}, External ID: {external_id}.", category='success')
             else:
                 flash("An error occured.", category="error")
 
