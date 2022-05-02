@@ -9,6 +9,9 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
+    if not isinstance(current_user, flask_login.AnonymousUserMixin):
+        flash('You are already logged in. Please logout from the dashboard to return to the login page.', category='success')
+        return redirect(url_for('views.dashboard'))
     if request.method == 'POST':        
         data = request.form
         if len(data.get('username').split(" ")) < 2:
