@@ -2,10 +2,13 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 <h1 class="text-light fw-bold">Dashboard</h1>
-<br>
+<div class="ms-3">
+    <br>
+    <h3 class="text-light">Todays Subjects:</h3>
+    <div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Homegroup<br>8:40am–8:55am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 1<br>9:00am–10:10am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 2<br>10:30am–11:40am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 3<br>11:45am–12:55pm</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 4<br>1:50pm–3:05pm</div><br>
+    {{ timetable|safe }}
+</div>
 
-<h3 class="text-light">Todays Subjects:</h3>
-<div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Homegroup<br>8:40am–8:55am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 1<br>9:00am–10:10am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 2<br>10:30am–11:40am</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 3<br>11:45am–12:55pm</div><div style="background-color: #F6F6F6; width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto; border-radius: 3px">Period 4<br>1:50pm–3:05pm</div>
-<br>
-{{ timetable|safe }}
+
+
 {% endblock %}

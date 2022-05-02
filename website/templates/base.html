@@ -27,12 +27,13 @@
         {% if logged_in %}
         <div id="mySidebar" class="sidebar">
             <a href="/dashboard">Dashboard</a>
+            <a href="/information">Information</a>
             <a href="/auth/logout">Logout</a>
         </div>
         {% else %}
         <div id="mySidebar" class="sidebar">
-            <a href="#">Login</a>
-            <a href="#">Information</a>
+            <a href="/auth/login">Login</a>
+            <a href="/information">Information</a>
         </div>
         {% endif %}
         
