@@ -20,9 +20,7 @@ def create_app():
     
     @login_manager.user_loader
     def load_user(id):
-        print(id)
         user = User.query.filter_by(id=id).first()
-        print(user)
         return user
 
     from .views import views
