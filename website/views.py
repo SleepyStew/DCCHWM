@@ -11,7 +11,7 @@ def robots():
     return send_from_directory('static', 'robots.txt')
 
 @views.route('/')
-def home():
+def root():
     if not isinstance(current_user, flask_login.AnonymousUserMixin):
         return redirect(url_for('views.dashboard'))
     else:
