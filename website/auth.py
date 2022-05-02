@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+import flask_login
 import requests
-import os
+from .models import User
+from . import db
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)  
 
@@ -26,12 +29,30 @@ def login():
             elif login.status_code == 200:
                 id = login.text.split('= {"id":')[1].split("\"")[0][:-1]
                 external_id = login.text.split('= {"id":')[1].split("\"")[3]
-                flash(f"Sucessfully authenticated. This had no effect. ID: {id}, External ID: {external_id}.", category='success')
+                user = User.query.filter_by(sbID=id).first() is not None
+                if user:
+                    User.query.filter_by(sbID=id).update(dict(id=str(login.cookies.get_dict())))
+                    db.session.commit()
+                    user_login = User.query.filter_by(sbID=id).first()
+                else:
+                    user_login = User(sbID=id, id = str(login.cookies.get_dict()), sbCookie=str(login.cookies.get('PHPSESSID')))
+                    db.session.add(user_login)
+                    db.session.commit()
+                    
+
+                login_user(user_login, remember=True)
+                flash(f"Sucessfully logged in. Welcome to the Dashboard.", category='success')
+                return redirect(url_for('views.dashboard'))
             else:
                 flash("An error occured.", category="error")
 
-    return render_template("login.html")
+    return render_template("login.html", logged_in=not isinstance(current_user, flask_login.AnonymousUserMixin))
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return 'Logout'
+    User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
+    db.session.commit()
+    logout_user()
+    print("Logging out user...")
+    return redirect(url_for('auth.login'))
