@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, redirect, url_for
-import bs4
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
 from .models import User

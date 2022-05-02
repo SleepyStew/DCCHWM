@@ -1,7 +1,6 @@
 from dataclasses import replace
 import requests
 import bs4
-import brython
 
 def get_timetable(current_user):
 

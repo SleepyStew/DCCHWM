@@ -1,4 +1,3 @@
-from unicodedata import category
 from flask import Flask, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from os import path
