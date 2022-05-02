@@ -57,5 +57,5 @@ def logout():
         print("Logging out user...")
         flash('Sucessfully logged out.', category='success')
     else:
-        flash('You are not logged in.', category='error')
+        flash('You are not logged in.', category='success')
     return redirect(url_for('auth.login'))
