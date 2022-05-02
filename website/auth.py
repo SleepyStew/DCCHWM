@@ -9,8 +9,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST':
-        print(request.method)         
+    if request.method == 'POST':        
         data = request.form
         if len(data.get('username').split(" ")) < 2:
             flash('A first and last name is required.', category='error')
