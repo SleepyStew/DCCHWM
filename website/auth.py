@@ -30,11 +30,12 @@ def login():
                 external_id = login.text.split('= {"id":')[1].split("\"")[3]
                 user = User.query.filter_by(sbID=id).first() is not None
                 if user:
-                    User.query.filter_by(sbID=id).update(dict(id=str(login.cookies.get_dict())))
+                    User.query.filter_by(sbID=id).update(dict(id=str(login.cookies.get('PHPSESSID'))))
+                    User.query.filter_by(sbID=id).update(dict(sbCookie=str(login.cookies.get('PHPSESSID'))))
                     db.session.commit()
                     user_login = User.query.filter_by(sbID=id).first()
                 else:
-                    user_login = User(sbID=id, id = str(login.cookies.get_dict()), sbCookie=str(login.cookies.get('PHPSESSID')))
+                    user_login = User(sbID=id, id = str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID')))
                     db.session.add(user_login)
                     db.session.commit()
                     
