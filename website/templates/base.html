@@ -25,7 +25,7 @@
             <input type="image" id="logo" class="" src="/static/pngs/logo.png" style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%); width: 50px; height: auto; filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(145deg) brightness(103%) contrast(103%);">
         </nav>
         
-        {% if logged_in %}
+        {% if user.is_authenticatied %}
         <div id="mySidebar" class="sidebar">
             <a href="/dashboard">Dashboard</a>
             <a href="/information">Information</a>
