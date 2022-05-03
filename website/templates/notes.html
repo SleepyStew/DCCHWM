@@ -7,13 +7,13 @@
 <h1 class="text-light fw-bold">Quick Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <li class="list-group-item">
+    <li class="list-group-item rounded-2 my-2">
         {{ note.content }}
         <button type="button" class="btn-close" onClick="deleteNote({{ note.id }})"></button>
     </li>
     {% endfor %}
 </ul>
-<form method="POST">
+<form method="POST" class="mt-2">
     <textarea name="note" class="form-control" id="note" placeholder="Enter your new note here..."></textarea>
     <div align="center">
         <button type="submit" class="btn btn-primary mt-3">Add Note</button>
