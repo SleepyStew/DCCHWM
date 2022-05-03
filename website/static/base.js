@@ -27,4 +27,4 @@ function closeNav() {
   }
 }
 
-document.body.addEventListener('click', closeNav, true); 
+document.body.addEventListener('click', () => {closeNav()}, true); 
