@@ -36,7 +36,7 @@ def quicknotes():
         note = request.form.get('note')
 
         if len(note) < 1:
-            flash("You must enter a note to save.", category="error")
+            flash("A note can not be empty.", category="error")
         else:
             new_note = Note(content=note, userID=current_user.sbID)
             db.session.add(new_note)
