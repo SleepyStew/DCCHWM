@@ -35,6 +35,7 @@ def delete_note():
         if note.userID == current_user.sbID:
             db.session.delete(note)
             db.session.commit()
+            flash("Note successfully deleted.", category="success")
             return {'success': True}.json()
     return {'success': False}.json()
 
