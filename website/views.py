@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, send_from_directory
+from unicodedata import category
+from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
-from .models import User
+from . import db
+from .models import User, Note
 from .api import get_timetable
 
 views = Blueprint('views', __name__)  
@@ -27,7 +29,18 @@ def dashboard():
 def information():
     return render_template("information.html", user=current_user)
 
-@views.route('/quick-notes')
+@views.route('/quick-notes', methods=['GET', 'POST'])
 @login_required
 def quicknotes():
+    if request.method == "POST":
+        note = request.form.get('note')
+
+        if len(note) < 1:
+            flash("You must enter a note to save.", category="error")
+        else:
+            new_note = Note(note=note, user=current_user.sbID)
+            db.session.add(new_note)
+            db.session.commit()
+            flash("Note saved.", category="success")
+
     return render_template("notes.html", user=current_user)
