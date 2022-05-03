@@ -28,5 +28,6 @@ def information():
     return render_template("information.html", user=current_user)
 
 @views.route('/quick-notes')
+@login_required
 def quicknotes():
     return render_template("notes.html", user=current_user)
