@@ -3,6 +3,6 @@ function deleteNote(noteId) {
         method: 'POST',
         body: JSON.stringify({ note_id: noteId }),
     }).then((_res) => {
-        location.reload();
+        document.location = document.URL;
     });
 }
