@@ -28,7 +28,6 @@ def get_timetable(current_user):
     return ''.join(map(str, elements))
 
 @api.route('/delete-note', methods=['POST'])
-@login_required
 def delete_note():
     note_id = json.loads(request.data)['note_id']
     note = Note.query.get(note_id)
