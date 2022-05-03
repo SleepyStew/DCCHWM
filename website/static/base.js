@@ -17,3 +17,14 @@ function openNav() {
 	}
 	
   }
+
+function closeNav() {
+	if (nav_open) {
+		nav_open = false;
+		document.getElementById("mySidebar").style.width = "0";
+		document.getElementById("main").style.marginLeft = "0";
+	
+  }
+}
+
+document.body.addEventListener('click', closeNav, true); 
