@@ -38,7 +38,7 @@ def quicknotes():
         if len(note) < 1:
             flash("You must enter a note to save.", category="error")
         else:
-            new_note = Note(note=note, user=current_user.sbID)
+            new_note = Note(content=note, user=current_user.sbID)
             db.session.add(new_note)
             db.session.commit()
             flash("Note saved.", category="success")
