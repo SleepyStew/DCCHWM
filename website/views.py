@@ -42,5 +42,6 @@ def quicknotes():
             db.session.add(new_note)
             db.session.commit()
             flash("Note saved.", category="success")
+            return redirect(url_for('views.quicknotes'))
 
     return render_template("notes.html", user=current_user)
