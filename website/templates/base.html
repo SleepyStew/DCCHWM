@@ -27,15 +27,15 @@
         
         {% if user.is_authenticated %}
         <div id="mySidebar" class="sidebar">
-            <a href="/dashboard">Dashboard</a>
-            <a href="/quick-notes">Quick Notes</a>
-            <a href="/information">Information</a>
-            <a href="/auth/logout" class="position-absolute bottom-0 mb-3 text-danger">Logout</a>
+            <a href="/dashboard" class="text-nowrap">Dashboard</a>
+            <a href="/quick-notes" class="text-nowrap">Quick Notes</a>
+            <a href="/information" class="text-nowrap">Information</a>
+            <a href="/auth/logout" class="position-absolute bottom-0 mb-3 text-danger text-nowrap">Logout</a>
         </div>
         {% else %}
         <div id="mySidebar" class="sidebar">
-            <a href="/auth/login">Login</a>
-            <a href="/information">Information</a>
+            <a href="/auth/login" class="text-nowrap">Login</a>
+            <a href="/information" class="text-nowrap">Information</a>
         </div>
         {% endif %}
         
