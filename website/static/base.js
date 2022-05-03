@@ -18,12 +18,13 @@ function openNav() {
 	
   }
 
-function closeNav() {
+function closeNav(event) {
 	if (nav_open) {
+		event.stopPropagation();
 		nav_open = false;
 		document.getElementById("mySidebar").style.width = "0";
 		document.getElementById("main").style.marginLeft = "0"
   	}
 }
 
-document.body.addEventListener('click', () => {closeNav()}, true); 
+document.body.addEventListener('click', (event) => {closeNav(event)}, true); 
