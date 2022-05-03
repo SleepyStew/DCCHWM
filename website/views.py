@@ -12,6 +12,7 @@ def robots():
 
 @views.route('/')
 def root():
+    print(current_user.is_authenticated)
     if not isinstance(current_user, flask_login.AnonymousUserMixin):
         return redirect(url_for('views.dashboard'))
     else:
