@@ -19,7 +19,6 @@ function openNav() {
   }
 
 function closeNav() {
-	console.log(nav_open);
 	if (nav_open) {
 		nav_open = false;
 		document.getElementById("mySidebar").style.width = "0";
