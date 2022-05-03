@@ -26,3 +26,7 @@ def dashboard():
 @views.route('/information')
 def information():
     return render_template("information.html", user=current_user)
+
+@views.route('/quick-notes')
+def information():
+    return render_template("information.html", user=current_user)
