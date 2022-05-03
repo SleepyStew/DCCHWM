@@ -36,6 +36,6 @@ def delete_note():
             db.session.delete(note)
             db.session.commit()
             flash("Note successfully deleted.", category="success")
-            return {'success': True}.json()
-    return {'success': False}.json()
+            return json.dumps({'success': True})
+    return json.dumps({'success': False})
 
