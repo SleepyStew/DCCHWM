@@ -29,4 +29,4 @@ def information():
 
 @views.route('/quick-notes')
 def quicknotes():
-    return render_template("information.html", user=current_user)
+    return render_template("notes.html", user=current_user)
