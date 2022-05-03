@@ -39,13 +39,14 @@
   .openbtn {
     font-size: 25px;
     cursor: pointer;
-    background-color: #5865F2;
+    background-color: transparent;
     color: white;
     border: none;
   }
   
   .openbtn:hover {
-    background-color: #505ef5;;
+    background-color: #505ef5;
+    border-radius: 5px;
   }
   
   /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
