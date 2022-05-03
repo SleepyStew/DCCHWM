@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}Information{% endblock %}
+{% block content %}
+<h1 class="text-light fw-bold">Quick Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <li class="list-group-item">{{ note.content }}</li>
+    {% endfor %}
+</ul>
+<form method="POST">
+    <textarea name="note" class="form-control" id="note" placeholder="Enter your new note here..."></textarea>
+    <div class="mx-auto">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+{% endblock %}
