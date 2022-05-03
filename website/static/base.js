@@ -19,12 +19,12 @@ function openNav() {
   }
 
 function closeNav() {
+	console.log(nav_open);
 	if (nav_open) {
 		nav_open = false;
 		document.getElementById("mySidebar").style.width = "0";
-		document.getElementById("main").style.marginLeft = "0";
-	
-  }
+		document.getElementById("main").style.marginLeft = "0"
+  	}
 }
 
 document.body.addEventListener('click', () => {closeNav()}, true); 
