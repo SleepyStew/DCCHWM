@@ -1,4 +1,7 @@
 from website import create_app
+import sys
+
+sys.dont_write_bytecode = True
 
 app = create_app()
 
