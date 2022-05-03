@@ -49,7 +49,7 @@ def login():
             else:
                 flash("An error occured.", category="error")
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", logged_in=not isinstance(current_user, flask_login.AnonymousUserMixin))
 
 @auth.route('/logout')
 def logout():

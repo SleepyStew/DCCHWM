@@ -21,8 +21,8 @@ def root():
 @login_required
 def dashboard():
     timetable = get_timetable(current_user)
-    return render_template("dashboard.html", user=current_user, timetable=timetable)
+    return render_template("dashboard.html", logged_in=not isinstance(current_user, flask_login.AnonymousUserMixin), timetable=timetable)
 
 @views.route('/information')
 def information():
-    return render_template("information.html", user=current_user)
+    return render_template("information.html", logged_in=not isinstance(current_user, flask_login.AnonymousUserMixin))
