@@ -10,7 +10,7 @@
     {% for note in user.notes %}
     <li class="list-group-item rounded-2 my-2" id="note-{{ note.id }}">
         {{ note.content }}
-        <button type="button" class="bg-transparent border-0 position-absolute end-0 me-5" style='' onClick="editNote({{ note.id }})"><i class="fa-solid fa-pencil"></i></button>
+        <button type="button" class="bg-transparent border-0 position-absolute end-0 me-5" style='' onClick="editNote({{ note.id }})"><i class="fa-light fa-pencil"></i></button>
         <button type="button" class="btn-close position-absolute end-0 me-2" onClick="deleteNote({{ note.id }})"></button>
     </li>
     {% endfor %}
