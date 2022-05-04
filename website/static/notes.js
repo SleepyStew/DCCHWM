@@ -24,7 +24,18 @@ function editNote(noteId) {
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
     savebutton.onclick = saveEdited;
+
+    let cancelbutton = document.createElement("button");
+    cancelbutton.classList.add("btn");
+    cancelbutton.classList.add("btn-primary");
+    cancelbutton.classList.add("mx-auto");
+    cancelbutton.classList.add("mt-2");
+    cancelbutton.style.maxWidth = "150px"
+    cancelbutton.innerText = "Cancel";
+    cancelbutton.id = noteId + "-cancel-button";
+    cancelbutton.onclick = cancelEdited(noteId);
     
+    note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
     note.parentNode.insertBefore(editbox, note.nextSibling);
 
@@ -40,4 +51,10 @@ function saveEdited(event) {
     }).then((_res) => {
         document.location = document.URL;
     });
+}
+
+function cancelEdit(noteId) {
+    document.getElementById(noteId + "-edit-button").remove();
+    document.getElementById(noteId + "-cancel-button").remove();
+    document.querySelector("#note-" + noteId).display = "visible";
 }
