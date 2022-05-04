@@ -4,3 +4,6 @@ li button {
 li:hover button {
   display: inline; 
 }
+.edit-button:hover {
+  opacity: 1;
+}
