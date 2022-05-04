@@ -19,7 +19,8 @@ function editNote(noteId) {
     savebutton.classList.add("btn");
     savebutton.classList.add("btn-primary");
     savebutton.innerText = "Save Note";
-    savebutton.onclick = "saveEdited(" + noteId + ")"
+    savebutton.id = noteId + "-edit-button";
+    savebutton.onclick = saveEdited;
     
     note.parentNode.insertBefore(savebutton, note.nextSibling);
     note.parentNode.insertBefore(editbox, note.nextSibling);
@@ -27,6 +28,6 @@ function editNote(noteId) {
     note.style.display = "none";
 }
 
-function saveEdited(noteId) {
-    console.log(noteId);
+function saveEdited(event) {
+    console.log(event.target.id.split("-")[0]);
 }
