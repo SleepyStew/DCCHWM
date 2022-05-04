@@ -60,3 +60,8 @@
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
   }
+
+.inline-icon {
+    vertical-align: bottom;
+    font-size: 18px !important;
+ }
