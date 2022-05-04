@@ -7,7 +7,6 @@ li:hover button {
 .edit-button:hover {
   opacity: 1;
 }
-
 .edit-button {
-  opacity: 0.5;
+  opacity: 0.75;
 }
