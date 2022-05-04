@@ -60,9 +60,3 @@
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
   }
-
-
-div.mdl-layout__drawer > nav.mdl-navigation > a.mdl-navigation__link {
-    display: inline-flex;
-    vertical-align: middle;
-}
