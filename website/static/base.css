@@ -65,3 +65,7 @@
     position: relative;
     top: -2px;
   }
+
+  :hover {
+    opacity: var(--hover-opacity);
+  }
