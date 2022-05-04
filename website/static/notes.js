@@ -27,7 +27,7 @@ function editNote(noteId) {
 
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
-    cancelbutton.classList.add("btn-primary");
+    cancelbutton.classList.add("btn-danger");
     cancelbutton.classList.add("mx-auto");
     cancelbutton.classList.add("mt-2");
     cancelbutton.style.maxWidth = "150px"
