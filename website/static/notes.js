@@ -29,5 +29,12 @@ function editNote(noteId) {
 }
 
 function saveEdited(event) {
-    console.log(event.target.id.split("-")[0]);
+    let noteId = event.target.id.split("-")[0];
+    let content = event.target.previousSibling.innerText;
+    fetch('api/edit-note', {
+        method: 'POST',
+        body: JSON.stringify({ note_id: noteId, note_content: content }),
+    }).then((_res) => {
+        document.location = document.URL;
+    });
 }
