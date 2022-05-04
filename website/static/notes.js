@@ -6,3 +6,7 @@ function deleteNote(noteId) {
         document.location = document.URL;
     });
 }
+
+function editNote(noteId) {
+    console.log(document.querySelector("#note-" + noteId));
+}
