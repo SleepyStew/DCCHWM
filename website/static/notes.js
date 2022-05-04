@@ -18,7 +18,6 @@ function editNote(noteId) {
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
     savebutton.classList.add("btn-primary");
-    savebutton.classList.add("mx-auto");
     savebutton.classList.add("mt-2");
     savebutton.classList.add("me-2");
     savebutton.style.maxWidth = "150px"
@@ -29,7 +28,6 @@ function editNote(noteId) {
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
     cancelbutton.classList.add("btn-danger");
-    cancelbutton.classList.add("mx-auto");
     cancelbutton.classList.add("mt-2");
     cancelbutton.style.maxWidth = "150px"
     cancelbutton.innerText = "Cancel";
@@ -58,6 +56,6 @@ function cancelEdit(noteId) {
     console.log(noteId);
     document.getElementById(noteId + "-edit-button").remove();
     document.getElementById(noteId + "-cancel-button").remove();
-    document.getElementById("note-" + noteId).style.display = "unset";
+    document.getElementById("note-" + noteId).style.display = "block";
     document.getElementById(noteId + "-edit").remove()
 }
