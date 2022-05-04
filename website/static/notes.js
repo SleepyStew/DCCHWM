@@ -8,5 +8,13 @@ function deleteNote(noteId) {
 }
 
 function editNote(noteId) {
-    console.log(document.querySelector("#note-" + noteId));
+    let note = document.querySelector("#note-" + noteId);
+    
+    let editbox = document.createElement("textarea");
+    editbox.classList.add("form-control");
+    editbox.innerText = note.textContent.trim();
+    
+    note.parentNode.insertBefore(editbox, note.nextSibling);
+
+    note.style.display = "none";
 }
