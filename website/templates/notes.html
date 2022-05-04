@@ -6,7 +6,7 @@
 </head>
 
 <h1 class="text-light fw-bold">Quick Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
+<ul class="list-group list-group-flush d-block" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item rounded-2 my-2" id="note-{{ note.id }}">
         {{ note.content }}
