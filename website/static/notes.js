@@ -30,7 +30,7 @@ function editNote(noteId) {
 
 function saveEdited(event) {
     let noteId = event.target.id.split("-")[0];
-    let content = event.target.previousSibling.innerText;
+    let content = event.target.previousSibling.innerHTML;
     fetch('api/edit-note', {
         method: 'POST',
         body: JSON.stringify({ note_id: noteId, note_content: content }),
