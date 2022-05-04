@@ -67,5 +67,5 @@
   }
 
   :hover {
-    color: var(--hover-color);
+    opacity: var(--hover-opacity);
   }
