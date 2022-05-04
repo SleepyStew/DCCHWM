@@ -39,3 +39,16 @@ def delete_note():
             return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+@api.route('/edit-note', methods=['POST'])
+def delete_note():
+    note_id = json.loads(request.data)['note_id']
+    note_content = json.loads(request.data)['note_content']
+    note = Note.query.get(note_id)
+    if note:
+        if note.userID == current_user.sbID:
+            db.session.delete(note)
+            db.session.commit()
+            flash("Note successfully deleted.", category="success")
+            return json.dumps({'success': True})
+    return json.dumps({'success': False})
+
