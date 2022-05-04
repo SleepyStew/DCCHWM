@@ -18,6 +18,9 @@ function editNote(noteId) {
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
     savebutton.classList.add("btn-primary");
+    savebutton.classList.add("mx-auto");
+    savebutton.classList.add("mt-2");
+    savebutton.style.maxWidth = "150px"
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
     savebutton.onclick = saveEdited;
