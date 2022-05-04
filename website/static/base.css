@@ -61,7 +61,19 @@
     .sidebar a {font-size: 18px;}
   }
 
-.inline-icon {
-    vertical-align: bottom;
-    font-size: 18px !important;
- }
+#txt1{
+  font-size:28px;
+  line-height:24px;
+  }
+  #txt2{
+  font-size:36px;
+  line-height:24px;
+  }
+  #txt3{
+  font-size:21px;
+  line-height:24px;
+  }
+  .material-icons{
+      display: inline-flex;
+      vertical-align: top;
+  }
