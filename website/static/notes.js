@@ -33,7 +33,7 @@ function editNote(noteId) {
     cancelbutton.style.maxWidth = "150px"
     cancelbutton.innerText = "Cancel";
     cancelbutton.id = noteId + "-cancel-button";
-    cancelbutton.onclick = cancelEdit(noteId);
+    cancelbutton.onclick = (noteId) => cancelEdit;
     
     note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
