@@ -54,6 +54,7 @@ function saveEdited(event) {
 }
 
 function cancelEdit(noteId) {
+    console.log(noteId);
     document.getElementById(noteId + "-edit-button").remove();
     document.getElementById(noteId + "-cancel-button").remove();
     document.querySelector("#note-" + noteId).display = "visible";
