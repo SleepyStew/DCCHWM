@@ -52,7 +52,6 @@ def get_timetable(current_user):
         tag.find_all()[0]['target'] = "_blank"
         for subject, subject_value in friendly_subject_names.items():
             if subject in tag.find_all()[0].text:
-                print(subject.index)
                 tag.find_all()[0].string.replace_with(subject_value)
                 break
         try:
