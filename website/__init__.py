@@ -33,8 +33,7 @@ def create_app():
 
     admin = Admin(app, index_view=MyAdminIndexView())
     admin.add_view(DefaultModelView(User, db.session))
-    # admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Note, db.session))
+    admin.add_view(DefaultModelView(Note, db.session))
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth/')
