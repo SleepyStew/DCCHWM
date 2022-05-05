@@ -48,7 +48,7 @@ def get_timetable(current_user):
         if len(tag.find_all()) == 2:
             tag.append(soup.new_tag("br"))
         
-        tag.find_all()[0]['style'] = "display: inline;"
+        tag.find_all()[0]['style'] = "display: inline; text-decoration: none;"
         tag.find_all()[0]['target'] = "_blank"
         for subject, subject_value in friendly_subject_names.items():
             if subject in tag.find_all()[0].text:
