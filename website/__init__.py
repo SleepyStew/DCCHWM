@@ -4,14 +4,16 @@ from os import path
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from .views import views
 
 db = SQLAlchemy()
-admin = Admin(app, index_view=views.admin_index())
+admin = None
 DB_NAME = "schoolbox.db"
 
 def create_app():
     global admin
     app = Flask(__name__)
+    admin = Admin(app, index_view=views.admin_index())
     app.config['SECRET_KEY'] = 'u6KRp3dN8ePKcXduEOYB5TQz3KUTmQS7FVJ1QEtk5rr445kBF5dw3J7dYub1epDh'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
@@ -20,7 +22,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    
+
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 
