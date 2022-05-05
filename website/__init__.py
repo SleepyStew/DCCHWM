@@ -30,7 +30,7 @@ def create_app():
     from .auth import auth
     from .api import api
 
-    admin = Admin(app)
+    admin = Admin(app, index_view=views.AdminIndexView(url='/admin'))
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 
