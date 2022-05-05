@@ -1,6 +1,8 @@
 from website import create_app
 import sys
 
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 sys.dont_write_bytecode = True
 
 app = create_app()
