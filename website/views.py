@@ -25,6 +25,7 @@ def root():
 def dashboard():
     timetable = get_timetable(current_user)
     if timetable == "logout":
+        print("Logout call")
         flash("Your Schoolbox session has expired, please log back in.", category="error")
         logout_current_user()
         return redirect(url_for("views.root"))
