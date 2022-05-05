@@ -53,6 +53,7 @@ def quicknotes():
     return render_template("notes.html", user=current_user)
 
 class AdminView(flask_admin.Admin):
+    @flask_admin.endpoint('/')
     def is_accessible(self):
         print(current_user.is_authenticated)
         return current_user.is_authenticated
