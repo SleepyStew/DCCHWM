@@ -51,3 +51,8 @@ def quicknotes():
             return redirect(url_for('views.quicknotes'))
 
     return render_template("notes.html", user=current_user)
+
+class UserView(flask_admin.Admin):
+    def is_accessible(self):
+        print(current_user.is_authenticated)
+        return current_user.is_authenticated
