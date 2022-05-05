@@ -21,7 +21,7 @@ def get_timetable(current_user):
     elements = []
 
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
-        tag['style'] += " width: 200px; padding: 10px; margin: 3px; display: inline-block; height: auto;"
+        
         tag.find_all()[0]['style'] = "display: inline;"
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
