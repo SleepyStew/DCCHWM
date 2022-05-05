@@ -6,6 +6,7 @@ from . import db
 from .models import User, Note
 from .api import get_timetable
 from .auth import logout_current_user
+import website.admin as admin
 
 views = Blueprint('views', __name__)  
 
@@ -51,9 +52,10 @@ def quicknotes():
 
     return render_template("notes.html", user=current_user)
 
-@views.route('/admin', methods=['GET', 'POST'])
-@login_required
-def admin_index():
+def admin_index(admin.AdminIndexView):
+    if not current_user.is_authenticated:
+        flash("You must be logged in to view this page.", category="error")
+        return redirect(url_for('auth.login'))
     if current_user.sbId == 5350:
         return super(admin_index, self).index()
     else:
