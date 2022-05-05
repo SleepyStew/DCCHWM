@@ -49,9 +49,9 @@ def get_timetable(current_user):
         
         tag.find_all()[0]['style'] = "display: inline;"
         tag.find_all()[0]['target'] = "_blank"
-        for subject in friendly_subject_names:
+        for subject, subject_value in friendly_subject_names:
             if subject in tag.find_all()[0].text:
-                tag.find_all()[0].string.replace_with(subject.value())
+                tag.find_all()[0].string.replace_with(subject.index)
                 break
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
