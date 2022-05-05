@@ -31,7 +31,7 @@ def create_app():
     from .api import api
     from .views import AdminView
 
-    admin = Admin(app, index_view=AdminView)
+    admin = Admin(app, index_view=AdminView().index())
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 
