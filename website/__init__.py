@@ -6,7 +6,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
-admin = None
+admin = Admin(app, index_view=views.admin_index())
 DB_NAME = "schoolbox.db"
 
 def create_app():
@@ -20,8 +20,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-
-    admin = Admin(app, index_view=views.admin_index())
+    
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 
