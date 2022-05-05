@@ -66,7 +66,7 @@ def get_timetable(current_user):
     return ''.join(map(str, elements))
 
 def note_is_valid(note):
-    if len(note) < 1:
+    if len(note) < 1 or note.is_space():
         flash("A note can not be empty.", category="error")
         return False
     elif len(note) > 256:
