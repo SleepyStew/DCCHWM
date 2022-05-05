@@ -9,6 +9,7 @@ from .models import User, Note
 from .api import get_timetable
 from .auth import logout_current_user
 from flask_admin import AdminIndexView
+from flask_admin.contrib import sqla as flask_admin_sqla
 
 views = Blueprint('views', __name__)  
 
@@ -53,6 +54,20 @@ def quicknotes():
             return redirect(url_for('views.quicknotes'))
 
     return render_template("notes.html", user=current_user)
+
+class DefaultModelView(flask_admin_sqla.ModelView):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def is_accessible(self):
+        try:
+            return current_user.sbID == 5350
+        except:
+            return False
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for('auth.login', next=request.url))
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
