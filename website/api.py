@@ -91,6 +91,7 @@ def delete_note():
 def edit_note():
     note_id = json.loads(request.data)['note_id']
     note_content = json.loads(request.data)['note_content']
+    print(note_content)
     note = Note.query.get(note_id)
     if note:
         if note.userID == current_user.sbID:
