@@ -54,7 +54,7 @@ def login():
 @auth.route('/logout')
 def logout():
     print("Logout endpoint")
-    if not current_user.is_authenticated:
+    if current_user.is_authenticated:
         logout_current_user()
         flash('Sucessfully logged out.', category='success')
     else:
@@ -63,9 +63,7 @@ def logout():
 
 def logout_current_user():
     print("Logout function")
-    print(current_user.is_authenticated)
-    if not current_user.is_authenticated:
+    if current_user.is_authenticated:
         User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
         db.session.commit()
         logout_user()
-    return redirect(url_for("views.root"))
