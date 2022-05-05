@@ -31,6 +31,9 @@ def get_timetable(current_user):
         except:
             pass
         elements.append(tag)
+
+    if len(elements) == 0:
+        return "logout"
     return ''.join(map(str, elements))
 
 @api.route('/delete-note', methods=['POST'])
