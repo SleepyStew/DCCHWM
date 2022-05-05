@@ -60,6 +60,8 @@ def get_timetable(current_user):
             pass
         elements.append(tag)
 
+    print(elements)
+    print(len(elements))
     if len(elements) == 0:
         return "logout"
     return ''.join(map(str, elements))
