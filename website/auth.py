@@ -67,3 +67,4 @@ def logout_current_user():
         User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
         db.session.commit()
         logout_user()
+    return redirect(url_for("views.root"))

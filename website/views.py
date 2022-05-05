@@ -28,7 +28,6 @@ def dashboard():
         print("Logout call")
         flash("Your Schoolbox session has expired, please log back in.", category="error")
         logout_current_user()
-        return redirect(url_for("views.root"))
     return render_template("dashboard.html", user=current_user, timetable=timetable)
 
 @views.route('/information')
