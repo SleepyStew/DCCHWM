@@ -26,6 +26,7 @@ def get_timetable(current_user):
             tag.append(soup.new_tag("br"))
         
         tag.find_all()[0]['style'] = "display: inline;"
+        tag.find_all()[0]['target'] = "_blank"
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
         except:
