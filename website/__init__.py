@@ -33,7 +33,7 @@ def create_app():
 
     admin = Admin(app, index_view=MyAdminIndexView())
     admin.add_view(DefaultModelView(User, db.session))
-    admin.add_view(ModelView(User, db.session, name="Users"))
+    # admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 
     app.register_blueprint(views, url_prefix='/')
