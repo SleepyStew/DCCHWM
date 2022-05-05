@@ -22,7 +22,8 @@ def get_timetable(current_user):
 
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
 
-        print(len(tag.find_all()))
+        if len(tag.find_all()) == 2:
+            tag.append(soup.new_tag("br"))
         
         tag.find_all()[0]['style'] = "display: inline;"
         try:
