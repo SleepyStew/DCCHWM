@@ -50,3 +50,13 @@ def quicknotes():
             return redirect(url_for('views.quicknotes'))
 
     return render_template("notes.html", user=current_user)
+
+@views.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin_index():
+    if current_user.sbId == 5350:
+        return super(admin_index, self).index()
+    else:
+        flash("You do not have permission to access this page.", category="error")
+        return redirect(url_for('views.dashboard'))
+        

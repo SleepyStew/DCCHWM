@@ -31,7 +31,7 @@ def create_app():
     from .api import api
 
     app.register_blueprint(views, url_prefix='/')
-    admin = Admin(app)
+    admin = Admin(app, index_view=views.admin_index())
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
     app.register_blueprint(auth, url_prefix='/auth/')
