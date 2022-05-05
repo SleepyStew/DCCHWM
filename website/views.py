@@ -51,15 +51,3 @@ def quicknotes():
             return redirect(url_for('views.quicknotes'))
 
     return render_template("notes.html", user=current_user)
-        
-class admin_index(flask_admin.AdminIndexView):
-    @flask_admin.expose("/")
-    def index(self):
-        if not current_user.is_authenticated:
-            flash("You must be logged in to view this page.", category="error")
-            return redirect(url_for('auth.login'))
-        if current_user.sbId == 5350:
-            return super(admin_index, self).index()
-        else:
-            flash("You do not have permission to access this page.", category="error")
-            return redirect(url_for('views.dashboard'))
