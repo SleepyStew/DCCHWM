@@ -13,6 +13,7 @@ api = Blueprint('api', __name__)
 def get_timetable(current_user):
 
     friendly_subject_names = {
+        "Homegroup": "Homegroup",
         "Art": "Art",
         "ComL": "ComLife",
         "Dram": "Drama",
