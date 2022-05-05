@@ -5,6 +5,7 @@ import flask_login
 from . import db
 from .models import User, Note
 from .api import get_timetable
+from .auth import logout_current_user
 
 views = Blueprint('views', __name__)  
 
@@ -25,7 +26,8 @@ def dashboard():
     timetable = get_timetable(current_user)
     if timetable == "logout":
         flash("Your Schoolbox session has expired, please log back in.", category="error")
-        return redirect(url_for("auth.logout"))
+        logout_current_user()
+        return redirect(url_for("auth.login"))
     return render_template("dashboard.html", user=current_user, timetable=timetable)
 
 @views.route('/information')

@@ -53,12 +53,15 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    if not isinstance(current_user, flask_login.AnonymousUserMixin):
-        User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
-        db.session.commit()
-        logout_user()
-        print("Logging out user...")
+    if not current_user.is_authenticated:
+        logout_current_user()
         flash('Sucessfully logged out.', category='success')
     else:
         flash('You are not logged in.', category='success')
     return redirect(url_for('auth.login'))
+
+def logout_current_user():
+    if not current_user.is_authenticated:
+        User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
+        db.session.commit()
+        logout_user()
