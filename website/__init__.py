@@ -29,9 +29,9 @@ def create_app():
     from .views import views
     from .auth import auth
     from .api import api
-    from .views import AdminIndexView
+    from .views import MyAdminIndexView
 
-    admin = Admin(app, index_view=AdminIndexView())
+    admin = Admin(app, index_view=MyAdminIndexView())
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Note, db.session))
 

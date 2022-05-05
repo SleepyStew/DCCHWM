@@ -54,7 +54,7 @@ def quicknotes():
 
     return render_template("notes.html", user=current_user)
 
-class AdminIndexView(AdminIndexView):
+class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         try:
             return current_user.sbID == 5350
