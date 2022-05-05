@@ -6,7 +6,7 @@ from . import db
 from .models import User, Note
 from .api import get_timetable
 from .auth import logout_current_user
-from . import admin
+import flask_admin
 
 views = Blueprint('views', __name__)  
 
@@ -52,7 +52,8 @@ def quicknotes():
 
     return render_template("notes.html", user=current_user)
         
-class admin_index(admin.AdminIndexView):
+class admin_index(flask_admin.AdminIndexView):
+    @flask_admin.expose("/")
     def index(self):
         if not current_user.is_authenticated:
             flash("You must be logged in to view this page.", category="error")
