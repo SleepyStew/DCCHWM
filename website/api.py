@@ -50,6 +50,7 @@ def get_timetable(current_user):
         tag.find_all()[0]['style'] = "display: inline;"
         tag.find_all()[0]['target'] = "_blank"
         for subject in friendly_subject_names:
+            print(tag.find_all()[0]['innerText'])
             print(subject)
         # tag.find_all()[0]['innerText'] = "_blank"
         try:
