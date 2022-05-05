@@ -68,7 +68,7 @@ class DefaultModelView(flask_admin_sqla.ModelView):
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         flash("You do not have access to this page.", category="error")
-        return redirect(url_for('auth.login', next=request.url))
+        return redirect(url_for('auth.login'))
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
@@ -80,4 +80,4 @@ class MyAdminIndexView(AdminIndexView):
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         flash("You do not have access to this page.", category="error")
-        return redirect(url_for('auth.login', next=request.url))
+        return redirect(url_for('auth.login'))
