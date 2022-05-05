@@ -1,7 +1,9 @@
+import re
 from unicodedata import category
 from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
+from sqlalchemy import false
 from . import db
 from .models import User, Note
 from .api import get_timetable
@@ -54,7 +56,10 @@ def quicknotes():
 
 class AdminIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.sbID == 5350
+        try:
+            return current_user.sbID == 5350
+        except:
+            return False
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
