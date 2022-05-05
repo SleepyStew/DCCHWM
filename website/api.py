@@ -32,7 +32,8 @@ def get_timetable(current_user):
         "RS": "Research Science",
         "Sci": "Science",
         "Sport": "Sport",
-        "Vis": "VisCom"
+        "Vis": "VisCom",
+        "Community Life": "ComLife"
     }
 
     cookies = {
