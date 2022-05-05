@@ -21,6 +21,8 @@ def get_timetable(current_user):
     elements = []
 
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
+
+        print(len(tag.find_all()))
         
         tag.find_all()[0]['style'] = "display: inline;"
         try:
