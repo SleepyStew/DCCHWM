@@ -52,6 +52,7 @@ def get_timetable(current_user):
         for subject in friendly_subject_names:
             if subject in tag.find_all()[0].text:
                 tag.find_all()[0].text = subject
+                break
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
         except:
