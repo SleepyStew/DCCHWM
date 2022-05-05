@@ -21,6 +21,10 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    admin = Admin(app, index_view=views.admin_index())
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Note, db.session))
+
     from .models import User, Note
     
     @login_manager.user_loader
@@ -33,9 +37,6 @@ def create_app():
     from .api import api
 
     app.register_blueprint(views, url_prefix='/')
-    admin = Admin(app, index_view=views.admin_index())
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Note, db.session))
     app.register_blueprint(auth, url_prefix='/auth/')
     app.register_blueprint(api, url_prefix='/api/')
     
