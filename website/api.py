@@ -1,4 +1,5 @@
 from dataclasses import replace
+from re import sub
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
 import requests
@@ -10,6 +11,27 @@ from . import db
 api = Blueprint('api', __name__)  
 
 def get_timetable(current_user):
+
+    friendly_subject_names = {
+        "Art": "Art",
+        "ComL": "ComLife",
+        "Dram": "Drama",
+        "Elec": "Electronics",
+        "Eng": "English",
+        "Farm": "Farming",
+        "Food": "Food Tech",
+        "Germ": "German",
+        "Huma": "Humanities",
+        "Math": "Maths",
+        "Medi": "Media",
+        "Musi": "Music",
+        "OuEd": "Outdoor Ed",
+        "PE": "PE",
+        "RS": "Research Science",
+        "Sci": "Science",
+        "Sport": "Sport",
+        "Vis": "VisCom"
+    }
 
     cookies = {
         'PHPSESSID': f'{current_user.sbCookie}',
@@ -27,6 +49,9 @@ def get_timetable(current_user):
         
         tag.find_all()[0]['style'] = "display: inline;"
         tag.find_all()[0]['target'] = "_blank"
+        for subject in friendly_subject_names:
+            print(subject)
+        # tag.find_all()[0]['innerText'] = "_blank"
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
         except:
