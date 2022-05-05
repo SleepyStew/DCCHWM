@@ -52,10 +52,11 @@ def quicknotes():
 
     return render_template("notes.html", user=current_user)
 
-class MyAdminIndexView(AdminIndexView):
+class AdminIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin
+        return current_user.sbID == 5350
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
+        flash("You do not have access to this page.", category="error")
         return redirect(url_for('auth.login', next=request.url))
