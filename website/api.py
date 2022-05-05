@@ -1,5 +1,6 @@
 from dataclasses import replace
 from re import sub
+from unicodedata import category
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
 import requests
@@ -64,6 +65,15 @@ def get_timetable(current_user):
         return "logout"
     return ''.join(map(str, elements))
 
+def note_is_valid(note):
+    if len(note) < 1:
+        flash("A note can not be empty.", category="error")
+        return False
+    elif len(note) > 256:
+        flash("This note is too long.", category="error")
+        return False
+    return True
+
 @api.route('/delete-note', methods=['POST'])
 def delete_note():
     note_id = json.loads(request.data)['note_id']
@@ -83,9 +93,10 @@ def edit_note():
     note = Note.query.get(note_id)
     if note:
         if note.userID == current_user.sbID:
-            Note.query.filter_by(id=note_id).update(dict(content=note_content))
-            db.session.commit()
-            flash("Note successfully edited.", category="success")
-            return json.dumps({'success': True})
+            if note_is_valid(note_content):
+                Note.query.filter_by(id=note_id).update(dict(content=note_content))
+                db.session.commit()
+                flash("Note successfully edited.", category="success")
+                return json.dumps({'success': True})
     return json.dumps({'success': False})
 

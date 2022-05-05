@@ -10,6 +10,7 @@ from .api import get_timetable
 from .auth import logout_current_user
 from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla as flask_admin_sqla
+from .api import note_is_valid
 
 views = Blueprint('views', __name__)  
 
@@ -44,9 +45,7 @@ def quicknotes():
     if request.method == "POST":
         note = request.form.get('note')
 
-        if len(note) < 1:
-            flash("A note can not be empty.", category="error")
-        else:
+        if note_is_valid(note):
             new_note = Note(content=note, userID=current_user.sbID)
             db.session.add(new_note)
             db.session.commit()
@@ -72,7 +71,7 @@ class DefaultModelView(flask_admin_sqla.ModelView):
             return redirect(url_for('auth.login'))
 
         flash("You do not have access to this page.", category="error")
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('views.root'))
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
@@ -88,4 +87,4 @@ class MyAdminIndexView(AdminIndexView):
             return redirect(url_for('auth.login'))
             
         flash("You do not have access to this page.", category="error")
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('views.root'))
