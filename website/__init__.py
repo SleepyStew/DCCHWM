@@ -2,6 +2,8 @@ from flask import Flask, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
 DB_NAME = "schoolbox.db"
@@ -17,7 +19,7 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from .models import User
+    from .models import User, Note
     
     @login_manager.user_loader
     def load_user(id):
@@ -29,6 +31,9 @@ def create_app():
     from .api import api
 
     app.register_blueprint(views, url_prefix='/')
+    admin = Admin(app)
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Note, db.session))
     app.register_blueprint(auth, url_prefix='/auth/')
     app.register_blueprint(api, url_prefix='/api/')
     
