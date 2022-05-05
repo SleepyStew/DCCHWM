@@ -54,6 +54,6 @@ def quicknotes():
 
 class AdminView(flask_admin.Admin):
     @flask_admin.endpoint('/')
-    def is_accessible(self):
+    def index(self):
         print(current_user.is_authenticated)
-        return current_user.is_authenticated
+        return super(AdminView, self).index()
