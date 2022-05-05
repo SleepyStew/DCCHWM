@@ -6,9 +6,11 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
+admin = None
 DB_NAME = "schoolbox.db"
 
 def create_app():
+    global admin
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'u6KRp3dN8ePKcXduEOYB5TQz3KUTmQS7FVJ1QEtk5rr445kBF5dw3J7dYub1epDh'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
