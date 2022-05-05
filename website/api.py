@@ -35,7 +35,7 @@ def get_timetable(current_user):
     }
 
     cookies = {
-        'PHPSESSID': f'{current_user.sbCookie}a',
+        'PHPSESSID': f'{current_user.sbCookie}',
     }
 
     response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
@@ -60,9 +60,6 @@ def get_timetable(current_user):
             pass
         elements.append(tag)
 
-    print(response.text)
-    print(elements)
-    print(len(elements))
     if len(elements) == 0:
         return "logout"
     return ''.join(map(str, elements))
