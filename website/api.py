@@ -75,6 +75,10 @@ def note_is_valid(note):
         return False
     return True
 
+#########################################
+# Function above this | Endpoints below #
+#########################################
+
 @api.route('/delete-note', methods=['POST'])
 def delete_note():
     note_id = json.loads(request.data)['note_id']
