@@ -12,7 +12,7 @@ function editNote(noteId) {
     
     let editbox = document.createElement("textarea");
     editbox.classList.add("form-control");
-    editbox.innerText = note.textContent.trim();
+    editbox.innerHTML = note.textContent.trim();
     editbox.id = noteId + "-edit";
     editbox.maxlength = "256";
 
