@@ -9,7 +9,7 @@
 <ul class="list-group list-group-flush d-block" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item rounded-2 my-2 text-break" id="note-{{ note.id }}">
-        {{ note.content }}
+        {{ note.content | replace("\n", "<br>") }}
         <button type="button" class="bg-transparent border-0 position-absolute end-0 me-4" onClick="editNote({{ note.id }})"><img src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
         <button type="button" class="btn-close position-absolute end-0 me-2" onClick="deleteNote({{ note.id }})"></button>
     </li>
