@@ -98,6 +98,7 @@ def edit_note():
             if note_is_valid(note_content):
                 Note.query.filter_by(id=note_id).update(dict(content=note_content))
                 db.session.commit()
+                print(Note.query.filter_by(id=note_id))
                 flash("Note successfully edited.", category="success")
                 return json.dumps({'success': True})
     return json.dumps({'success': False})
