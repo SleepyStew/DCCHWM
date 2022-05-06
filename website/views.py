@@ -39,19 +39,9 @@ def dashboard():
 def information():
     return render_template("information.html", user=current_user)
 
-@views.route('/quick-notes', methods=['GET', 'POST'])
+@views.route('/quick-notes', methods=['GET'])
 @login_required
 def quicknotes():
-    if request.method == "POST":
-        note = request.form.get('note')
-
-        if note_is_valid(note):
-            new_note = Note(content=note, userID=current_user.sbID)
-            db.session.add(new_note)
-            db.session.commit()
-            flash("Successfully saved note.", category="success")
-            return redirect(url_for('views.quicknotes'))
-
     return render_template("notes.html", user=current_user)
 
 class DefaultModelView(flask_admin_sqla.ModelView):

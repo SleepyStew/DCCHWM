@@ -101,3 +101,13 @@ def edit_note():
                 return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+@api.route('/create-note', methods=['POST'])
+def create_note():
+    note = request.form.get('note')
+
+    if note_is_valid(note):
+        new_note = Note(content=note, userID=current_user.sbID)
+        db.session.add(new_note)
+        db.session.commit()
+        flash("Successfully saved note.", category="success")
+        return redirect(url_for('views.quicknotes'))
