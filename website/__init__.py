@@ -14,10 +14,13 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+    print("[?] Set up config and initialised database.")
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+
+    print ("[?] Setup Login Manager")
 
     from .models import User, Note
     
@@ -35,9 +38,13 @@ def create_app():
     admin.add_view(DefaultModelView(User, db.session))
     admin.add_view(DefaultModelView(Note, db.session))
 
+    print("[?] Setup Admin Panel")
+
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth/')
     app.register_blueprint(api, url_prefix='/api/')
+
+    print("[?] Setup Page Blueprints")
     
     create_database(app)
 
@@ -46,4 +53,4 @@ def create_app():
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
-        print("Created database.")
+        print("[?] Created database.")
