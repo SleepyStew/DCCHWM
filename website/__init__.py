@@ -14,7 +14,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
-    print("[?] Set up config and initialised database.")
+    print("[?] Setup config and initialised database.")
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
