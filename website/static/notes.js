@@ -14,6 +14,7 @@ function editNote(noteId) {
     editbox.classList.add("form-control");
     editbox.innerText = note.textContent.trim();
     editbox.id = noteId + "-edit";
+    editbox.maxlength = "256";
 
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
