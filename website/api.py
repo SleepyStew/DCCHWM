@@ -114,5 +114,4 @@ def create_note():
         db.session.add(new_note)
         db.session.commit()
         flash("Successfully saved note.", category="success")
-        return redirect(url_for('views.quicknotes'))
-    return False
+    return redirect(url_for('views.quicknotes'))
