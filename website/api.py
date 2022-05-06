@@ -11,6 +11,7 @@ from . import db
 
 api = Blueprint('api', __name__)  
 
+# Returns basic 5 subject "today" timetable | STRING(HTML)
 def get_timetable(current_user):
 
     friendly_subject_names = {
@@ -66,6 +67,7 @@ def get_timetable(current_user):
         return "logout"
     return ''.join(map(str, elements))
 
+# Returns whether a note is valid or not | BOOLEAN
 def note_is_valid(note):
     if len(note) < 1 or note.isspace():
         flash("A note can not be empty.", category="error")
@@ -79,6 +81,7 @@ def note_is_valid(note):
 # Function above this | Endpoints below #
 #########################################
 
+# Endpoint for deleting notes
 @api.route('/delete-note', methods=['POST'])
 def delete_note():
     note_id = json.loads(request.data)['note_id']
@@ -91,6 +94,7 @@ def delete_note():
             return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+# Endpoint for editing notes
 @api.route('/edit-note', methods=['POST'])
 def edit_note():
     note_id = json.loads(request.data)['note_id']
@@ -105,6 +109,7 @@ def edit_note():
                 return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+# Endpoint for creating notes
 @api.route('/create-note', methods=['POST'])
 def create_note():
     note = request.form.get('note')
