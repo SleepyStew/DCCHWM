@@ -63,8 +63,9 @@ def get_timetable(current_user):
             pass
         elements.append(tag)
 
-    if len(elements) == 0:
-        return "logout"
+    print(response.text)
+    # if len(elements) == 0:
+    #     return "logout"
     return ''.join(map(str, elements))
 
 # Returns whether a note is valid or not | BOOLEAN
