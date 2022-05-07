@@ -7,7 +7,6 @@ class User(db.Model, UserMixin):
     date = db.Column(db.DateTime, default=func.now())
     sbCookie = db.Column(db.String(64))
     notes =  db.relationship('Note')
-    settingsGeneralLabels = db.Column(db.Boolean, default=True)
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
