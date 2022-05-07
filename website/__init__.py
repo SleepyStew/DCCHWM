@@ -4,6 +4,7 @@ from os import path
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 DB_NAME = "schoolbox.db"
@@ -45,6 +46,8 @@ def create_app():
     app.register_blueprint(api, url_prefix='/api/')
 
     print("[?] Setup Page Blueprints")
+
+    migrate = Migrate(app, db)
     
     create_database(app)
 

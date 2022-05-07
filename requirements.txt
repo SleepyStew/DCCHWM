@@ -4,4 +4,5 @@ flask_sqlalchemy
 flask_login
 bs4
 waitress
-flask-admin
+flask_admin
+flask_migrate
