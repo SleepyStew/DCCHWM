@@ -44,6 +44,13 @@ def information():
 def quicknotes():
     return render_template("notes.html", user=current_user)
 
+@views.route('/settings', methods=['GET'])
+@login_required
+def settings():
+    return render_template("settings.html", user=current_user)
+
+
+
 class DefaultModelView(flask_admin_sqla.ModelView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
