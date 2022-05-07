@@ -38,7 +38,7 @@ def get_timetable(current_user):
     }
 
     cookies = {
-        'PHPSESSID': f'{current_user.sbCookie}a',
+        'PHPSESSID': f'{current_user.sbCookie}',
     }
 
     response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
@@ -63,9 +63,8 @@ def get_timetable(current_user):
             pass
         elements.append(tag)
 
-    print(response.text)
-    # if len(elements) == 0:
-    #     return "logout"
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return "logout"
     return ''.join(map(str, elements))
 
 # Returns whether a note is valid or not | BOOLEAN
