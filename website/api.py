@@ -38,7 +38,7 @@ def get_timetable(current_user):
     }
 
     cookies = {
-        'PHPSESSID': f'{current_user.sbCookie}',
+        'PHPSESSID': f'{current_user.sbCookie}a',
     }
 
     response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
