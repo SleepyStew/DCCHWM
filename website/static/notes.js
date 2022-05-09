@@ -7,15 +7,14 @@ function deleteNote(noteId) {
     });
 }
 
-function escapeHtml(unsafe)
-{
+function escapeHtml(unsafe) {
     return unsafe
          .replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
          .replace(/"/g, "&quot;")
          .replace(/'/g, "&#039;");
- }
+}
 
 function editNote(noteId) {
     let note = document.querySelector("#note-" + noteId);
