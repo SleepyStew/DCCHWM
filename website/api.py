@@ -124,7 +124,7 @@ def edit_note():
 @api.route('/create-note', methods=['POST'])
 @login_required
 def create_note():
-    note = cleanhtml(request.form.get('note')).rstrip()
+    note = cleanhtml(request.form.get('note')).strip()
 
     if note_is_valid(note):
         new_note = Note(content=note, userID=current_user.sbID)
