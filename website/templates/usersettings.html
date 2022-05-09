@@ -7,7 +7,7 @@
 <h4 class="text-light">Labels/Alerts</h4>
 <form method="POST" action="/api/update-setting">
   <div class="input-group">
-    <input type="hidden" name="setting_type" value="alert"></input>
+    <input type="hidden" name="setting_type" value="alerts"></input>
     <select class="custom-select rounded" id="inputGroupSelect04" name="new_setting">
       <option value="high" {% if user.setting_alerts == "high" %}selected{% endif %}>Show alerts for every action.</option>
       <option value="low" {% if user.setting_alerts == "low" %}selected{% endif %}>Show minimal alerts, don't show an alert for every action.</option>
