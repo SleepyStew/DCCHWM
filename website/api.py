@@ -6,7 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 import requests
 import bs4
 import json
-from .models import Note
+from .models import Note, User
 from . import db
 
 api = Blueprint('api', __name__)  
@@ -77,6 +77,13 @@ def note_is_valid(note):
         return False
     return True
 
+def setting_is_valid(setting):
+    if setting == "True" or setting == "False":
+        return True
+    if setting == "low" or setting == "medium" or setting == "high":
+        return True
+    return False
+
 #########################################
 # Function above this | Endpoints below #
 #########################################
@@ -120,3 +127,12 @@ def create_note():
         db.session.commit()
         flash("Successfully saved note.", category="success")
     return redirect(url_for('views.quicknotes'))
+
+@api.route('/update-setting', methods=['POST'])
+def update_setting():
+    setting_type = request.form.get('setting_type')
+    new_setting = request.form.get('new_setting')
+    if setting_is_valid(new_setting):
+        if setting_type == "alerts":
+            User.query.filter_by(id=current_user.sbID).update(dict(setting_alerts=new_setting))
+            db.session.commit()
