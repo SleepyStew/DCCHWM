@@ -8,7 +8,7 @@
 <form method="POST" action="/api/update-setting">
   <div class="input-group">
     <input type="hidden" name="setting_type" value="alerts"></input>
-    <select class="custom-select rounded p-2" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()">
+    <select class="custom-select rounded p-2 overflow-auto text-truncate" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()">
       <option value="high" {% if user.setting_alerts == "high" %}selected{% endif %}>Show alerts for almost every action.</option>
       <option value="low" {% if user.setting_alerts == "low" %}selected{% endif %}>Only show important alerts, don't show an alert for every action.</option>
     </select>
