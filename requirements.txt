@@ -6,3 +6,4 @@ bs4
 waitress
 flask_admin
 flask_migrate
+jinja2
