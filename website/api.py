@@ -77,13 +77,6 @@ def note_is_valid(note):
         return False
     return True
 
-def setting_is_valid(setting):
-    if setting == "True" or setting == "False":
-        return True
-    if setting == "low" or setting == "medium" or setting == "high":
-        return True
-    return False
-
 #########################################
 # Function above this | Endpoints below #
 #########################################
@@ -139,8 +132,10 @@ def create_note():
 def update_setting():
     setting_type = request.form.get('setting_type')
     new_setting = request.form.get('new_setting')
-    if setting_is_valid(new_setting):
-        if setting_type == "alerts":
+
+    if setting_type == "alerts":
+        if new_setting == "low" or new_setting == "high":
             User.query.filter_by(sbID=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
+
     return redirect(url_for('views.settings'))
