@@ -47,7 +47,7 @@ def quicknotes():
 @views.route('/settings', methods=['GET'])
 @login_required
 def settings():
-    return render_template("settings.html", user=current_user)
+    return render_template("usersettings.html", user=current_user)
 
 
 
