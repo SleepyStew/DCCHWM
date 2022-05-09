@@ -11,8 +11,6 @@ db = SQLAlchemy()
 migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
-os.system("flask db init")
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'u6KRp3dN8ePKcXduEOYB5TQz3KUTmQS7FVJ1QEtk5rr445kBF5dw3J7dYub1epDh'
