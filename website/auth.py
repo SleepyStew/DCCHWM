@@ -14,6 +14,10 @@ def login():
         return redirect(url_for('views.root'))
     if request.method == 'POST':        
         data = request.form
+        if data.get('username') == None:
+            return render_template("login.html", user=current_user)
+        if data.get('password') == None:
+            return render_template("login.html", user=current_user)
         if len(data.get('username').split(" ")) < 2:
             flash('A first and last name is required.', category='error')
         elif len(data.get('password')) < 1:

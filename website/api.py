@@ -90,6 +90,7 @@ def setting_is_valid(setting):
 
 # Endpoint for deleting notes
 @api.route('/delete-note', methods=['POST'])
+@login_required
 def delete_note():
     note_id = json.loads(request.data)['note_id']
     note = Note.query.get(note_id)
@@ -104,6 +105,7 @@ def delete_note():
 
 # Endpoint for editing notes
 @api.route('/edit-note', methods=['POST'])
+@login_required
 def edit_note():
     note_id = json.loads(request.data)['note_id']
     note_content = json.loads(request.data)['note_content']
@@ -120,6 +122,7 @@ def edit_note():
 
 # Endpoint for creating notes
 @api.route('/create-note', methods=['POST'])
+@login_required
 def create_note():
     note = request.form.get('note')
 
@@ -132,6 +135,7 @@ def create_note():
     return redirect(url_for('views.quicknotes'))
 
 @api.route('/update-setting', methods=['POST'])
+@login_required
 def update_setting():
     setting_type = request.form.get('setting_type')
     new_setting = request.form.get('new_setting')
