@@ -108,7 +108,7 @@ def delete_note():
 @login_required
 def edit_note():
     note_id = json.loads(request.data)['note_id']
-    note_content = cleanhtml(json.loads(request.data)['note_content'])
+    note_content = cleanhtml(json.loads(request.data)['note_content']).rstrip()
     note = Note.query.get(note_id)
     if note:
         if note.userID == current_user.sbID:
@@ -124,7 +124,7 @@ def edit_note():
 @api.route('/create-note', methods=['POST'])
 @login_required
 def create_note():
-    note = cleanhtml(request.form.get('note'))
+    note = cleanhtml(request.form.get('note')).rstrip()
 
     if note_is_valid(note):
         new_note = Note(content=note, userID=current_user.sbID)
