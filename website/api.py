@@ -132,13 +132,8 @@ def create_note():
 def update_setting():
     setting_type = request.form.get('setting_type')
     new_setting = request.form.get('new_setting')
-    print(setting_type)
-    print(new_setting)
     if setting_is_valid(new_setting):
-        print("1")
         if setting_type == "alerts":
-            print("2")
-            User.query.filter_by(id=current_user.sbID).update(dict(setting_alerts=new_setting))
+            User.query.filter_by(sbID=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
-            print("3")
     return redirect(url_for('views.settings'))
