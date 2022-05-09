@@ -5,10 +5,13 @@ from flask_login import LoginManager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
+import os
 
 db = SQLAlchemy()
 migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
+
+os.system("flask db init")
 
 def create_app():
     app = Flask(__name__)
