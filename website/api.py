@@ -135,7 +135,10 @@ def update_setting():
     print(setting_type)
     print(new_setting)
     if setting_is_valid(new_setting):
+        print("1")
         if setting_type == "alerts":
+            print("2")
             User.query.filter_by(id=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
+            print("3")
     return redirect(url_for('views.settings'))
