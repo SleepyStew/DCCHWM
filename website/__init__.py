@@ -4,7 +4,7 @@ from os import path
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_migrate import Migrate, upgrade
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 migrate = Migrate(db)
@@ -16,7 +16,6 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
-    upgrade()
     print("[?] Setup config and initialised database.")
 
     login_manager = LoginManager()
