@@ -16,6 +16,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+    upgrade()
     print("[?] Setup config and initialised database.")
 
     login_manager = LoginManager()
@@ -56,7 +57,6 @@ def create_app():
     
 
 def create_database(app):
-    upgrade()
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print("[?] Created database.")
