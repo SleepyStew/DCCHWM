@@ -7,14 +7,23 @@ function deleteNote(noteId) {
     });
 }
 
+function escapeHtml(unsafe)
+{
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
+
 function editNote(noteId) {
     let note = document.querySelector("#note-" + noteId);
     
     let editbox = document.createElement("textarea");
     editbox.classList.add("form-control");
 
-    let rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-    editbox.innerHTML = note.textContent.trim().replace(rtrim, '');
+    editbox.innerHTML = escapeHtml(note.textContent.trim());
     editbox.id = noteId + "-edit";
     editbox.maxlength = 256;
 
