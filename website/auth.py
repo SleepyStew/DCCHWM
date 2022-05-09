@@ -62,7 +62,8 @@ def login():
 def logout():
     if current_user.is_authenticated:
         logout_current_user()
-        flash('Sucessfully logged out.', category='success')
+        if current_user.setting_alerts == "high":
+            flash('Sucessfully logged out.', category='success')
     else:
         flash('You are not logged in.', category='success')
     return redirect(url_for('auth.login'))
