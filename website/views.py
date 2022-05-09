@@ -47,7 +47,6 @@ def quicknotes():
 @views.route('/settings', methods=['GET'])
 @login_required
 def settings():
-    print(f"Current: {current_user.setting_alerts}")
     return render_template("usersettings.html", user=current_user)
 
 
