@@ -14,10 +14,13 @@ def login():
         return redirect(url_for('views.root'))
     if request.method == 'POST':        
         data = request.form
+
+        # Error handling
         if data.get('username') == None:
-            return render_template("login.html", user=current_user)
+            return redirect(url_for('auth.login'))
         if data.get('password') == None:
-            return render_template("login.html", user=current_user)
+            return redirect(url_for('auth.login'))
+
         if len(data.get('username').split(" ")) < 2:
             flash('A first and last name is required.', category='error')
         elif len(data.get('password')) < 1:
