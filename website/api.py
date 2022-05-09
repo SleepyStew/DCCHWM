@@ -136,3 +136,4 @@ def update_setting():
         if setting_type == "alerts":
             User.query.filter_by(id=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
+    return redirect(url_for('views.settings'))
