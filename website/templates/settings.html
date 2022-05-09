@@ -4,12 +4,14 @@
 <h1 class="text-light">Settings</h1>
 <br>
 <h4 class="text-light">Labels/Alerts</h4>
-<div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-    <label class="form-check-label text-light" for="flexSwitchCheckChecked">Show general informational labels, such as the ones when creating a quick note.</label>
-    <br>
-    <div class="alert alert-success alert-dismissible fade show fs-4 text-dark" role="alert">
-        Successfully saved note.
+<div class="input-group">
+    <select class="custom-select" id="inputGroupSelect04">
+      <option selected>Choose...</option>
+      <option value="1">Show alerts for every action.</option>
+      <option value="2">Show minimal alerts, don't show an alert for every action.</option>
+    </select>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button">Button</button>
     </div>
-</div>
+  </div>
 {% endblock %}
