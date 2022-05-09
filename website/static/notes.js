@@ -12,6 +12,7 @@ function editNote(noteId) {
     
     let editbox = document.createElement("textarea");
     editbox.classList.add("form-control");
+    
     let rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
     editbox.innerHTML = note.textContent.trim().replace(rtrim, '');
     editbox.id = noteId + "-edit";
