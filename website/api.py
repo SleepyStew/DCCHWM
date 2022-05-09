@@ -97,7 +97,8 @@ def delete_note():
         if note.userID == current_user.sbID:
             db.session.delete(note)
             db.session.commit()
-            flash("Note successfully deleted.", category="success")
+            if current_user.setting_alerts == "high":
+                flash("Note successfully deleted.", category="success")
             return json.dumps({'success': True})
     return json.dumps({'success': False})
 
@@ -112,7 +113,8 @@ def edit_note():
             if note_is_valid(note_content):
                 Note.query.filter_by(id=note_id).update(dict(content=note_content))
                 db.session.commit()
-                flash("Note successfully edited.", category="success")
+                if current_user.setting_alerts == "high":
+                    flash("Note successfully edited.", category="success")
                 return json.dumps({'success': True})
     return json.dumps({'success': False})
 
@@ -125,7 +127,8 @@ def create_note():
         new_note = Note(content=note, userID=current_user.sbID)
         db.session.add(new_note)
         db.session.commit()
-        flash("Successfully saved note.", category="success")
+        if current_user.setting_alerts == "high":
+            flash("Successfully saved note.", category="success")
     return redirect(url_for('views.quicknotes'))
 
 @api.route('/update-setting', methods=['POST'])
