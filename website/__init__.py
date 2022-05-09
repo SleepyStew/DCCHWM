@@ -7,6 +7,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
