@@ -132,6 +132,8 @@ def create_note():
 def update_setting():
     setting_type = request.form.get('setting_type')
     new_setting = request.form.get('new_setting')
+    print(setting_type)
+    print(new_setting)
     if setting_is_valid(new_setting):
         if setting_type == "alerts":
             User.query.filter_by(id=current_user.sbID).update(dict(setting_alerts=new_setting))
