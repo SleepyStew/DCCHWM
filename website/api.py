@@ -94,13 +94,12 @@ def cleanhtml(raw_html):
 def delete_note():
     note_id = json.loads(request.data)['note_id']
     note = Note.query.get(note_id)
-    if note:
-        if note.userID == current_user.sbID:
-            db.session.delete(note)
-            db.session.commit()
-            if current_user.setting_alerts == "high":
-                flash("Note successfully deleted.", category="success")
-            return json.dumps({'success': True})
+    if note and note.userID == current_user.sbID:
+        db.session.delete(note)
+        db.session.commit()
+        if current_user.setting_alerts == "high":
+            flash("Note successfully deleted.", category="success")
+        return json.dumps({'success': True})
     return json.dumps({'success': False})
 
 # Endpoint for editing notes
@@ -110,13 +109,12 @@ def edit_note():
     note_id = json.loads(request.data)['note_id']
     note_content = cleanhtml(json.loads(request.data)['note_content']).rstrip()
     note = Note.query.get(note_id)
-    if note and note.userID == current_user.sbID:
-        if note_is_valid(note_content):
-            Note.query.filter_by(id=note_id).update(dict(content=note_content))
-            db.session.commit()
-            if current_user.setting_alerts == "high":
-                flash("Note successfully edited.", category="success")
-            return json.dumps({'success': True})
+    if note and note.userID == current_user.sbID and note_is_valid(note_content):
+        Note.query.filter_by(id=note_id).update(dict(content=note_content))
+        db.session.commit()
+        if current_user.setting_alerts == "high":
+            flash("Note successfully edited.", category="success")
+        return json.dumps({'success': True})
     return json.dumps({'success': False})
 
 # Endpoint for creating notes
