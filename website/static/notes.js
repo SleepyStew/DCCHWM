@@ -1,13 +1,13 @@
-function deleteNote(noteId) {
+function deleteNote(noteId, csrf_token) {
     fetch('api/delete-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, csrf_token: "{{ csrf_token() }}" }),
+        body: JSON.stringify({ note_id: noteId, csrf_token: csrf_token }),
     }).then((_res) => {
         document.location = document.URL;
     });
 }
 
-function editNote(noteId) {
+function editNote(noteId, csrf_token) {
     let note = document.querySelector("#note-" + noteId);
     
     let editbox = document.createElement("textarea");
@@ -34,7 +34,7 @@ function editNote(noteId) {
     cancelbutton.style.maxWidth = "150px"
     cancelbutton.innerText = "Cancel";
     cancelbutton.id = noteId + "-cancel-button";
-    cancelbutton.addEventListener('click', () => { cancelEdit(noteId) });
+    cancelbutton.addEventListener('click', () => { cancelEdit(noteId, csrf_token) });
     
     note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
@@ -43,12 +43,12 @@ function editNote(noteId) {
     note.style.display = "none";
 }
 
-function saveEdited(event) {
+function saveEdited(event, csrf_token) {
     let noteId = event.target.id.split("-")[0];
     let content = event.target.previousSibling.value;
     fetch('api/edit-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: "{{ csrf_token() }}" }),
+        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: csrf_token }),
     }).then((_res) => {
         document.location = document.URL;
     });
