@@ -27,7 +27,7 @@ def create_app():
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
 
-    limiter = Limiter(app=app, key_func = current_user.id, default_limits = ["60/minute"])
+    limiter = Limiter(app=app, default_limits = ["60/minute"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
