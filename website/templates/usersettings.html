@@ -6,6 +6,7 @@
 <br>
 <h4 class="text-light">Labels/Alerts</h4>
 <form method="POST" action="/api/update-setting">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <div class="input-group">
     <input type="hidden" name="setting_type" value="alerts"></input>
     <select class="custom-select rounded p-2 overflow-auto text-truncate" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()">
