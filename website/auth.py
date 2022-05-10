@@ -4,10 +4,12 @@ import requests
 from .models import User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-from . import limiter
+from . import app
+from flask_limiter import Limiter
 
 auth = Blueprint('auth', __name__)  
 
+limiter = Limiter(app, key_func = current_user.id, default_limits = ["60/minute"])
 @auth.route('/login', methods=['POST', 'GET'])
 @limiter.limit("15 per minute")
 def login():
