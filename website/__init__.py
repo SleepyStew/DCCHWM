@@ -1,4 +1,4 @@
-from flask import Flask, flash, session, request
+from flask import Flask, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, current_user
@@ -9,6 +9,7 @@ from dotenv import load_dotenv, find_dotenv
 from os import environ
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv(find_dotenv())
 
@@ -27,7 +28,7 @@ def create_app():
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
 
-    limiter = Limiter(app=app, key_func = request.path, default_limits = ["60/minute"])
+    limiter = Limiter(app=app, key_func = get_remote_address, default_limits = ["60/minute"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
