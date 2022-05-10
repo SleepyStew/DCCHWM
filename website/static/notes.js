@@ -1,13 +1,13 @@
-function deleteNote(noteId, acsrf_token) {
+function deleteNote(noteId, csrf_token) {
     fetch('api/delete-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, csrf_token: acsrf_token }),
+        body: JSON.stringify({ note_id: noteId, csrf_token: csrf_token }),
     }).then((_res) => {
         document.location = document.URL;
     });
 }
 
-function editNote(noteId, acsrf_token) {
+function editNote(noteId, csrf_token) {
     let note = document.querySelector("#note-" + noteId);
     
     let editbox = document.createElement("textarea");
@@ -25,7 +25,9 @@ function editNote(noteId, acsrf_token) {
     savebutton.style.maxWidth = "150px"
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
-    savebutton.onclick = saveEdited;
+    savebutton.addEventListener("click", function(event) {
+        saveEdited(event, csrf_token);
+    })
 
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
@@ -34,7 +36,7 @@ function editNote(noteId, acsrf_token) {
     cancelbutton.style.maxWidth = "150px"
     cancelbutton.innerText = "Cancel";
     cancelbutton.id = noteId + "-cancel-button";
-    cancelbutton.addEventListener('click', () => { cancelEdit(noteId, acsrf_token) });
+    cancelbutton.addEventListener('click', () => { cancelEdit(noteId) });
     
     note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
@@ -43,12 +45,12 @@ function editNote(noteId, acsrf_token) {
     note.style.display = "none";
 }
 
-function saveEdited(event, acsrf_token) {
+function saveEdited(event, csrf_token) {
     let noteId = event.target.id.split("-")[0];
     let content = event.target.previousSibling.value;
     fetch('api/edit-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: acsrf_token }),
+        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: csrf_token }),
     }).then((_res) => {
         document.location = document.URL;
     });
