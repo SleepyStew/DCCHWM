@@ -7,6 +7,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 from os import environ
+from flask_wtf.csrf import CSRFProtect
 
 load_dotenv(find_dotenv())
 
@@ -20,6 +21,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+    csrf = CSRFProtect()
+    csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
 
     login_manager = LoginManager()
