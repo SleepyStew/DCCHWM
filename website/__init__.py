@@ -10,15 +10,13 @@ from os import environ
 
 load_dotenv(find_dotenv())
 
-SECRET_KEY = environ.get("SECRET_KEY")
-
 db = SQLAlchemy()
 migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = SECRET_KEY
+    app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
