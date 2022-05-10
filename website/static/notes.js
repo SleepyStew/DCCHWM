@@ -1,7 +1,7 @@
 function deleteNote(noteId) {
     fetch('api/delete-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId }),
+        body: JSON.stringify({ note_id: noteId, csrf_token: "{{ csrf_token() }}" }),
     }).then((_res) => {
         document.location = document.URL;
     });
@@ -48,7 +48,7 @@ function saveEdited(event) {
     let content = event.target.previousSibling.value;
     fetch('api/edit-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, note_content: content }),
+        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: "{{ csrf_token() }}" }),
     }).then((_res) => {
         document.location = document.URL;
     });
