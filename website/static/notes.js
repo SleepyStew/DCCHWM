@@ -25,7 +25,7 @@ function editNote(noteId, csrf_token) {
     savebutton.style.maxWidth = "150px"
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
-    savebutton.addEventListener('click', () => { cancelEdit(event, csrf_token) });
+    savebutton.addEventListener('click', () => { saveEdit(event, csrf_token) });
 
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
@@ -34,7 +34,7 @@ function editNote(noteId, csrf_token) {
     cancelbutton.style.maxWidth = "150px"
     cancelbutton.innerText = "Cancel";
     cancelbutton.id = noteId + "-cancel-button";
-    cancelbutton.addEventListener('click', () => { cancelEdit(noteId, csrf_token) });
+    cancelbutton.addEventListener('click', () => { cancelEdit(noteId) });
     
     note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
