@@ -8,7 +8,6 @@ import bs4
 import json
 from .models import Note, User
 from . import db
-import re
 
 api = Blueprint('api', __name__)  
 
@@ -78,12 +77,6 @@ def note_is_valid(note):
         return False
     return True
 
-CLEANR = re.compile('<.*?>') 
-
-def cleanhtml(raw_html):
-  cleantext = re.sub(CLEANR, '', raw_html)
-  return cleantext
-
 #########################################
 # Function above this | Endpoints below #
 #########################################
@@ -107,7 +100,7 @@ def delete_note():
 @login_required
 def edit_note():
     note_id = json.loads(request.data)['note_id']
-    note_content = cleanhtml(json.loads(request.data)['note_content']).rstrip()
+    note_content = json.loads(request.data)['note_content'].rstrip()
     note = Note.query.get(note_id)
     if note and note.userID == current_user.sbID and note_is_valid(note_content):
         Note.query.filter_by(id=note_id).update(dict(content=note_content))
@@ -121,7 +114,7 @@ def edit_note():
 @api.route('/create-note', methods=['POST'])
 @login_required
 def create_note():
-    note = cleanhtml(request.form.get('note')).strip()
+    note = request.form.get('note').strip()
 
     if note_is_valid(note):
         new_note = Note(content=note, userID=current_user.sbID)
