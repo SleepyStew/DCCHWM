@@ -11,6 +11,7 @@ from .auth import logout_current_user
 from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla as flask_admin_sqla
 from .api import note_is_valid
+from . import app
 
 views = Blueprint('views', __name__)  
 
@@ -49,7 +50,9 @@ def quicknotes():
 def settings():
     return render_template("usersettings.html", user=current_user)
 
-
+@app.errorhandler(429)
+def too_many_requests(e):
+    return render_template("ratelimit.html", user=current_user)
 
 class DefaultModelView(flask_admin_sqla.ModelView):
     def __init__(self, *args, **kwargs):

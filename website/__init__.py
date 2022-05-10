@@ -18,7 +18,7 @@ migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
-    global limiter
+    global limiter, app
     app = Flask(__name__)
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
