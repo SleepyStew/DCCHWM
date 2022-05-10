@@ -1,13 +1,13 @@
-function deleteNote(noteId, csrf_token) {
+function deleteNote(noteId) {
     fetch('api/delete-note', {
         method: 'POST',
-        body: JSON.stringify({ note_id: noteId, csrf_token: csrf_token }),
+        body: JSON.stringify({ note_id: noteId}),
     }).then((_res) => {
         document.location = document.URL;
     });
 }
 
-function editNote(noteId, csrf_token) {
+function editNote(noteId) {
     let note = document.querySelector("#note-" + noteId);
     
     let editbox = document.createElement("textarea");
@@ -25,7 +25,7 @@ function editNote(noteId, csrf_token) {
     savebutton.style.maxWidth = "150px"
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
-    savebutton.addEventListener('click', () => { saveEdited(event, csrf_token) });
+    savebutton.addEventListener('click', () => { saveEdited(event) });
 
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
@@ -43,12 +43,12 @@ function editNote(noteId, csrf_token) {
     note.style.display = "none";
 }
 
-function saveEdited(event, csrf_token) {
+function saveEdited(event) {
     let noteId = event.target.id.split("-")[0];
     let content = event.target.previousSibling.value;
-    fetch('api/edit-note', {
-        method: 'POST',
-        body: JSON.stringify({ note_id: noteId, note_content: content, csrf_token: csrf_token }),
+    axios.post('api/edit-note', {
+        note_id: noteId,
+        note_content: content
     }).then((_res) => {
         document.location = document.URL;
     });
