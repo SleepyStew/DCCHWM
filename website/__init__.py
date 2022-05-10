@@ -6,10 +6,11 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
+from os import environ
 
 load_dotenv(find_dotenv())
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = environ.get("SECRET_KEY")
 
 db = SQLAlchemy()
 migrate = Migrate(db)
