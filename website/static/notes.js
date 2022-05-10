@@ -25,7 +25,7 @@ function editNote(noteId, csrf_token) {
     savebutton.style.maxWidth = "150px"
     savebutton.innerText = "Save Note";
     savebutton.id = noteId + "-edit-button";
-    savebutton.addEventListener('click', () => { saveEdit(event, csrf_token) });
+    savebutton.addEventListener('click', () => { saveEdited(event, csrf_token) });
 
     let cancelbutton = document.createElement("button");
     cancelbutton.classList.add("btn");
