@@ -42,7 +42,7 @@ def login():
                     User.query.filter_by(sbID=sbid).update(dict(id=str(login.cookies.get('PHPSESSID'))))
                     User.query.filter_by(sbID=sbid).update(dict(sbCookie=str(login.cookies.get('PHPSESSID'))))
                     db.session.commit()
-                    user_login = User.query.filter_by(sbID=id).first()
+                    user_login = User.query.filter_by(sbID=sbid).first()
                 else:
                     user_login = User(sbID=sbid, id = str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID')))
                     db.session.add(user_login)
