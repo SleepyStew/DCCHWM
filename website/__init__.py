@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv, find_dotenv
 from os import environ
 from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
 
 load_dotenv(find_dotenv())
 
@@ -16,6 +17,7 @@ migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
+    global limiter
     app = Flask(__name__)
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,6 +26,8 @@ def create_app():
     csrf = CSRFProtect()
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
+
+    limiter = Limiter(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
