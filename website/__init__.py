@@ -1,7 +1,7 @@
 from flask import Flask, flash, session, request
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager, current_user, get_current_address
+from flask_login import LoginManager, current_user
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
