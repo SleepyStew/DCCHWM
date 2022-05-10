@@ -7,3 +7,4 @@ waitress
 flask_admin
 flask_migrate
 python-dotenv
+Flask-WTF
