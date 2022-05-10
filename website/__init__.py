@@ -1,7 +1,7 @@
-from flask import Flask, flash, session
+from flask import Flask, flash, session, request
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, current_user, get_current_address
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
@@ -27,7 +27,7 @@ def create_app():
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
 
-    limiter = Limiter(app=app, default_limits = ["60/minute"])
+    limiter = Limiter(app=app, key_func = request.path, default_limits = ["60/minute"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
