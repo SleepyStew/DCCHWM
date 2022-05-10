@@ -130,9 +130,15 @@ def update_setting():
     setting_type = request.form.get('setting_type')
     new_setting = request.form.get('new_setting')
 
+    valid_setting = False
+
     if setting_type == "alerts":
         if new_setting == "low" or new_setting == "high":
+            valid_setting = True
             User.query.filter_by(sbID=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
+    
+    if valid_setting and current_user.setting_alerts == "high":
+        flash("Successfully updated setting.", category="success")
 
     return redirect(url_for('views.settings'))
