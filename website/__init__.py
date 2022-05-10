@@ -17,7 +17,7 @@ migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
-    global app
+    global limiter
     app = Flask(__name__)
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -26,6 +26,8 @@ def create_app():
     csrf = CSRFProtect()
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
+
+    limiter = Limiter(app, default_limits = ["60/minute"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

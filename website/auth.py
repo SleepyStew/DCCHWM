@@ -4,14 +4,12 @@ import requests
 from .models import User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-from . import app
-from flask_limiter import Limiter
+from . import limiter
 
 auth = Blueprint('auth', __name__)  
 
-limiter = Limiter(app, key_func = current_user.id, default_limits = ["60/minute"])
 @auth.route('/login', methods=['POST', 'GET'])
-@limiter.limit("15 per minute")
+@limiter.limit("15 per minute", key_func = current_user.id)
 def login():
     if not isinstance(current_user, flask_login.AnonymousUserMixin):
         flash('You are already logged in. Please logout from the dashboard to return to the login page.', category='success')
