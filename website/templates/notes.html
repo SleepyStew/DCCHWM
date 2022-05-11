@@ -19,7 +19,7 @@
         <script>
             var converter = new showdown.Converter();
             converter.setOption('simpleLineBreaks', true)
-            document.getElementById('note-{{ note.id }}').innerHTML = converter.makeHtml('a line wrapped \n in two');
+            document.getElementById('note-{{ note.id }}').innerHTML = "{{ note.content }}";
         </script>
         <button type="button" class="bg-transparent border-0 position-absolute end-0 me-4" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
         <button type="button" class="btn-close position-absolute end-0 me-2" alt="Delete Note" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"></button>
