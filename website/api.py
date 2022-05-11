@@ -85,6 +85,7 @@ def convert_to_markdown(note):
     soup = bs4.BeautifulSoup(note, 'html.parser')
     elements = []
     for tag in soup.findAll():
+        print(tag)
         if not tag.name == "br":
             tag['style'] = "display: inline;"
             elements.append(tag)
