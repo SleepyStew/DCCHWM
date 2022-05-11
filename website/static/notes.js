@@ -7,7 +7,7 @@ function deleteNote(noteId) {
 }
 
 function editNote(noteId) {
-    let note = document.querySelector("#note-" + noteId);
+    let note = document.querySelector("#note-plain-" + noteId);
     
     let editbox = document.createElement("textarea");
     editbox.classList.add("form-control");

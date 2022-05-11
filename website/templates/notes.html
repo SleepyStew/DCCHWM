@@ -15,6 +15,7 @@
 <ul class="list-group list-group-flush d-block" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item rounded-2 my-2 text-break" id="note-{{ note.id }}">
+        <p style="display: none;" id="note-plain-{{ note.id }}">{{ note.content }}</p>
         <script>
             document.getElementById('note-{{ note.id }}').innerHTML = marked.parse('{{ note.content | safe }}');
         </script>
