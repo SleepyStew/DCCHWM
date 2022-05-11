@@ -8,17 +8,13 @@
     <script type="text/javascript">
         axios.defaults.headers.common["X-CSRFToken"] = "{{ csrf_token() }}";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <h1 class="text-light fw-bold">Quick Notes</h1>
 <ul class="list-group list-group-flush d-block" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item rounded-2 my-2 text-break" id="note-{{ note.id }}">
-        <script>
-            document.getElementById('content').innerHTML =
-              marked.parse('{{ note.content }}');
-          </script>
+        {{ note.content | marked_up | safe }}
         <button type="button" class="bg-transparent border-0 position-absolute end-0 me-4" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
         <button type="button" class="btn-close position-absolute end-0 me-2" alt="Delete Note" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"></button>
     </li>
