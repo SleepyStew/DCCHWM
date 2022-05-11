@@ -21,7 +21,9 @@
             converter.setOption('simpleLineBreaks', true)
             document.getElementById('note-{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
             if (document.getElementById('note-{{ note.id }}').children.length > 1) {
-                $( "#note-{{ note.id }} li:nth-last-child(2)" ).append( "<br>" )
+                document.querySelector( "#note-{{ note.id }} nth-last-child(2)" ).append( "<br>" );
+            } else {
+                document.getElementById('note-{{ note.id }}').children[0].style.display = "inline";
             }
         </script>
         <button type="button" class="bg-transparent border-0 position-absolute end-0 me-4" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
