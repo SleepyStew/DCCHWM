@@ -9,4 +9,3 @@ flask_migrate
 python-dotenv
 Flask-WTF
 flask_limiter
-markdown
