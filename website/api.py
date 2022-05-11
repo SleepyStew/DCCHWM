@@ -86,7 +86,9 @@ def convert_to_markdown(note):
     for tag in soup.findAll():
         tag['style'] = "display: inline;"
         elements.append(tag)
-    return ''.join(map(str, elements))
+    note = ''.join(map(str, elements))
+    note = note.replace("\n", "<br>")
+    return note
 
 #########################################
 # Function above this | Endpoints below #
