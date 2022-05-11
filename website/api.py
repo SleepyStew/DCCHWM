@@ -8,6 +8,7 @@ import bs4
 import json
 from .models import Note, User
 from . import db
+import markdown
 
 api = Blueprint('api', __name__)  
 
@@ -100,7 +101,7 @@ def delete_note():
 @login_required
 def edit_note():
     note_id = json.loads(request.data)['note_id']
-    note_content = json.loads(request.data)['note_content'].rstrip()
+    note_content = markdown.markdown(json.loads(request.data)['note_content'].strip())
     note = Note.query.get(note_id)
     if note and note.userID == current_user.sbID and note_is_valid(note_content):
         Note.query.filter_by(id=note_id).update(dict(content=note_content))
@@ -114,7 +115,7 @@ def edit_note():
 @api.route('/create-note', methods=['POST'])
 @login_required
 def create_note():
-    note = request.form.get('note').strip()
+    note = markdown.markdown(request.form.get('note').strip())
 
     if note_is_valid(note):
         new_note = Note(content=note, userID=current_user.sbID)
