@@ -80,7 +80,7 @@ def note_is_valid(note):
     return True
 
 def convert_to_markdown(note):
-    note = note.replace("\n", "<br>")[4:]
+    note = note.replace("\n", "<br>")[:-4]
     note = markdown.markdown(note)
     soup = bs4.BeautifulSoup(note, 'html.parser')
     elements = []
