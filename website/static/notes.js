@@ -7,12 +7,13 @@ function deleteNote(noteId) {
 }
 
 function editNote(noteId) {
-    let note = document.querySelector("#note-plain-" + noteId);
+    let note = document.querySelector("#note-" + noteId);
+    let unformatted_note = document.querySelector("#note-plain-" + noteId);
     
     let editbox = document.createElement("textarea");
     editbox.classList.add("form-control");
 
-    editbox.innerHTML = note.textContent.trim();
+    editbox.innerHTML = unformatted_note.textContent.trim();
     editbox.id = noteId + "-edit";
     editbox.maxlength = 256;
 
