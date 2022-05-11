@@ -80,6 +80,7 @@ def note_is_valid(note):
     return True
 
 def convert_to_markdown(note):
+    note = note.replace("\n", "<br>")
     note = markdown.markdown(note)
     soup = bs4.BeautifulSoup(note, 'html.parser')
     elements = []
@@ -87,7 +88,6 @@ def convert_to_markdown(note):
         tag['style'] = "display: inline;"
         elements.append(tag)
     note = ''.join(map(str, elements))
-    note = note.replace("\n", "<br>")
     return note
 
 #########################################
