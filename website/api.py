@@ -118,6 +118,9 @@ def edit_note():
 @login_required
 def create_note():
     note = request.form.get('note').strip()
+    print(note)
+    note = note.replace("\n", "\\n")
+    print(note)
 
     if note_is_valid(note):
         new_note = Note(content=note, userID=current_user.sbID)
