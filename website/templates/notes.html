@@ -21,7 +21,7 @@
             converter.setOption('simpleLineBreaks', true)
             document.getElementById('note-{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
             if (document.getElementById('note-{{ note.id }}').children.length > 1) {
-                document.querySelector( "#note-{{ note.id }} nth-last-child(2)" ).append( "<br>" );
+                document.getElementById('note-{{ note.id }}').lastChild.style.display = 'inline';
             } else {
                 document.getElementById('note-{{ note.id }}').children[0].style.display = "inline";
             }
