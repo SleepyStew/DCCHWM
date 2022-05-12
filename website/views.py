@@ -34,7 +34,8 @@ def dashboard():
         flash("Your Schoolbox session has expired, please log back in.", category="error")
         logout_current_user()
         return redirect(url_for('auth.login'))
-    return render_template("dashboard.html", user=current_user, timetable=timetable)
+    timetable_headers = ["<div class=\"timetable-top\">Homegroup<br>8:40am-8:55am</div>", "<div class=\"timetable-top\">Period 1<br>9:00am-10:10am</div>", "<div class=\"timetable-top\">Period 2<br>10:30am-11:40am</div>", "<div class=\"timetable-top\">Period 3<br>11:45am-12:55pm</div>", "<div class=\"timetable-top\">Period 4<br>1:50pm-3:05pm</div>"]
+    return render_template("dashboard.html", user=current_user, timetable=zip(timetable, timetable_headers))
 
 @views.route('/information')
 def information():
