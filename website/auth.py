@@ -71,6 +71,6 @@ def logout():
 
 def logout_current_user():
     if current_user.is_authenticated:
-        User.query.filter_by(sbID=current_user.sbID).update(dict(id="Logged Out"))
+        User.query.filter_by(sbID=current_user.sbID).update(dict(sbID="Logged Out"))
         db.session.commit()
         logout_user()
