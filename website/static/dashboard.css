@@ -14,3 +14,8 @@
     display: inline-block;
     height: auto;   
 }
+@media only screen and (max-width: 600px) {
+    #timetable-item-container {
+      display: flex !important;
+    }
+}
