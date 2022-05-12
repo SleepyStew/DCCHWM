@@ -52,7 +52,8 @@ def login():
                     
 
                 login_user(user_login, remember=True)
-                flash(f"Sucessfully logged in. Welcome to the Dashboard.", category='success')
+                if current_user.setting_alerts == "high":
+                    flash(f"Sucessfully logged in. Welcome to the Dashboard.", category='success')
                 return redirect(url_for('views.dashboard'))
             else:
                 flash("An error occured.", category="error")
