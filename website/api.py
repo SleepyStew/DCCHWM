@@ -67,7 +67,7 @@ def get_timetable(current_user):
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
         return "logout"
-    return ''.join(map(str, elements))
+    return map(str, elements)
 
 # Returns whether a note is valid or not | BOOLEAN
 def note_is_valid(note):
