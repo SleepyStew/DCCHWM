@@ -8,7 +8,23 @@
 <div class="ms-3">
     <br>
     <h3 class="text-light">Today's Subjects:</h3>
-    {% for tableitem, tableheader in timetable %}<div style="display: inline-grid;">{{ tableheader | safe }}{{ tableitem | safe }}</div>{% endfor %}
+    {% for tableitem, tableheader in timetable %}<div id="timetable-item-container"style="display: inline-grid;">{{ tableheader | safe }}{{ tableitem | safe }}</div>{% endfor %}
+    <script>
+        function getWidth() {
+            return Math.max(
+                document.body.scrollWidth,
+                document.documentElement.scrollWidth,
+                document.body.offsetWidth,
+                document.documentElement.offsetWidth,
+                document.documentElement.clientWidth
+            );
+        }
+        if (getWidth() < 600) {
+            document.getElementsById("timetable-item-container").array.forEach(element => {
+                element.style.display = "flex";
+            });
+        }
+    </script>
 </div>
 
 
