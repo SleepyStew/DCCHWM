@@ -29,7 +29,7 @@
 </ul>
 <form method="POST" class="mt-2" action="/api/create-note">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <textarea name="note" class="form-control" id="note" placeholder="Enter your new note here..." maxlength=256></textarea>
+    <textarea name="note" class="form-control" id="note" placeholder="Enter your new note here..." maxlength=1024></textarea>
     <div align="center">
         <button type="submit" class="btn btn-primary mt-3">Add Note</button>
     </div>

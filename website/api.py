@@ -74,7 +74,7 @@ def note_is_valid(note):
     if len(note) < 1 or note.isspace():
         flash("A note can not be empty.", category="error")
         return False
-    elif len(note) > 256:
+    elif len(note) > 1024:
         flash("This note is too long.", category="error")
         return False
     return True
