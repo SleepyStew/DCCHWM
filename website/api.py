@@ -79,7 +79,7 @@ def get_upcoming_due_work(current_user):
 
     elements = []
 
-    for tag in soup.find(attrs={'id': 'component36739'}).findChildren("div", recursive=True).findChildren("div", recursive=True).findChildren("section", recursive=True).findChildren("ul", recursive=True).findChildren("li", recursive=True):
+    for tag in soup.find(attrs={'id': 'component36739'}).find("div", recursive=True).find("div").find("section").find("ul").find_all("li"):
         print(tag)
         elements.append(tag)
 
