@@ -87,11 +87,11 @@ def get_upcoming_due_work(current_user):
         tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
 
         if "homework" in tag.find("div").find_all()[2].text.lower():
-            tag.find("div").find_all()[2].text = "Homework"
+            tag.find("div").find_all()[2].innerHTML = "Homework"
         elif "assessment" in tag.find("div").find_all()[2].text.lower():
-            tag.find("div").find_all()[2].text = "Assessment Task"
+            tag.find("div").find_all()[2].innerHTML = "Assessment Task"
         else:
-            tag.find("div").find_all()[2].text = "Other"
+            tag.find("div").find_all()[2].innerHTML = "Other"
 
         elements.append(tag)
 
