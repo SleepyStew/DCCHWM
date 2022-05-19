@@ -1,5 +1,5 @@
 from dataclasses import replace
-from re import sub
+from re import S, sub
 from unicodedata import category
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
@@ -13,31 +13,31 @@ import re
 
 api = Blueprint('api', __name__)  
 
+friendly_subject_names = {
+    "Homegroup": "Homegroup",
+    "Art": "Art",
+    "ComL": "ComLife",
+    "Dram": "Drama",
+    "Elec": "Electronics",
+    "Eng": "English",
+    "Farm": "Farming",
+    "Food": "Food Tech",
+    "Germ": "German",
+    "Huma": "Humanities",
+    "Math": "Maths",
+    "Medi": "Media",
+    "Musi": "Music",
+    "OuEd": "Outdoor Ed",
+    "PE": "PE",
+    "RS": "Research Science",
+    "Sci": "Science",
+    "Sport": "Sport",
+    "Vis": "VisCom",
+    "Community Life": "ComLife"
+}
+
 # Returns basic 5 subject "today" timetable | STRING(HTML)
 def get_timetable(current_user):
-
-    friendly_subject_names = {
-        "Homegroup": "Homegroup",
-        "Art": "Art",
-        "ComL": "ComLife",
-        "Dram": "Drama",
-        "Elec": "Electronics",
-        "Eng": "English",
-        "Farm": "Farming",
-        "Food": "Food Tech",
-        "Germ": "German",
-        "Huma": "Humanities",
-        "Math": "Maths",
-        "Medi": "Media",
-        "Musi": "Music",
-        "OuEd": "Outdoor Ed",
-        "PE": "PE",
-        "RS": "Research Science",
-        "Sci": "Science",
-        "Sport": "Sport",
-        "Vis": "VisCom",
-        "Community Life": "ComLife"
-    }
 
     cookies = {
         'PHPSESSID': f'{current_user.sbCookie}',
@@ -63,6 +63,23 @@ def get_timetable(current_user):
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
         except:
             pass
+        elements.append(tag)
+
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return "logout"
+    return map(str, elements)
+
+def get_upcoming_due_work(current_user):
+    cookies = {
+        'PHPSESSID': f'{current_user.sbCookie}',
+    }
+
+    response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
+    soup = bs4.BeautifulSoup(response.text, 'html.parser')
+
+    elements = []
+
+    for tag in soup.find(attrs={'id': 'component36739'}).findChildren("li", recursive=True):
         elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:

@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, send_from_direc
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
 from sqlalchemy import false
+from .api import get_upcoming_due_work
 from . import db
 from .models import User, Note
 from .api import get_timetable
@@ -30,12 +31,13 @@ def root():
 @login_required
 def dashboard():
     timetable = get_timetable(current_user)
-    if timetable == "logout":
+    duework = get_upcoming_due_work(current_user)
+    if timetable == "logout" or duework == "logout":
         flash("Your Schoolbox session has expired, please log back in.", category="error")
         logout_current_user()
         return redirect(url_for('auth.login'))
     timetable_headers = ["<div class=\"timetable-top\">Homegroup<br>8:40am-8:55am</div>", "<div class=\"timetable-top\">Period 1<br>9:00am-10:10am</div>", "<div class=\"timetable-top\">Period 2<br>10:30am-11:40am</div>", "<div class=\"timetable-top\">Period 3<br>11:45am-12:55pm</div>", "<div class=\"timetable-top\">Period 4<br>1:50pm-3:05pm</div>"]
-    return render_template("dashboard.html", user=current_user, timetable=zip(timetable, timetable_headers))
+    return render_template("dashboard.html", user=current_user, timetable=zip(timetable, timetable_headers), duework=duework)
 
 @views.route('/information')
 def information():
