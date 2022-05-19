@@ -80,6 +80,7 @@ def get_upcoming_due_work(current_user):
     elements = []
 
     for tag in soup.find(attrs={'id': 'component36739'}).findChildren("li", recursive=True):
+        print(tag)
         elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
