@@ -79,7 +79,7 @@ def get_upcoming_due_work(current_user):
 
     elements = []
 
-    for tag in soup.find(attrs={'id': 'component36739'}).find("div").find("div").find("section").find("ul").find_all("li"):
+    for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
         elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
