@@ -77,11 +77,9 @@ def get_upcoming_due_work(current_user):
     response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
-    print(response.text)
-
     elements = []
 
-    for tag in soup.find(attrs={'id': 'component36739'}).findChildren("li", recursive=True):
+    for tag in soup.find(attrs={'id': 'component36739'}).findChildren("div", recursive=True).findChildren("div", recursive=True).findChildren("section", recursive=True).findChildren("ul", recursive=True).findChildren("li", recursive=True):
         print(tag)
         elements.append(tag)
 
