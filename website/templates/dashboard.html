@@ -9,7 +9,9 @@
     <br>
     <h3 class="text-light">Today's Subjects:</h3>
     {% for tableitem, tableheader in timetable %}<div id="timetable-item-container"style="display: inline-grid;">{{ tableheader | safe }}{{ tableitem | safe }}</div>{% endfor %}
+    <div id="upcomingduework">
     {% for dueworkitem in duework %}{{ dueworkitem | safe }}{% endfor %}
+    </div>
 </div>
 
 
