@@ -82,6 +82,9 @@ def get_upcoming_due_work(current_user):
     for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
         tag.name = "div"
         tag.find("div")["style"] = "padding: 10px;"
+        tag.find("div").find_all()[0]["style"] = "font-size: 22px;"
+        tag.find("div").find_all()[0]["style"] = "font-size: 18px;"
+        tag.find("div").find_all()[0]["style"] = "font-size: 15px;"
         elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
