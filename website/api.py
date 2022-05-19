@@ -81,10 +81,12 @@ def get_upcoming_due_work(current_user):
 
     for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
         tag.name = "div"
-        tag.find("div")["style"] = "padding: 10px;"
+        tag.find("div")["style"] = "padding: 10px; margin: 10px;"
         tag.find("div").find_all()[0]["style"] = "font-size: 22px;"
         tag.find("div").find_all()[1]["style"] = "font-size: 18px;"
         tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
+
+        tag.find("div").find_all()[0].find("a")['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find("div").find_all()[0].find("a")['href']
         
         if "homework" in tag.find("div").find_all()[2].text.lower():
             tag.find("div").find_all()[2].clear()
