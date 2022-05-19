@@ -86,9 +86,9 @@ def get_upcoming_due_work(current_user):
         tag.find("div").find_all()[1]["style"] = "font-size: 18px;"
         tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
 
-        print(tag.find("div").find_all()[1])
-        print(tag.find("div").find_all()[1].find_all()[0])
-        print(tag.find("div").find_all()[1].find_all()[-1])
+        print(tag.find("div").find_all()[2])
+        print(tag.find("div").find_all()[2].find_all()[0])
+        print(tag.find("div").find_all()[2].find_all()[-1])
         
 
         # tag.find("div").find_all()[1]['innerHTML'] = tag.find("div").find_all()[1].find_all()[-1]
