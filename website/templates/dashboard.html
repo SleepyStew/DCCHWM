@@ -11,7 +11,7 @@
     {% for tableitem, tableheader in timetable %}<div id="timetable-item-container"style="display: inline-grid;">{{ tableheader | safe }}{{ tableitem | safe }}</div>{% endfor %}
     <h3 class="text-light pt-3">Upcoming Due Work:</h3>
     <div id="upcomingduework" style="display: inline flow-root; padding: 5px;">
-    {% for dueworkitem in duework %}<div class="pb-2">{{ dueworkitem | safe }}</div>{% endfor %}
+    {% for dueworkitem in duework %}{{ dueworkitem | safe }}{% endfor %}
     </div>
 </div>
 
