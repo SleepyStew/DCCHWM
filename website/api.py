@@ -91,7 +91,7 @@ def get_upcoming_due_work(current_user):
         tag.find("div").find_all()[0].find("a")['target'] = "_blank"
 
         for subject, subject_value in friendly_subject_names.items():
-            if subject in tag.find("div").find_all()[0].text:
+            if subject in tag.find("div").find_all()[2].text:
                 tag.find("div").find_all()[0].string.replace_with(subject_value + " - " + tag.find("div").find_all()[0].text)
                 break
 
