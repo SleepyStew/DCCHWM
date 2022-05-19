@@ -78,15 +78,9 @@ def get_upcoming_due_work(current_user):
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
-    print(soup.find(attrs={'id': 'component52396'}).find("div"))
-    print(soup.find(attrs={'id': 'component52396'}).find("div").find("div"))
-    print(soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section"))
-    print(soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul"))
-    print(soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"))
 
-    # for tag in soup.find(attrs={'id': 'component36739'}).find("div").find("div").find("section").find("ul").find_all("li"):
-    #     print(tag)
-    #     elements.append(tag)
+    for tag in soup.find(attrs={'id': 'component36739'}).find("div").find("div").find("section").find("ul").find_all("li"):
+        elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
         return "logout"
