@@ -87,7 +87,9 @@ def get_upcoming_due_work(current_user):
         tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
 
         tag.find("div").find_all()[0].find("a")['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find("div").find_all()[0].find("a")['href']
-        
+        tag.find("div").find_all()[0].find("a")['style'] = "text-decoration: none;"
+        tag.find("div").find_all()[0].find("a")['target'] = "_blank"
+
         if "homework" in tag.find("div").find_all()[2].text.lower():
             tag.find("div").find_all()[2].clear()
             tag.find("div").find_all()[2].append("Homework")
