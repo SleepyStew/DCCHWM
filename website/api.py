@@ -70,7 +70,7 @@ def get_timetable(current_user):
     return map(str, elements)
 
 def get_upcoming_due_work(current_user):
-    cookies = {
+    cookies = { 
         'PHPSESSID': f'{current_user.sbCookie}',
     }
 
@@ -80,8 +80,7 @@ def get_upcoming_due_work(current_user):
     elements = []
 
     for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
-        print(tag.html)
-        print(tag.text)
+        tag.name = "div"
         elements.append(tag)
 
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
