@@ -36,7 +36,7 @@ friendly_subject_names = {
     "Community Life": "ComLife"
 }
 
-# Returns basic 5 subject "today" timetable | STRING(HTML)
+# Returns basic 5 subject "today" timetable | LIST(HTML)
 def get_timetable(current_user):
 
     cookies = {
@@ -69,6 +69,7 @@ def get_timetable(current_user):
         return "logout"
     return map(str, elements)
 
+# Returns upcoming due work found on the homepage | LIST(HTML)
 def get_upcoming_due_work(current_user):
     cookies = { 
         'PHPSESSID': f'{current_user.sbCookie}',
