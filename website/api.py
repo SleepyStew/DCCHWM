@@ -37,13 +37,8 @@ friendly_subject_names = {
 }
 
 # Returns basic 5 subject "today" timetable | LIST(HTML)
-def get_timetable(current_user):
+def get_timetable(response, current_user):
 
-    cookies = {
-        'PHPSESSID': f'{current_user.sbCookie}',
-    }
-
-    response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
@@ -70,12 +65,8 @@ def get_timetable(current_user):
     return map(str, elements)
 
 # Returns upcoming due work found on the homepage | LIST(HTML)
-def get_upcoming_due_work(current_user):
-    cookies = { 
-        'PHPSESSID': f'{current_user.sbCookie}',
-    }
+def get_upcoming_due_work(response, current_user):
 
-    response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []

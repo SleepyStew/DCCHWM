@@ -13,6 +13,7 @@ from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla as flask_admin_sqla
 from .api import note_is_valid
 from . import app
+import requests
 
 views = Blueprint('views', __name__)  
 
@@ -30,8 +31,12 @@ def root():
 @views.route('/dashboard')
 @login_required
 def dashboard():
-    timetable = get_timetable(current_user)
-    duework = get_upcoming_due_work(current_user)
+    cookies = { 
+        'PHPSESSID': f'{current_user.sbCookie}',
+    }
+    response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
+    timetable = get_timetable(response, current_user)
+    duework = get_upcoming_due_work(response, current_user)
     if timetable == "logout" or duework == "logout":
         flash("Your Schoolbox session has expired, please log back in.", category="error")
         logout_current_user()
