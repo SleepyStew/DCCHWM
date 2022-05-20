@@ -55,8 +55,7 @@ def login():
 
                 login_user(user_login, remember=True)
 
-                audit = f"Login | {data.get('username')}"
-                audit_log(audit)
+                audit_log(f"Login | {data.get('username')}")
 
                 if current_user.setting_alerts == "high":
                     flash(f"Sucessfully logged in. Welcome to the Dashboard.", category='success')
@@ -82,8 +81,7 @@ def logout_current_user():
         User.query.filter_by(sbID=current_user.sbID).update(dict(sbCookie="Logged Out"))
         
         db.session.commit()
-
-        audit = f"Logout | {current_user.sbID}"
-        audit_log(audit)
+        
+        audit_log(f"Logout | {current_user.sbID}")
         
         logout_user()
