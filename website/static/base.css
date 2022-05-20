@@ -65,3 +65,37 @@
     position: relative;
     top: -2px;
   }
+
+.gradient-0 {
+  color: var(--bs-red);
+}
+.gradient-1 {
+  color: var(--bs-red);
+}
+.gradient-2 {
+  color: var(--bs-orange);
+}
+.gradient-3 {
+  color: var(--bs-yellow);
+}
+.gradient-4 {
+  color: var(--bs-yellow);
+}
+.gradient-5 {
+  color: var(--bs-yellow);
+}
+.gradient-6 {
+  color: var(--bs-teel);
+}
+.gradient-7 {
+  color: var(--bs-teel);
+}
+.gradient-8 {
+  color: var(--bs-green);
+}
+.gradient-9 {
+  color: var(--bs-green);
+}
+.gradient-10 {
+  color: var(--bs-green);
+}
