@@ -10,6 +10,7 @@ from os import environ
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from datetime import datetime
 
 load_dotenv(find_dotenv())
 
@@ -71,3 +72,8 @@ def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print("[?] Created database.")
+
+def audit_log(audit):
+    print(audit)
+    with open('audit.log', 'a') as file:
+        file.write(f"{datetime.now()} | {audit}\n")

@@ -5,6 +5,8 @@ from .models import User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from . import limiter
+from datetime import datetime
+from . import audit_log
 
 auth = Blueprint('auth', __name__)  
 
@@ -52,7 +54,10 @@ def login():
                     
 
                 login_user(user_login, remember=True)
-                print("Login | " + data.get('username'))
+
+                audit = "Login | " + data.get('username')
+                audit_log(audit)
+
                 if current_user.setting_alerts == "high":
                     flash(f"Sucessfully logged in. Welcome to the Dashboard.", category='success')
                 return redirect(url_for('views.dashboard'))
@@ -75,6 +80,10 @@ def logout_current_user():
     if current_user.is_authenticated:
         # Extra layer of security
         User.query.filter_by(sbID=current_user.sbID).update(dict(sbCookie="Logged Out"))
-
+        
         db.session.commit()
+
+        audit = "Logout | " + current_user.sbID
+        audit_log(audit)
+        
         logout_user()
