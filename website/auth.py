@@ -55,7 +55,7 @@ def login():
 
                 login_user(user_login, remember=True)
 
-                audit = "Login | " + data.get('username')
+                audit = f"Login | {data.get('username')}"
                 audit_log(audit)
 
                 if current_user.setting_alerts == "high":
@@ -83,7 +83,7 @@ def logout_current_user():
         
         db.session.commit()
 
-        audit = "Logout | " + current_user.sbID
+        audit = f"Logout | {current_user.sbID}"
         audit_log(audit)
         
         logout_user()
