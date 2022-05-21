@@ -39,6 +39,9 @@ friendly_subject_names = {
 # Returns basic 5 subject "today" timetable | LIST(HTML)
 def get_timetable(response, current_user):
 
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return "logout"
+
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
@@ -60,17 +63,18 @@ def get_timetable(response, current_user):
             pass
         elements.append(tag)
 
-    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
-        return "logout"
     return map(str, elements)
 
 # Returns upcoming due work found on the homepage | LIST(HTML)
 def get_upcoming_due_work(response, current_user):
 
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return "logout"
+
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
-
+    
     for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
         tag.name = "div"
         tag.find("div")["style"] = "padding: 10px; margin-bottom: 10px;"
@@ -99,8 +103,6 @@ def get_upcoming_due_work(response, current_user):
 
         elements.append(tag)
 
-    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
-        return "logout"
     return map(str, elements)
 
 # Returns whether a note is valid or not | BOOLEAN
