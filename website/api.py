@@ -191,5 +191,5 @@ def chat_message(message):
     if message['message']:
         message['message'] = message['message'].replace('\n', ' ')
         with open('chatlog.txt', 'a') as f:
-            f.write(message['message'] + '\n')
+            f.write(str({'message': message['message'], 'username': current_user.sbName}) + '\n')
         emit('chatmessage', {'message': message['message'], 'username': current_user.sbName}, broadcast=True)
