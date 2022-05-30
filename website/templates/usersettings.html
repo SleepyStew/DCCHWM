@@ -15,4 +15,15 @@
     </select>
   </div>
 </form>
+<h4 class="text-light">Chatroom Deleted Messages</h4>
+<form method="POST" action="/api/update-setting">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <div class="input-group">
+    <input type="hidden" name="setting_type" value="deleted-messages"></input>
+    <select class="custom-select rounded p-2" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
+      <option value="show" {% if user.setting_alerts == "show" %}selected{% endif %}>Show deleted messages.</option>
+      <option value="hide" {% if user.setting_alerts == "hide" %}selected{% endif %}>Hide deleted messages.</option>
+    </select>
+  </div>
+</form>
 {% endblock %}

@@ -180,6 +180,11 @@ def update_setting():
             valid_setting = True
             User.query.filter_by(sbID=current_user.sbID).update(dict(setting_alerts=new_setting))
             db.session.commit()
+    if setting_type == "deleted-messages":
+        if new_setting == "hide" or new_setting == "show":
+            valid_setting = True
+            User.query.filter_by(sbID=current_user.sbID).update(dict(setting_deleted_messages=new_setting))
+            db.session.commit()
     
     if valid_setting and current_user.setting_alerts == "high":
         flash("Successfully updated setting.", category="success")

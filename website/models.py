@@ -8,6 +8,7 @@ class User(db.Model, UserMixin):
     sbCookie = db.Column(db.String(64))
     notes =  db.relationship('Note')
     setting_alerts = db.Column(db.String(64), default='high')
+    setting_deleted_messages = db.Column(db.String(64), default='show')
     sbName = db.Column(db.String(128))
 
 class Note(db.Model):
