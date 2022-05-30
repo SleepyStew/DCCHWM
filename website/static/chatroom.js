@@ -24,7 +24,7 @@ document.getElementById('sendmessage').addEventListener('click', function() {
 var prev = "";
 
 socket.on('chatmessage', function(data) {
-  document.getElementById('messages').innerHTML += '<div id="' + data.id + '" class="message list-group-item"><span class="username">' + data.username + '</span>' + data.message + '</div>';
+  document.getElementById('messages').insertAdjacentHTML('beforeend', '<div id="' + data.id + '" class="message list-group-item"><span class="username">' + data.username + '</span>' + data.message + '</div>');
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
   var converter = new showdown.Converter();
@@ -32,7 +32,9 @@ socket.on('chatmessage', function(data) {
   messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
   messages[messages.length - 1].lastChild.style.display = 'inline';
   messages[messages.length - 1].children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
-  messages[messages.length - 1].children[0].lastChild.addEventListener('click', function() {
+  console.log(messages[messages.length - 1].children[0].lastChild);
+  console.log(messages[messages.length - 1].id);
+  document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
     deleteMessage(data.id);
   });
 });
