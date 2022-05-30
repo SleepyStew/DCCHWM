@@ -39,7 +39,7 @@ def create_app():
 
     print ("[?] Setup Login Manager")
 
-    from .models import User, Note
+    from .models import User, Note, Message
     
     @login_manager.user_loader
     def load_user(id):
@@ -54,6 +54,7 @@ def create_app():
     admin = Admin(app, index_view=MyAdminIndexView())
     admin.add_view(DefaultModelView(User, db.session))
     admin.add_view(DefaultModelView(Note, db.session))
+    admin.add_view(DefaultModelView(Message, db.session))
 
     print("[?] Setup Admin Panel")
 

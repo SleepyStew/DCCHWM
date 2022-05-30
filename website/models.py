@@ -15,3 +15,9 @@ class Note(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('user.sbID'))
     content = db.Column(db.String(512))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(128))
+    content = db.Column(db.String(1024))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())

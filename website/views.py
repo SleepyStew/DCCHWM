@@ -6,7 +6,7 @@ import flask_login
 from sqlalchemy import false
 from .api import get_upcoming_due_work
 from . import db
-from .models import User, Note
+from .models import User, Note, Message
 from .api import get_timetable
 from .auth import logout_current_user
 from flask_admin import AdminIndexView
@@ -61,9 +61,8 @@ def quicknotes():
 @login_required
 def chatroom():
     recent_messages = []
-    with open('chatlog.txt', 'r') as f:
-        for message in f.readlines()[-100:]:
-            recent_messages.append(json.loads(message.replace("\n", ' ')))
+    for message in Message.query.all()[-100:]:
+        recent_messages.append({"id": message.id, "message": message.content, "username": message.username})
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])

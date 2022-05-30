@@ -6,7 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 import requests
 import bs4
 import json
-from .models import Note, User
+from .models import Note, User, Message
 from . import db
 import markdown
 import re
@@ -194,6 +194,7 @@ def chat_message(message):
                 flash("This message is too long.", category="error")
                 return
             message['message'] = message['message'].replace('\n', ' ')
-            with open('chatlog.txt', 'a') as f:
-                f.write(json.dumps({"message": message['message'], "username": current_user.sbName}) + '\n')
+            message_store = Message(username=current_user.sbName, content=message['message'])
+            db.session.add(message_store)
+            db.session.commit()
             emit('chatmessage', {"message": message['message'], "username": current_user.sbName}, broadcast=True)
