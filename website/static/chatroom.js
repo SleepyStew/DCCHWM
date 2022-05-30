@@ -1,6 +1,6 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
-const socket = io.connect('http://127.0.0.1:30015/');
+const socket = io.connect(document.location.origin);
 
 document.getElementById('messageinput').addEventListener("keypress", function(event) {
     if (event.key === "Enter" && event.shiftKey === false) {
