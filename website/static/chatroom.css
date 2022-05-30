@@ -2,7 +2,7 @@
     background: white;
     color: black;
     width: fit-content;
-    border-radius: 10px 10px 10px 0;
+    border-radius: 10px 10px 10px 0 !important;
     padding: 6px 8px;
     margin-bottom: 10px;
 }
@@ -25,4 +25,10 @@
 span.username {
     font-weight: bold;
     display: block;
+}
+.delete-message {
+    display: none;
+}
+.message:hover .delete-message {
+    display: inline; 
 }

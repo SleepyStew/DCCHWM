@@ -197,4 +197,13 @@ def chat_message(message):
             message_store = Message(username=current_user.sbName, content=message['message'])
             db.session.add(message_store)
             db.session.commit()
-            emit('chatmessage', {"message": message['message'], "username": current_user.sbName}, broadcast=True)
+            emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName}, broadcast=True)
+
+@socketio.on('deletemessage')
+def delete_message(id):
+    if current_user.is_authenticated:
+        message = Message.query.get(id)
+        if message and message.username == current_user.sbName:
+            Message.query.filter_by(id=message.id).update(dict(content="[message deleted]"))
+            db.session.commit()
+            emit('deletemessage', {"id": id}, broadcast=True)

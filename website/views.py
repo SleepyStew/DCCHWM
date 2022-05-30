@@ -62,7 +62,10 @@ def quicknotes():
 def chatroom():
     recent_messages = []
     for message in Message.query.all()[-100:]:
-        recent_messages.append({"id": message.id, "message": message.content, "username": message.username})
+        if message.username == current_user.sbName:
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True})
+        else:
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False})
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])
