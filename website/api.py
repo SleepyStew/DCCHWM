@@ -28,6 +28,7 @@ friendly_subject_names = {
     "Medi": "Media",
     "Musi": "Music",
     "OuEd": "Outdoor Ed",
+    "Outdoor Edu": "Outdoor Ed",
     "PE": "PE",
     "RS": "Research Science",
     "Sci": "Science",
