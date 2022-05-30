@@ -6,6 +6,7 @@ sys.dont_write_bytecode = True
 
 app = create_app()
 socketio = app[1]
+app = app[0]
 
 if __name__ == '__main__':
     from waitress import serve
