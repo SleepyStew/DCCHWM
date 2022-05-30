@@ -18,6 +18,10 @@ socket.on('chatmessage', function(data) {
   // this was autofil don't judge my code | Nathan fix this
   document.getElementById('messages').innerHTML += '<div class="message"><span class="username">' + data.username + '</span>: ' + data.message + '</div>';
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+  var converter = new showdown.Converter();
+  var messages = document.getElementsByClassName("message")
+  messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
+  messages[messages.length - 1].lastChild.style.display = 'inline';
 });
 
 document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;

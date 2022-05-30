@@ -63,7 +63,7 @@ def chatroom():
     recent_messages = []
     with open('chatlog.txt', 'r') as f:
         for message in f.readlines()[-100:]:
-            recent_messages.append(json.loads(message.replace("'", "\"")))
+            recent_messages.append(json.loads(message.replace("\n", ' ')))
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])
