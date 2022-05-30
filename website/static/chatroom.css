@@ -23,6 +23,6 @@
     }
 }
 span.username {
-    font-weight: 600;
+    font-weight: bold;
     display: block;
 }
