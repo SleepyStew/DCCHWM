@@ -53,6 +53,11 @@ def information():
 def quicknotes():
     return render_template("notes.html", user=current_user)
 
+@views.route('/chatroom', methods=['GET'])
+@login_required
+def settings():
+    return render_template("chatroom.html", user=current_user)
+
 @views.route('/settings', methods=['GET'])
 @login_required
 def settings():
