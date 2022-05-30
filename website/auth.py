@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['POST', 'GET'])
 @limiter.limit("15 per minute")
 def login():
-    if not isinstance(current_user, flask_login.AnonymousUserMixin):
+    if current_user.is_authenticated:
         flash('You are already logged in. Please logout from the sidebar to return to the login page.', category='success')
         return redirect(url_for('views.root'))
     if request.method == 'POST':        
@@ -25,7 +25,7 @@ def login():
         if data.get('password') == None:
             return redirect(url_for('auth.login'))
 
-        if len(data.get('username').split(" ")) < 2:
+        if len(data.get('username').split(" ")) < 2 and len(data.get('username').split(".")) < 2:
             flash('A first and last name is required.', category='error')
         elif len(data.get('password')) < 1:
             flash('A password is required.', category='error')
