@@ -32,3 +32,6 @@ span.username {
 .message:hover .delete-message {
     display: inline; 
 }
+#messageinput {
+    border-radius: 0 0 10px 10px;
+}
