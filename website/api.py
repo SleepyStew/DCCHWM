@@ -188,8 +188,12 @@ def update_setting():
 
 @socketio.on('chatmessage')
 def chat_message(message):
-    if message['message']:
-        message['message'] = message['message'].replace('\n', ' ')
-        with open('chatlog.txt', 'a') as f:
-            f.write(json.dumps({"message": message['message'], "username": current_user.sbName}) + '\n')
-        emit('chatmessage', {"message": message['message'], "username": current_user.sbName}, broadcast=True)
+    if current_user.is_authenticated:
+        if message['message']:
+            if len(message['message']) > 1024:
+                flash("This message is too long.", category="error")
+                return
+            message['message'] = message['message'].replace('\n', ' ')
+            with open('chatlog.txt', 'a') as f:
+                f.write(json.dumps({"message": message['message'], "username": current_user.sbName}) + '\n')
+            emit('chatmessage', {"message": message['message'], "username": current_user.sbName}, broadcast=True)
