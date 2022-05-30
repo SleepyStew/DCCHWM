@@ -15,7 +15,7 @@ from datetime import datetime
 load_dotenv(find_dotenv())
 
 db = SQLAlchemy()
-migrate = Migrate(db)
+migrate = Migrate(db, render_as_batch=True)
 DB_NAME = "schoolbox.db"
 
 def create_app():
@@ -24,7 +24,7 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    db.init_app(app)
+    db.init_app(app, render_as_batch=True)
     csrf = CSRFProtect()
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
@@ -70,7 +70,7 @@ def create_app():
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
+        db.create_all(app=app, render_as_batch=True)
         print("[?] Created database.")
 
 def audit_log(audit):
