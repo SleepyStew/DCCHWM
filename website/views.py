@@ -1,8 +1,9 @@
 import re
 from unicodedata import category
-from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash
+from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
+from regex import P
 from sqlalchemy import false
 from .api import get_upcoming_due_work
 from . import db
@@ -17,6 +18,7 @@ import requests
 from . import socketio
 from flask_socketio import SocketIO
 import sys
+import json
 
 views = Blueprint('views', __name__)  
 
@@ -59,7 +61,11 @@ def quicknotes():
 @views.route('/chatroom', methods=['GET'])
 @login_required
 def chatroom():
-    return render_template("chatroom.html", user=current_user)
+    recent_messages = []
+    with open('chatlog.txt', 'r') as f:
+        for message in f.readlines()[-100:]:
+            recent_messages.append(json.loads(message.replace("'", "\"")))
+    return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])
 @login_required

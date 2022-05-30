@@ -17,4 +17,7 @@ document.getElementById('sendmessage').addEventListener('click', function() {
 socket.on('chatmessage', function(data) {
   // this was autofil don't judge my code | Nathan fix this
   document.getElementById('messages').innerHTML += '<div class="message"><span class="username">' + data.username + '</span>: ' + data.message + '</div>';
+  document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 });
+
+document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;

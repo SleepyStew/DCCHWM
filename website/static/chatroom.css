@@ -1,0 +1,24 @@
+.message {
+    background: white;
+    color: black;
+    width: fit-content;
+    border-radius: 10px 10px 10px 0;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+}
+#messages {
+    background: #23272a;
+    border-radius: 10px 10px 0 0;
+    padding: 15px 15px 5px 15px;
+    margin: 0 !important;
+    overflow-y: scroll;
+    max-height: 480px;
+}
+#sendmessage {
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    #sendmessage {
+        display: unset !important;
+    }
+}

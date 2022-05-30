@@ -2,9 +2,10 @@
 {% block content %}
 <head>
     <script defer type="module" src="/static/chatroom.js"></script>
+    <link rel="stylesheet" href="/static/chatroom.css">
 </head>
 <h1 class="text-light fw-bold">Chatroom</h1>
-<div id="messages" class="text-light mb-3"></div>
+<div id="messages" class="text-light mb-3">{% for message in recent_messages %}<div class="message"><span class="username">{{ message['username'] }}</span>: {{ message['message'] }}</div>{% endfor %}</div>
 <textarea class="form-control mb-3" id="messageinput" placeholder="Enter your message here..." maxlength=1024></textarea>
 <button id="sendmessage" class="btn btn-primary">Send Message</button>
 {% endblock %}
