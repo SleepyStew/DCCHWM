@@ -63,9 +63,9 @@ def chatroom():
     recent_messages = []
     for message in Message.query.all()[-100:]:
         if message.username == current_user.sbName:
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True})
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted})
         else:
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False})
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted})
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])
