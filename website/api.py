@@ -204,6 +204,6 @@ def delete_message(id):
     if current_user.is_authenticated:
         message = Message.query.get(id)
         if message and message.username == current_user.sbName:
-            Message.query.filter_by(id=message.id).update(dict(content="[message deleted]"))
+            Message.query.filter_by(id=message.id).update(dict(content="[message deleted]", deleted=True))
             db.session.commit()
             emit('deletemessage', {"id": id}, broadcast=True)

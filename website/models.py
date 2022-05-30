@@ -21,3 +21,4 @@ class Message(db.Model):
     username = db.Column(db.String(128))
     content = db.Column(db.String(1024))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    deleted = db.Column(db.Boolean, default=False)
