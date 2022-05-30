@@ -10,6 +10,10 @@ from .models import Note, User
 from . import db
 import markdown
 import re
+from flask_socketio import SocketIO, emit
+from . import socketio
+import sys
+from . import app
 
 api = Blueprint('api', __name__)  
 
@@ -181,3 +185,9 @@ def update_setting():
         flash("Successfully updated setting.", category="success")
 
     return redirect(url_for('views.settings'))
+
+@socketio.on('chatmessage')
+def chat_message(message):
+    if message['message']:
+        emit('chatmessage', {'message': message['message'], 'username': current_user.sbName}, broadcast=True)
+    print(message, file=sys.stderr)

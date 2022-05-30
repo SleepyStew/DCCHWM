@@ -1,4 +1,9 @@
 {% extends "base.html" %}{% block title %}Chatroom{% endblock %}
 {% block content %}
+<head>
+    <script defer type="module" src="/static/chatroom.js"></script>
+</head>
 <h1 class="text-light fw-bold">Chatroom</h1>
+<textarea class="form-control" id="messageinput" placeholder="Enter your message here..." maxlength=1024></textarea>
+<button id="sendmessage" class="btn btn-primary">Send Message</button>
 {% endblock %}

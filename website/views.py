@@ -14,6 +14,9 @@ from flask_admin.contrib import sqla as flask_admin_sqla
 from .api import note_is_valid
 from . import app
 import requests
+from . import socketio
+from flask_socketio import SocketIO
+import sys
 
 views = Blueprint('views', __name__)  
 

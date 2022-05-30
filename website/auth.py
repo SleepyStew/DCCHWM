@@ -42,13 +42,15 @@ def login():
             elif login.status_code == 200:
                 sbid = login.text.split('= {"id":')[1].split("\"")[0][:-1]
                 user = User.query.filter_by(sbID=sbid).first() is not None
+                name = login.text.split(',"fullName":"')[1].split("\"")[0]
                 if user:
                     User.query.filter_by(sbID=sbid).update(dict(id=str(login.cookies.get('PHPSESSID'))))
                     User.query.filter_by(sbID=sbid).update(dict(sbCookie=str(login.cookies.get('PHPSESSID'))))
+                    User.query.filter_by(sbID=sbid).update(dict(sbName=name))
                     db.session.commit()
                     user_login = User.query.filter_by(sbID=sbid).first()
                 else:
-                    user_login = User(sbID=sbid, id = str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID')))
+                    user_login = User(sbID=sbid, id = str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID'), sbName=name))
                     db.session.add(user_login)
                     db.session.commit()
                     

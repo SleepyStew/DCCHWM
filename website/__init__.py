@@ -11,6 +11,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from datetime import datetime
+from flask_socketio import SocketIO
 
 load_dotenv(find_dotenv())
 
@@ -19,8 +20,9 @@ migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
 def create_app():
-    global limiter, app
+    global limiter, app, socketio
     app = Flask(__name__)
+    socketio = SocketIO(app)
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
@@ -65,7 +67,7 @@ def create_app():
     
     create_database(app)
 
-    return app
+    return [app, socketio]
     
 
 def create_database(app):
