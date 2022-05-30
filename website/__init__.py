@@ -24,7 +24,7 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    db.init_app(app, render_as_batch=True)
+    db.init_app(app)
     csrf = CSRFProtect()
     csrf.init_app(app) # Compliant
     print("[?] Setup config and initialised database.")
@@ -61,7 +61,7 @@ def create_app():
 
     print("[?] Setup Page Blueprints")
 
-    migrate = Migrate(app, db)
+    migrate = Migrate(app, db, render_as_batch=True)
     
     create_database(app)
 
