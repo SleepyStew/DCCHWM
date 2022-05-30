@@ -9,3 +9,4 @@ flask_migrate
 python-dotenv
 Flask-WTF
 flask_limiter
+Flask-SocketIO
