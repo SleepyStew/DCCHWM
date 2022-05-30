@@ -17,14 +17,9 @@ document.getElementById('sendmessage').addEventListener('click', function() {
 var prev = "";
 
 socket.on('chatmessage', function(data) {
-  if (prev == data.username) {
-    document.getElementById('messages').innerHTML += '<div class="message join"><span class="username">' + data.username + '</span>: ' + data.message + '</div>';
-  } else {
-    document.getElementById('messages').innerHTML += '<div class="message"><span class="username">' + data.username + '</span>: ' + data.message + '</div>';
-  }
+  document.getElementById('messages').innerHTML += '<div class="message"><span class="username">' + data.username + '</span>' + data.message + '</div>';
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  // prev = data.username;
-  
+
   var converter = new showdown.Converter();
   var messages = document.getElementsByClassName("message")
   messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);

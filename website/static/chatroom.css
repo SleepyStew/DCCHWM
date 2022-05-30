@@ -22,3 +22,7 @@
         display: unset !important;
     }
 }
+span.username {
+    font-weight: 600;
+    display: block;
+}
