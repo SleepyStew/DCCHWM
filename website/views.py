@@ -55,7 +55,7 @@ def quicknotes():
 
 @views.route('/chatroom', methods=['GET'])
 @login_required
-def settings():
+def chatroom():
     return render_template("chatroom.html", user=current_user)
 
 @views.route('/settings', methods=['GET'])
