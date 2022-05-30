@@ -48,5 +48,3 @@ document.querySelectorAll('.delete-message').forEach(element => {
     deleteMessage(element.parentElement.parentElement.id);
   });
 });
-
-document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
