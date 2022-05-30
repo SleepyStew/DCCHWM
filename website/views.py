@@ -3,7 +3,6 @@ from unicodedata import category
 from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
 import flask_login
-from regex import P
 from sqlalchemy import false
 from .api import get_upcoming_due_work
 from . import db
