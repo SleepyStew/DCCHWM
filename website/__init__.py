@@ -15,7 +15,7 @@ from datetime import datetime
 load_dotenv(find_dotenv())
 
 db = SQLAlchemy()
-migrate = Migrate(db)
+migrate = Migrate(db, render_as_batch=True)
 DB_NAME = "schoolbox.db"
 
 def create_app():
