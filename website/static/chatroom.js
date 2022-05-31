@@ -51,9 +51,7 @@ document.querySelectorAll('.delete-message').forEach(element => {
 });
 
 document.querySelectorAll('.message').forEach(message => {
-  console.log(message.getElementsByClassName("username")[0].innerText);
-  console.log(document.getElementById("my-username"));
-  if (message.getElementsByClassName("username")[0].innerText == document.getElementById("my-username")) {
+  if (message.getElementsByClassName("username")[0].innerText == document.getElementById("my-username").innerText) {
     message.classList.add("mine")
   }
 });
