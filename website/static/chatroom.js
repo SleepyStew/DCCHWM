@@ -82,7 +82,7 @@ window.onload = function() {
       message.style.display = "";
   });
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  document.getElementById('load-more').style.display = "unset";
+  document.getElementById('load-more').style.display = "block";
 };
 
 $('body').on('keydown', function() {
@@ -105,6 +105,7 @@ document.getElementById("load-more").addEventListener("click", function() {
         messages_recieved = _res.data.reverse()
       }
     } else {
+      document.getElementById("load-more").style.boxShadow = "none";
       document.getElementById("load-more").innerText = "No more messages to display";
       document.getElementById("load-more").classList.add("disabled");
       return

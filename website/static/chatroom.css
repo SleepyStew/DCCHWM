@@ -59,3 +59,8 @@ img {
     background-color: rgba(155, 155, 155, 0.5);
     border: transparent;
 }
+@media only screen and (max-width: 600px) {
+    .message {
+        max-width: 80% !important;
+    }
+}
