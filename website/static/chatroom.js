@@ -2,6 +2,8 @@ import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 const socket = io.connect(document.location.origin);
 
+let setting_deleted_messages = document.getElementById('setting_deleted_messages').innerText;
+
 console.log("Websocket connected");
 
 function deleteMessage(id) {
@@ -47,7 +49,11 @@ socket.on('chatmessage', function(data) {
 });
 
 socket.on('deletemessage', function(data) {
-  document.getElementById(data.id.id).innerHTML = document.getElementById(data.id.id).getElementsByClassName("username")[0].outerHTML + "[message deleted]";
+  if (setting_deleted_messages == "show") {
+    document.getElementById(data.id.id).innerHTML = document.getElementById(data.id.id).getElementsByClassName("username")[0].outerHTML + "[message deleted]";
+  } else {
+    document.getElementById(data.id.id).remove();
+  }
 });
 
 document.querySelectorAll('.delete-message').forEach(element => {
