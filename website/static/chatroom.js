@@ -129,19 +129,18 @@ document.getElementById("load-more").addEventListener("click", function() {
       let button = document.getElementById('load-more')
       button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
 
-      console.log(data)
-
       var converter = new showdown.Converter();
       var messages = document.getElementsByClassName("message")
       document.getElementById(new_message.id).innerHTML = converter.makeHtml(document.getElementById(new_message.id).innerHTML);
       document.getElementById(new_message.id).lastChild.style.display = 'inline';
       if (data.mine) {
-        console.log("yep its mine")
         document.getElementById(new_message.id).classList.add("mine")
-        document.getElementById(new_message.id).children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
-        document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
-          deleteMessage(data.id);
-        });
+        if (!data.deleted) {
+          document.getElementById(new_message.id).children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
+          document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
+            deleteMessage(data.id);
+          });
+        };
       }
     });
     if (lastScrollTop == 0) {
