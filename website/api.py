@@ -67,8 +67,7 @@ def get_timetable(response, current_user):
             elements.append(tag)
         except:
             elements.append(tag)
-    
-    print(elements)
+
     return map(str, elements)
 
 # Returns upcoming due work found on the homepage | LIST(HTML)
