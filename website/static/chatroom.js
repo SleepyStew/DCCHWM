@@ -2,7 +2,7 @@ import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 const socket = io.connect(document.location.origin);
 
-let setting_deleted_messages = document.getElementById('setting_deleted_messages').innerText;
+let setting_deleted_messages = document.getElementById('show-deleted-messages').innerText;
 
 console.log("Websocket connected");
 
