@@ -59,7 +59,7 @@ socket.on('chatmessage', function(data) {
 
 socket.on('deletemessage', function(data) {
   if (setting_deleted_messages == "show") {
-    document.getElementById(data.id.id).innerHTML = document.getElementById(data.id.id).getElementsByClassName("username")[0].outerHTML + "[message deleted]";
+    document.getElementById(data.id.id).innerHTML = document.getElementById(data.id.id).getElementsByClassName("username")[0].outerHTML + document.getElementById(data.id.id).getElementsByClassName("date")[0].outerHTML + "[message deleted]";
   } else {
     document.getElementById(data.id.id).remove();
   }
