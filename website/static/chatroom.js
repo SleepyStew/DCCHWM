@@ -69,8 +69,9 @@ window.onload = function() {
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 };
 
-document.body.addEventListener('keydown', function() {
-  if (!document.getElementById('messageinput').is(':focus')) {
-    document.getElementById('messageinput').focus();
+$('body').on('keydown', function() {
+  var input = $('input[name="text_input"]');
+  if(!input.is(':focus')) {
+      input.focus();
   }
 });
