@@ -198,6 +198,8 @@ def chat_message(message):
             if len(message['message']) > 1024:
                 flash("This message is too long.", category="error")
                 return
+            if message['message'] == "" or str(message['message']).isspace():
+                return
             message['message'] = message['message'].replace('\n', ' ')
             message_store = Message(username=current_user.sbName, content=message['message'])
             db.session.add(message_store)
