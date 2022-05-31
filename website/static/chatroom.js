@@ -70,7 +70,7 @@ window.onload = function() {
 };
 
 $('body').on('keydown', function() {
-  var input = $('input[name="text_input"]');
+  var input = $('#messageinput');
   if(!input.is(':focus')) {
       input.focus();
   }
