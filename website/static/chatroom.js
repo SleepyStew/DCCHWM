@@ -98,8 +98,12 @@ document.getElementById("load-more").addEventListener("click", function() {
   var lastScrollTop = el.scrollTop;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
     let messages_recieved;
-    if (_res.data.length > 1) {
-      messages_recieved = _res.data.reverse()
+    if (_res.data.length > 0) {
+      if (messages_loaded == 1) {
+        messages_recieved = _res.data;
+      } else {
+        messages_recieved = _res.data.reverse()
+      }
     } else {
       document.getElementById("load-more").innerText = "No more messages to display";
       document.getElementById("load-more").classList.add("disabled");

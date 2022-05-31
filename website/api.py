@@ -231,7 +231,7 @@ def get_more_messages():
         amount = args.get("amount")
         start_from = args.get("from")
         if len(Message.query.all()) + int(amount) < int(start_from):
-            return json.dumps({"id": -1, "message": "There are no more messages to display.", "username": "Error", "mine": False, "deleted": False, "datetime": ""})
+            return json.dumps({})
         from_zone = tz.tzutc()
         to_zone = tz.tzlocal()
         for message in Message.query.all()[-int(start_from):][:int(amount)]:
