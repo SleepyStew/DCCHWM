@@ -65,6 +65,10 @@ socket.on('deletemessage', function(data) {
   }
 });
 
+socket.on('disconnect', function() {
+  location.reload();
+});
+
 document.querySelectorAll('.delete-message').forEach(element => {
   element.addEventListener('click', function() {
     deleteMessage(element.parentElement.parentElement.id);
