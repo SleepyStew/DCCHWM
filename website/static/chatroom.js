@@ -68,3 +68,9 @@ window.onload = function() {
   });
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 };
+
+document.getElementById('messageinput').addEventListener('keydown', function() {
+  if (!document.getElementById('messageinput').is(':focus')) {
+    document.getElementById('messageinput').focus();
+  }
+});
