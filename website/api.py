@@ -195,23 +195,22 @@ def update_setting():
 
 @socketio.on('chatmessage')
 def chat_message(message):
-    if current_user.is_authenticated:
-        if message['message']:
-            if len(message['message']) > 1024:
-                flash("This message is too long.", category="error")
-                return
-            if message['message'] == "" or str(message['message']).isspace():
-                return
-            message['message'] = message['message'].replace('\n', ' ')
-            message_store = Message(username=current_user.sbName, content=message['message'])
-            db.session.add(message_store)
-            db.session.commit()
-            from_zone = tz.tzutc()
-            to_zone = tz.tzlocal()
-            utc = Message.query.filter_by(id=message_store.id).first().date
-            utc = utc.replace(tzinfo=from_zone)
-            central = utc.astimezone(to_zone)
-            emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": central.strftime('%H:%M')}, broadcast=True)
+    if current_user.is_authenticated and message['message']:
+        if len(message['message']) > 1024:
+            flash("This message is too long.", category="error")
+            return
+        if message['message'] == "" or str(message['message']).isspace():
+            return
+        message['message'] = message['message'].replace('\n', ' ')
+        message_store = Message(username=current_user.sbName, content=message['message'])
+        db.session.add(message_store)
+        db.session.commit()
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
+        utc = Message.query.filter_by(id=message_store.id).first().date
+        utc = utc.replace(tzinfo=from_zone)
+        central = utc.astimezone(to_zone)
+        emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": central.strftime('%H:%M')}, broadcast=True)
 
 @socketio.on('deletemessage')
 def delete_message(id):

@@ -37,6 +37,7 @@ span.username {
 }
 #messageinput {
     border-radius: 0 0 10px 10px;
+    height: 0;
 }
 .message.mine {
     background-color: #93ec93;
@@ -46,9 +47,6 @@ span.username {
 img {
     max-width: 100%;
     max-height: 100%;
-}
-#messageinput {
-    height: 0;
 }
 ::-webkit-scrollbar {
     width: 9px;

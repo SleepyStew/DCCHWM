@@ -106,7 +106,7 @@ document.getElementById("load-more").addEventListener("click", function() {
       return
     }
     messages_recieved.forEach(data => {
-      if (setting_deleted_messages == "hide" && data.deleted == true) {
+      if (setting_deleted_messages == "hide" && data.deleted) {
         return;
       }
       let username_element = document.createElement('span')
@@ -130,7 +130,6 @@ document.getElementById("load-more").addEventListener("click", function() {
       button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
 
       var converter = new showdown.Converter();
-      var messages = document.getElementsByClassName("message")
       document.getElementById(new_message.id).innerHTML = converter.makeHtml(document.getElementById(new_message.id).innerHTML);
       document.getElementById(new_message.id).lastChild.style.display = 'inline';
       if (data.mine) {
@@ -140,7 +139,7 @@ document.getElementById("load-more").addEventListener("click", function() {
           document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
             deleteMessage(data.id);
           });
-        };
+        }
       }
     });
     if (lastScrollTop == 0) {
