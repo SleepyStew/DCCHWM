@@ -53,6 +53,8 @@ def get_timetable(response, current_user):
 
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
 
+        print(tag, file=sys.stderr)
+
         if len(tag.find_all()) == 2:
             tag.append(soup.new_tag("br"))
         
