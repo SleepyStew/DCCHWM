@@ -53,8 +53,6 @@ def get_timetable(response, current_user):
 
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
 
-        print(tag, file=sys.stderr)
-
         if len(tag.find_all()) == 2:
             tag.append(soup.new_tag("br"))
         
@@ -69,7 +67,8 @@ def get_timetable(response, current_user):
             elements.append(tag)
         except:
             elements.append(tag)
-
+    
+    print(elements)
     return map(str, elements)
 
 # Returns upcoming due work found on the homepage | LIST(HTML)
