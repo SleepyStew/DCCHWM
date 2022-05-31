@@ -26,11 +26,18 @@ socket.on('chatmessage', function(data) {
   let username_element = document.createElement('span')
   username_element.innerText = data.username
   username_element.classList.add("username")
+  username_element.style.display = "inline"
+  let date_element = document.createElement('span')
+  date_element.innerText = " " + data.datetime
+  date_element.classList.add("date")
+  date_element.style.display = "inline"
+  date_element.innerHTML += "<br>"
   let new_message = document.createElement('div')
   new_message.classList.add("message")
   new_message.classList.add("list-group-item")
   new_message.id = data.id
   new_message.innerText = data.message
+  new_message.prepend(date_element)
   new_message.prepend(username_element)
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
