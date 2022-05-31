@@ -61,9 +61,3 @@ document.querySelectorAll('.message').forEach(message => {
     message.classList.add("mine")
   }
 });
-
-document.querySelectorAll('.message').forEach(message => {
-  message.style.display = "unset";
-});
-
-document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
