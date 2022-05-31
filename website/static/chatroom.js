@@ -23,7 +23,13 @@ document.getElementById('sendmessage').addEventListener('click', function() {
 var prev = "";
 
 socket.on('chatmessage', function(data) {
-  document.getElementById('messages').insertAdjacentHTML('beforeend', '<div id="' + data.id + '" class="message list-group-item"><span class="username">' + data.username + '</span>' + String(data.message) + '</div>');
+  let new_message = document.createElement('div')
+  new_message.classList.add("message")
+  new_message.classList.add("list-group-item")
+  new_message.id = data.id
+  new_message.innerHTML = '<span class="username">' + data.username + '</span>'
+  new_message.innerText = data.message
+  document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
   var converter = new showdown.Converter();
