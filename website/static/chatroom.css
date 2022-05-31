@@ -5,6 +5,8 @@
     border-radius: 10px 10px 10px 0 !important;
     padding: 6px 8px;
     margin-bottom: 10px;
+    max-width: 50%;
+    overflow-wrap: break-word;
 }
 #messages {
     background: #23272a;
@@ -34,4 +36,9 @@ span.username {
 }
 #messageinput {
     border-radius: 0 0 10px 10px;
+}
+.message.mine {
+    background-color: #83fc83;
+    margin-left: auto;
+    border-radius: 10px 10px 0 10px !important;
 }
