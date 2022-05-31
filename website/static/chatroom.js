@@ -45,8 +45,13 @@ socket.on('deletemessage', function(data) {
 });
 
 document.querySelectorAll('.delete-message').forEach(element => {
-  element.parentElement.parentElement.classList.add("mine")
   element.addEventListener('click', function() {
     deleteMessage(element.parentElement.parentElement.id);
   });
+});
+
+document.querySelectorAll('.message').forEach(element => {
+  if (element.getElementsByClassName("username")[0].innerText == document.getElementById("my-username")) {
+    element.classList.add("mine")
+  }
 });
