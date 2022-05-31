@@ -10,3 +10,4 @@ python-dotenv
 Flask-WTF
 flask_limiter
 Flask-SocketIO
+python-dateutil
