@@ -50,8 +50,8 @@ document.querySelectorAll('.delete-message').forEach(element => {
   });
 });
 
-document.querySelectorAll('.message').forEach(element => {
-  if (element.getElementsByClassName("username")[0].innerText == document.getElementById("my-username")) {
-    element.classList.add("mine")
+document.querySelectorAll('.message').forEach(message => {
+  if (message.getElementsByClassName("username")[0].innerText == document.getElementById("my-username")) {
+    message.classList.add("mine")
   }
 });
