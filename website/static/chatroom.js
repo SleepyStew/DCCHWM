@@ -31,7 +31,7 @@ socket.on('chatmessage', function(data) {
   new_message.classList.add("list-group-item")
   new_message.id = data.id
   new_message.innerText = data.message
-  new_message.appendChild(username_element)
+  new_message.prepend(username_element)
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
