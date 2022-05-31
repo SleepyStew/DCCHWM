@@ -15,12 +15,6 @@
         messages[i].innerHTML = converter.makeHtml(messages[i].innerHTML)
         messages[i].lastChild.style.display = 'inline';
     }
-    window.onload = function() {
-        document.querySelectorAll('.message').forEach(message => {
-            message.style.display = "";
-        });
-        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    };
 </script>
 <textarea class="form-control mb-3" id="messageinput" placeholder="Enter your message here..." maxlength=1024></textarea>
 <button id="sendmessage" class="btn btn-primary">Send Message</button>
