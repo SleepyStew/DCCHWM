@@ -14,8 +14,10 @@
     for (var i = 0; i < messages.length; i++) {
         messages[i].innerHTML = converter.makeHtml(messages[i].innerHTML)
         messages[i].lastChild.style.display = 'inline';
-        messages[i].style.display = "auto";
     }
+    document.querySelectorAll('.message').forEach(message => {
+        message.style.display = "";
+    });
     document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 </script>
 <textarea class="form-control mb-3" id="messageinput" placeholder="Enter your message here..." maxlength=1024></textarea>
