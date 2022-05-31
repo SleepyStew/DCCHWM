@@ -7,9 +7,8 @@
 </head>
 <div id="my-username" style="display: none;">{{ user.sbName }}</div>
 <h1 class="text-light fw-bold">Chatroom</h1>
-<div id="messages" class="text-light mb-3">{% for message in recent_messages %}<div class="message list-group-item" id="{{ message['id'] }}"><span class="username">{{ message['username'] }}</span>{{ message['message'] | string }}{% if (message['mine'] and not message['deleted']) %}<button type="button" class="btn-close position-absolute end-0 me-2 delete-message" alt="Delete Note"></button>{% endif %}</div>{% endfor %}</div>
+<div id="messages" class="text-light mb-3">{% for message in recent_messages %}<div class="message list-group-item" id="{{ message['id'] }}" style="display: none;"><span class="username">{{ message['username'] }}</span>{{ message['message'] | string }}{% if (message['mine'] and not message['deleted']) %}<button type="button" class="btn-close position-absolute end-0 me-2 delete-message" alt="Delete Note"></button>{% endif %}</div>{% endfor %}</div>
 <script>
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
     var converter = new showdown.Converter();
     var messages = document.getElementsByClassName("message")
     for (var i = 0; i < messages.length; i++) {

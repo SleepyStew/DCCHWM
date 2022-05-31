@@ -20,8 +20,6 @@ document.getElementById('sendmessage').addEventListener('click', function() {
   document.getElementById('messageinput').value = '';
 });
 
-var prev = "";
-
 socket.on('chatmessage', function(data) {
   let username_element = document.createElement('span')
   username_element.innerText = data.username
@@ -63,3 +61,9 @@ document.querySelectorAll('.message').forEach(message => {
     message.classList.add("mine")
   }
 });
+
+document.querySelectorAll('.message').forEach(message => {
+  message.style.display = "unset";
+});
+
+document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
