@@ -5,11 +5,12 @@
     <link rel="stylesheet" href="/static/chatroom.css">
     <script src="https://cdn.rawgit.com/showdownjs/showdown/latest/dist/showdown.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <div id="my-username" style="display: none;">{{ user.sbName }}</div>
 <div id="show-deleted-messages" style="display: none;">{{ user.setting_deleted_messages }}</div>
 <h1 class="text-light fw-bold">Chatroom</h1>
-<div id="messages" class="text-light mb-3">{% for message in recent_messages %}{% if not (message['deleted'] == True and user.setting_deleted_messages == "hide") %}<div class="message list-group-item" id="{{ message['id'] }}" style="display: none;"><span class="username" style="display: inline;">{{ message['username'] }}</span><span class="date" style="display: inline;"> {{ message['datetime'] }}</span><br>{{ message['message'] | string }}{% if (message['mine'] and not message['deleted']) %}<button type="button" class="btn-close position-absolute end-0 me-2 delete-message" alt="Delete Note"></button>{% endif %}</div>{% endif %}{% endfor %}</div>
+<div id="messages" class="text-light mb-3"><button id="load-more" style="display: none;" class="btn btn-primary mb-3">Load More</button>{% for message in recent_messages %}{% if not (message['deleted'] == True and user.setting_deleted_messages == "hide") %}<div class="message list-group-item" id="{{ message['id'] }}" style="display: none;"><span class="username" style="display: inline;">{{ message['username'] }}</span><span class="date" style="display: inline;"> {{ message['datetime'] }}</span><br>{{ message['message'] | string }}{% if (message['mine'] and not message['deleted']) %}<button type="button" class="btn-close position-absolute end-0 me-2 delete-message" alt="Delete Note"></button>{% endif %}</div>{% endif %}{% endfor %}</div>
 <script>
     var converter = new showdown.Converter();
     var messages = document.getElementsByClassName("message")

@@ -4,6 +4,8 @@ const socket = io.connect(document.location.origin);
 
 let setting_deleted_messages = document.getElementById('show-deleted-messages').innerText;
 
+let messages_loaded = 100
+
 console.log("Websocket connected");
 
 function deleteMessage(id) {
@@ -80,6 +82,7 @@ window.onload = function() {
       message.style.display = "";
   });
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+  document.getElementById('load-more').style.display = "unset";
 };
 
 $('body').on('keydown', function() {
@@ -88,3 +91,62 @@ $('body').on('keydown', function() {
       input.focus();
   }
 });
+
+document.getElementById("load-more").addEventListener("click", function() {
+  let el = document.getElementById("messages");
+  var lastScrollHeight = el.scrollHeight;
+  var lastScrollTop = el.scrollTop;
+  axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
+    let messages_recieved;
+    if (_res.data.length > 1) {
+      messages_recieved = _res.data.reverse()
+    } else {
+      document.getElementById("load-more").innerText = "No more messages to display";
+      document.getElementById("load-more").classList.add("disabled");
+      return
+    }
+    messages_recieved.forEach(data => {
+      if (setting_deleted_messages == "hide" && data.deleted == true) {
+        return;
+      }
+      let username_element = document.createElement('span')
+      username_element.innerText = data.username
+      username_element.classList.add("username")
+      username_element.style.display = "inline"
+      let date_element = document.createElement('span')
+      date_element.innerText = " " + data.datetime
+      date_element.classList.add("date")
+      date_element.style.display = "inline"
+      date_element.innerHTML += "<br>"
+      let new_message = document.createElement('div')
+      new_message.classList.add("message")
+      new_message.classList.add("list-group-item")
+      new_message.id = data.id
+      new_message.innerText = data.message
+      new_message.prepend(date_element)
+      new_message.prepend(username_element)
+      document.getElementById('messages').insertBefore(new_message, document.getElementById('messages').firstChild)
+      let button = document.getElementById('load-more')
+      button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
+
+      console.log(data)
+
+      var converter = new showdown.Converter();
+      var messages = document.getElementsByClassName("message")
+      document.getElementById(new_message.id).innerHTML = converter.makeHtml(document.getElementById(new_message.id).innerHTML);
+      document.getElementById(new_message.id).lastChild.style.display = 'inline';
+      if (data.mine) {
+        console.log("yep its mine")
+        document.getElementById(new_message.id).classList.add("mine")
+        document.getElementById(new_message.id).children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
+        document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
+          deleteMessage(data.id);
+        });
+      }
+    });
+    if (lastScrollTop == 0) {
+      var scrollDiff = el.scrollHeight - lastScrollHeight;
+      el.scrollTop += scrollDiff; 
+    }
+    messages_loaded += 100
+})});

@@ -1,7 +1,7 @@
 from dataclasses import replace
 from re import S, sub
 from unicodedata import category
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from flask_login import login_user, login_required, logout_user, current_user
 import requests
 import bs4
@@ -15,6 +15,7 @@ from . import socketio
 import sys
 from . import app
 from dateutil import tz
+from datetime import datetime
 
 api = Blueprint('api', __name__)  
 
@@ -220,3 +221,40 @@ def delete_message(id):
             Message.query.filter_by(id=message.id).update(dict(content="[message deleted]", deleted=True))
             db.session.commit()
             emit('deletemessage', {"id": id}, broadcast=True)
+
+@api.route("/get-more-messages", methods=['GET'])
+def get_more_messages():
+    args = request.args
+    if not args:
+        return json.dumps({'success': False})
+    if current_user.is_authenticated:
+        recent_messages = []
+        amount = args.get("amount")
+        start_from = args.get("from")
+        if len(Message.query.all()) + int(amount) < int(start_from):
+            return json.dumps({"id": -1, "message": "There are no more messages to display.", "username": "Error", "mine": False, "deleted": False, "datetime": ""})
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
+        for message in Message.query.all()[-int(start_from):][:int(amount)]:
+            if message.username == current_user.sbName:
+                utc = Message.query.filter_by(id=message.id).first().date
+                utc = utc.replace(tzinfo=from_zone)
+                central = utc.astimezone(to_zone)
+                if central.date() == datetime.now().date():
+                    central = central.strftime('%H:%M')
+                else:
+                    central = central.strftime('%d/%m/%Y')
+                recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": central})
+            else:
+                utc = Message.query.filter_by(id=message.id).first().date
+                utc = utc.replace(tzinfo=from_zone)
+                central = utc.astimezone(to_zone)
+                if central.date() == datetime.now().date():
+                    central = central.strftime('%H:%M')
+                else:
+                    central = central.strftime('%d/%m/%Y')
+                recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": central})
+        response = make_response(json.dumps(recent_messages), 200)
+        response.mimetype = "text/plain"
+        return response
+    return json.dumps({'success': False})
