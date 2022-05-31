@@ -31,12 +31,13 @@ socket.on('chatmessage', function(data) {
   var messages = document.getElementsByClassName("message")
   messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
   messages[messages.length - 1].lastChild.style.display = 'inline';
-  messages[messages.length - 1].children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
-  console.log(messages[messages.length - 1].children[0].lastChild);
-  console.log(messages[messages.length - 1].id);
-  document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
-    deleteMessage(data.id);
-  });
+  if (document.getElementById("username").innerText == document.getElementById(data.id).getElementsByClassName("username")[0].innerText) {
+    messages[messages.length - 1].classList.add("mine")
+    messages[messages.length - 1].children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
+    document.getElementById(data.id).children[0].lastChild.addEventListener('click', function() {
+      deleteMessage(data.id);
+    });
+  }
 });
 
 socket.on('deletemessage', function(data) {
@@ -44,6 +45,7 @@ socket.on('deletemessage', function(data) {
 });
 
 document.querySelectorAll('.delete-message').forEach(element => {
+  element.parentElement.parentElement.classList.add("mine")
   element.addEventListener('click', function() {
     deleteMessage(element.parentElement.parentElement.id);
   });
