@@ -5,7 +5,6 @@ const socket = io.connect(document.location.origin);
 console.log("Websocket connected");
 
 function deleteMessage(id) {
-    console.log
     socket.emit('deletemessage', { id: id });
 }
 
