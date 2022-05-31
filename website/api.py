@@ -66,9 +66,9 @@ def get_timetable(response, current_user):
                 break
         try:
             tag.find_all()[0]['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find_all()[0]['href']
+            elements.append(tag)
         except:
-            pass
-        elements.append(tag)
+            elements.append(tag)
 
     return map(str, elements)
 
