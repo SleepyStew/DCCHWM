@@ -96,14 +96,16 @@ $('body').on('keydown', function() {
   }
 });
 
+let getting_more = false;
 document.getElementById("messages").addEventListener("scroll", function() {
   let el = document.getElementById("messages");
   var lastScrollHeight = el.scrollHeight;
   var lastScrollTop = el.scrollTop;
-  if (lastScrollTop > 1000) {
+  if (lastScrollTop > 1000 || getting_more) {
     return;
   }
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
+    getting_more = true;
     let messages_recieved;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
@@ -159,4 +161,5 @@ document.getElementById("messages").addEventListener("scroll", function() {
       el.scrollTop += scrollDiff; 
     }
     messages_loaded += 100
+    getting_more = false;
 })});
