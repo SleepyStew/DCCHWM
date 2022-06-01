@@ -20,6 +20,7 @@ import sys
 import json
 from dateutil import tz
 from datetime import datetime
+from .api import get_recent_messages, convert_date
 
 views = Blueprint('views', __name__)  
 
@@ -63,28 +64,7 @@ def quicknotes():
 @views.route('/chatroom', methods=['GET'])
 @login_required
 def chatroom():
-    recent_messages = []
-    from_zone = tz.tzutc()
-    to_zone = tz.tzlocal()
-    for message in Message.query.all()[-100:]:
-        if message.username == current_user.sbName:
-            utc = Message.query.filter_by(id=message.id).first().date
-            utc = utc.replace(tzinfo=from_zone)
-            central = utc.astimezone(to_zone)
-            if central.date() == datetime.now().date():
-                central = central.strftime('%H:%M')
-            else:
-                central = central.strftime('%d/%m/%Y')
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": central})
-        else:
-            utc = Message.query.filter_by(id=message.id).first().date
-            utc = utc.replace(tzinfo=from_zone)
-            central = utc.astimezone(to_zone)
-            if central.date() == datetime.now().date():
-                central = central.strftime('%H:%M')
-            else:
-                central = central.strftime('%d/%m/%Y')
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": central})
+    recent_messages = get_recent_messages(current_user)
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
 @views.route('/settings', methods=['GET'])

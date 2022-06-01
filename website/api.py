@@ -122,6 +122,35 @@ def note_is_valid(note):
         return False
     return True
 
+def get_recent_messages(current_user):
+    recent_messages = []
+    from_zone = tz.tzutc()
+    to_zone = tz.tzlocal()
+    for message in Message.query.all()[-100:]:
+        if message.username == current_user.sbName:
+            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
+            datetime = dates[0]
+            fulldate = dates[1]
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+        else:
+            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
+            datetime = dates[0]
+            fulldate = dates[1]
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+    return recent_messages
+
+from_zone = tz.tzutc()
+to_zone = tz.tzlocal()
+def convert_date(date):
+    date = date.replace(tzinfo=from_zone)
+    datetime = date.astimezone(to_zone)
+    fulldate = datetime.strftime('%d/%m/%Y %H:%M:%S')
+    if datetime.date() == datetime.now().date():
+        datetime = datetime.strftime('%H:%M')
+    else:
+        datetime = datetime.strftime('%d/%m/%Y')
+    return [datetime, fulldate]
+
 #########################################
 # Function above this | Endpoints below #
 #########################################
@@ -205,12 +234,10 @@ def chat_message(message):
         message_store = Message(username=current_user.sbName, content=message['message'])
         db.session.add(message_store)
         db.session.commit()
-        from_zone = tz.tzutc()
-        to_zone = tz.tzlocal()
-        utc = Message.query.filter_by(id=message_store.id).first().date
-        utc = utc.replace(tzinfo=from_zone)
-        central = utc.astimezone(to_zone)
-        emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": central.strftime('%H:%M')}, broadcast=True)
+        dates = convert_date(Message.query.filter_by(id=message_store.id).first().date)
+        datetime = dates[0]
+        fulldate = dates[1]
+        emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate}, broadcast=True)
 
 @socketio.on('deletemessage')
 def delete_message(id):
@@ -232,27 +259,17 @@ def get_more_messages():
     start_from = args.get("from")
     if len(Message.query.all()) + int(amount) < int(start_from):
         return json.dumps({})
-    from_zone = tz.tzutc()
-    to_zone = tz.tzlocal()
     for message in Message.query.all()[-int(start_from):][:int(amount)]:
         if message.username == current_user.sbName:
-            utc = Message.query.filter_by(id=message.id).first().date
-            utc = utc.replace(tzinfo=from_zone)
-            central = utc.astimezone(to_zone)
-            if central.date() == datetime.now().date():
-                central = central.strftime('%H:%M')
-            else:
-                central = central.strftime('%d/%m/%Y')
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": central})
+            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
+            datetime = dates[0]
+            fulldate = dates[1]
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
         else:
-            utc = Message.query.filter_by(id=message.id).first().date
-            utc = utc.replace(tzinfo=from_zone)
-            central = utc.astimezone(to_zone)
-            if central.date() == datetime.now().date():
-                central = central.strftime('%H:%M')
-            else:
-                central = central.strftime('%d/%m/%Y')
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": central})
+            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
+            datetime = dates[0]
+            fulldate = dates[1]
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
     response = make_response(json.dumps(recent_messages), 200)
     response.mimetype = "text/plain"
     return response

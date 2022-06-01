@@ -34,6 +34,7 @@ socket.on('chatmessage', function(data) {
   date_element.classList.add("date")
   date_element.style.display = "inline"
   date_element.innerHTML += "<br>"
+  date_element.title = data.fulldate
   let new_message = document.createElement('div')
   new_message.classList.add("message")
   new_message.classList.add("list-group-item")
@@ -130,6 +131,7 @@ document.getElementById("messages").addEventListener("scroll", function() {
       date_element.classList.add("date")
       date_element.style.display = "inline"
       date_element.innerHTML += "<br>"
+      date_element.title = data.fulldate
       let new_message = document.createElement('div')
       new_message.classList.add("message")
       new_message.classList.add("list-group-item")
