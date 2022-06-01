@@ -222,38 +222,37 @@ def delete_message(id):
             emit('deletemessage', {"id": id}, broadcast=True)
 
 @api.route("/get-more-messages", methods=['GET'])
+@login_required
 def get_more_messages():
     args = request.args
-    if not args:
-        return json.dumps({'success': False})
-    if current_user.is_authenticated:
-        recent_messages = []
-        amount = args.get("amount")
-        start_from = args.get("from")
-        if len(Message.query.all()) + int(amount) < int(start_from):
-            return json.dumps({})
-        from_zone = tz.tzutc()
-        to_zone = tz.tzlocal()
-        for message in Message.query.all()[-int(start_from):][:int(amount)]:
-            if message.username == current_user.sbName:
-                utc = Message.query.filter_by(id=message.id).first().date
-                utc = utc.replace(tzinfo=from_zone)
-                central = utc.astimezone(to_zone)
-                if central.date() == datetime.now().date():
-                    central = central.strftime('%H:%M')
-                else:
-                    central = central.strftime('%d/%m/%Y')
-                recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": central})
+    if not args or not args.get("amount") or not args.get("from"):
+        return json.dumps({'success': False, 'error': 'invalid arguments'})
+    recent_messages = []
+    amount = args.get("amount")
+    start_from = args.get("from")
+    if len(Message.query.all()) + int(amount) < int(start_from):
+        return json.dumps({})
+    from_zone = tz.tzutc()
+    to_zone = tz.tzlocal()
+    for message in Message.query.all()[-int(start_from):][:int(amount)]:
+        if message.username == current_user.sbName:
+            utc = Message.query.filter_by(id=message.id).first().date
+            utc = utc.replace(tzinfo=from_zone)
+            central = utc.astimezone(to_zone)
+            if central.date() == datetime.now().date():
+                central = central.strftime('%H:%M')
             else:
-                utc = Message.query.filter_by(id=message.id).first().date
-                utc = utc.replace(tzinfo=from_zone)
-                central = utc.astimezone(to_zone)
-                if central.date() == datetime.now().date():
-                    central = central.strftime('%H:%M')
-                else:
-                    central = central.strftime('%d/%m/%Y')
-                recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": central})
-        response = make_response(json.dumps(recent_messages), 200)
-        response.mimetype = "text/plain"
-        return response
-    return json.dumps({'success': False})
+                central = central.strftime('%d/%m/%Y')
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": central})
+        else:
+            utc = Message.query.filter_by(id=message.id).first().date
+            utc = utc.replace(tzinfo=from_zone)
+            central = utc.astimezone(to_zone)
+            if central.date() == datetime.now().date():
+                central = central.strftime('%H:%M')
+            else:
+                central = central.strftime('%d/%m/%Y')
+            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": central})
+    response = make_response(json.dumps(recent_messages), 200)
+    response.mimetype = "text/plain"
+    return response
