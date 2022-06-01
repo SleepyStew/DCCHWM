@@ -100,10 +100,10 @@ document.getElementById("messages").addEventListener("scroll", function() {
   if (el.scrollTop > 1500 || getting_more) {
     return;
   }
+  let top_message = document.getElementById("messages").children[1];
   getting_more = true;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
     let oldScrollTop = el.scrollTop;
-    let oldScrollHeight = el.scrollHeight;
     let messages_recieved;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
@@ -154,8 +154,10 @@ document.getElementById("messages").addEventListener("scroll", function() {
         }
       }
     });
+    el = document.getElementById("messages");
+    let top_message_offset = top_message.offsetTop;
     if (oldScrollTop == 0) {
-      el.scrollTop = oldScrollHeight - oldScrollTop 
+      el.scrollTop = top_message_offset - 190;
     }
     messages_loaded += 100
     getting_more = false;
