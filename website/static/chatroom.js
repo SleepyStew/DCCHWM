@@ -107,6 +107,8 @@ document.getElementById("messages").addEventListener("scroll", function() {
   console.log("get more")
   getting_more = true;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
+    lastScrollHeight = el.scrollHeight;
+    lastScrollTop = el.scrollTop;
     let messages_recieved;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
