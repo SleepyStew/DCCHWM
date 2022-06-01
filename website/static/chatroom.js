@@ -101,7 +101,7 @@ document.getElementById("messages").addEventListener("scroll", function() {
   let el = document.getElementById("messages");
   var lastScrollHeight = el.scrollHeight;
   var lastScrollTop = el.scrollTop;
-  if (lastScrollTop > 1000 || getting_more) {
+  if (lastScrollTop > 1000 || !getting_more) {
     return;
   }
   console.log("get more")
