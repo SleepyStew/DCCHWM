@@ -99,7 +99,6 @@ $('body').on('keydown', function() {
 let getting_more = false;
 document.getElementById("messages").addEventListener("scroll", function() {
   let el = document.getElementById("messages");
-  var lastScrollHeight = el.scrollHeight;
   var lastScrollTop = el.scrollTop;
   if (lastScrollTop > 2000 || getting_more) {
     return;
@@ -107,9 +106,6 @@ document.getElementById("messages").addEventListener("scroll", function() {
   getting_more = true;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
     let messages_recieved;
-    el = document.getElementById("messages");
-    lastScrollHeight = el.scrollHeight;
-    lastScrollTop = el.scrollTop;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
         messages_recieved = _res.data;
@@ -159,10 +155,26 @@ document.getElementById("messages").addEventListener("scroll", function() {
         }
       }
     });
-    if (lastScrollTop == 0) {
-      var scrollDiff = el.scrollHeight - lastScrollHeight;
-      el.scrollTop += scrollDiff; 
-    }
     messages_loaded += 100
     getting_more = false;
 })});
+
+function autoScroll() {
+  var div = document.getElementById("messages");
+  div.style.display = '';
+  var top = div.offsetTop;
+  if(window.scrollTop != top) 
+      window.scrollTo(0, top);
+}
+function loadAutoScroll() {
+  autoScroll();
+  window.onload = null;
+  return false;
+}
+function scrollAutoScroll() {
+  autoScroll();
+  window.setTimeout(function(){ window.onscroll = null; }, 100);
+  return false;
+}
+window.onload = loadAutoScroll;
+window.onscroll = scrollAutoScroll;
