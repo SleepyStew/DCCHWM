@@ -97,12 +97,13 @@ $('body').on('keydown', function() {
 let getting_more = false;
 document.getElementById("messages").addEventListener("scroll", function() {
   let el = document.getElementById("messages");
-  var lastScrollTop = el.scrollTop;
-  if (lastScrollTop > 2000 || getting_more) {
+  if (el.scrollTop > 1500 || getting_more) {
     return;
   }
   getting_more = true;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
+    let oldScrollTop = el.scrollTop;
+    let oldScrollHeight = el.scrollHeight;
     let messages_recieved;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
@@ -153,26 +154,9 @@ document.getElementById("messages").addEventListener("scroll", function() {
         }
       }
     });
+    if (oldScrollTop == 0) {
+      el.scrollTop = oldScrollHeight - oldScrollTop 
+    }
     messages_loaded += 100
     getting_more = false;
 })});
-
-function autoScroll() {
-  var div = document.getElementById("messages");
-  div.style.display = '';
-  var top = div.offsetTop;
-  if(window.scrollTop != top) 
-      window.scrollTo(0, top);
-}
-function loadAutoScroll() {
-  autoScroll();
-  window.onload = null;
-  return false;
-}
-function scrollAutoScroll() {
-  autoScroll();
-  window.setTimeout(function(){ window.onscroll = null; }, 100);
-  return false;
-}
-window.onload = loadAutoScroll;
-window.onscroll = scrollAutoScroll;
