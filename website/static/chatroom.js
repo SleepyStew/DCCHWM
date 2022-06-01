@@ -86,7 +86,7 @@ window.onload = function() {
       message.style.display = "";
   });
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  document.getElementById('load-more').style.display = "block";
+  document.getElementById('no-more').style.display = "block";
 };
 
 $('body').on('keydown', function() {
@@ -96,10 +96,13 @@ $('body').on('keydown', function() {
   }
 });
 
-document.getElementById("load-more").addEventListener("click", function() {
+document.getElementById("messages").addEventListener("scroll", function() {
   let el = document.getElementById("messages");
   var lastScrollHeight = el.scrollHeight;
   var lastScrollTop = el.scrollTop;
+  if (lastScrollTop > 1000) {
+    return;
+  }
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
     let messages_recieved;
     if (_res.data.length > 0) {
@@ -109,9 +112,9 @@ document.getElementById("load-more").addEventListener("click", function() {
         messages_recieved = _res.data.reverse()
       }
     } else {
-      document.getElementById("load-more").style.boxShadow = "none";
-      document.getElementById("load-more").innerText = "No more messages to display";
-      document.getElementById("load-more").classList.add("disabled");
+      document.getElementById("no-more").style.boxShadow = "none";
+      document.getElementById("no-more").innerText = "No more messages to display";
+      document.getElementById("no-more").classList.add("disabled");
       return
     }
     messages_recieved.forEach(data => {
@@ -135,7 +138,7 @@ document.getElementById("load-more").addEventListener("click", function() {
       new_message.prepend(date_element)
       new_message.prepend(username_element)
       document.getElementById('messages').insertBefore(new_message, document.getElementById('messages').firstChild)
-      let button = document.getElementById('load-more')
+      let button = document.getElementById('no-more')
       button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
 
       var converter = new showdown.Converter();
