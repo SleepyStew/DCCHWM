@@ -142,9 +142,9 @@ to_zone = tz.tzlocal()
 def convert_date(date):
     date = date.replace(tzinfo=from_zone)
     datetime = date.astimezone(to_zone)
-    fulldate = datetime.strftime('%d/%m/%Y %H:%M:%S')
+    fulldate = datetime.strftime('%A, %d %B %Y - %H:%M:%S')
     if datetime.date() == datetime.now().date():
-        datetime = datetime.strftime('%H:%M')
+        datetime = datetime.strftime('%I:%M%p')
     else:
         datetime = datetime.strftime('%d/%m/%Y')
     return [datetime, fulldate]
