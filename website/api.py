@@ -144,10 +144,10 @@ def convert_date(date):
     datetime = date.astimezone(to_zone)
     fulldate = datetime.strftime('%A, %-d %B %Y - %H:%M:%S')
     if datetime.date() == datetime.now().date():
-        if current_user.setting_timestamp_hour_type == "12":
-            datetime = datetime.strftime('%-I:%M%p')
-        else:
+        if current_user.setting_timestamp_hour_type == "24":
             datetime = datetime.strftime('%-H:%M')
+        else:
+            datetime = datetime.strftime('%-I:%M%p')
     else:
         datetime = datetime.strftime('%d/%m/%Y')
     return [datetime, fulldate]
