@@ -11,7 +11,7 @@ from .api import get_timetable
 from .auth import logout_current_user
 from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla as flask_admin_sqla
-from .api import note_is_valid
+from .api import note_is_valid, check_if_down
 from . import app
 import requests
 from . import socketio
@@ -43,6 +43,7 @@ def dashboard():
     }
     response = requests.get("https://schoolbox.donvale.vic.edu.au", cookies=cookies)
     timetable = get_timetable(response, current_user)
+    schoolbox_is_down = not check_if_down(response)
     duework = get_upcoming_due_work(response, current_user)
     if timetable == "logout" or duework == "logout":
         flash("Your Schoolbox session has expired, please log back in.", category="error")
@@ -50,7 +51,7 @@ def dashboard():
         return redirect(url_for('auth.login'))
     timetable_headers = ["<div class=\"timetable-top\">Homegroup<br>8:40am-8:55am</div>", "<div class=\"timetable-top\">Period 1<br>9:00am-10:10am</div>", "<div class=\"timetable-top\">Period 2<br>10:30am-11:40am</div>", "<div class=\"timetable-top\">Period 3<br>11:45am-12:55pm</div>", "<div class=\"timetable-top\">Period 4<br>1:50pm-3:05pm</div>"]
     ziptable = zip(timetable, timetable_headers)
-    return render_template("dashboard.html", user=current_user, timetable=ziptable, duework=duework)
+    return render_template("dashboard.html", user=current_user, timetable=ziptable, duework=duework, schoolbox_is_down=schoolbox_is_down)
 
 @views.route('/information')
 def information():

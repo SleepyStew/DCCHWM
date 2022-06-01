@@ -52,7 +52,7 @@ def get_timetable(response, current_user):
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
-
+    
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
 
         if len(tag.find_all()) == 2:
@@ -114,6 +114,11 @@ def get_upcoming_due_work(response, current_user):
         return map(str, elements)
     except AttributeError:
         return []
+
+def check_if_down(response):
+    if "<img src=\"/portrait.php?id=" in response:
+        return True
+    return False
 
 # Returns whether a note is valid or not | BOOLEAN
 def note_is_valid(note):
