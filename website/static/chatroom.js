@@ -81,13 +81,11 @@ document.querySelectorAll('.message').forEach(message => {
   }
 });
 
-window.onload = function() {
-  document.querySelectorAll('.message').forEach(message => {
-      message.style.display = "";
-  });
-  document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  document.getElementById('no-more').style.display = "block";
-};
+document.querySelectorAll('.message').forEach(message => {
+    message.style.display = "";
+});
+document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+document.getElementById('no-more').style.display = "block";
 
 $('body').on('keydown', function() {
   var input = $('#messageinput');
