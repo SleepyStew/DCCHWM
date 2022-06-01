@@ -116,7 +116,7 @@ def get_upcoming_due_work(response, current_user):
         return []
 
 def check_if_down(response):
-    if "<img src=\"/portrait.php?id=" in response:
+    if "<img src=\"/portrait.php?id=" in response.text:
         return True
     return False
 
