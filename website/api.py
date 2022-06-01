@@ -81,36 +81,39 @@ def get_upcoming_due_work(response, current_user):
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
-    
-    for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
-        tag.name = "div"
-        tag.find("div")["style"] = "padding: 10px; margin-bottom: 10px;"
-        tag.find("div").find_all()[0]["style"] = "font-size: 22px;"
-        tag.find("div").find_all()[1]["style"] = "font-size: 18px;"
-        tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
 
-        tag.find("div").find_all()[0].find("a")['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find("div").find_all()[0].find("a")['href']
-        tag.find("div").find_all()[0].find("a")['style'] = "text-decoration: none;"
-        tag.find("div").find_all()[0].find("a")['target'] = "_blank"
+    try:
+        for tag in soup.find(attrs={'id': 'component52396'}).find("div").find("div").find("section").find("ul").find_all("li"):
+            tag.name = "div"
+            tag.find("div")["style"] = "padding: 10px; margin-bottom: 10px;"
+            tag.find("div").find_all()[0]["style"] = "font-size: 22px;"
+            tag.find("div").find_all()[1]["style"] = "font-size: 18px;"
+            tag.find("div").find_all()[2]["style"] = "font-size: 15px;"
 
-        for subject, subject_value in friendly_subject_names.items():
-            if subject in tag.find("div").find_all()[2].text:
-                tag.find("div").find_all()[0].string.replace_with(subject_value + " - " + tag.find("div").find_all()[0].text)
-                break
+            tag.find("div").find_all()[0].find("a")['href'] = "https://schoolbox.donvale.vic.edu.au" + tag.find("div").find_all()[0].find("a")['href']
+            tag.find("div").find_all()[0].find("a")['style'] = "text-decoration: none;"
+            tag.find("div").find_all()[0].find("a")['target'] = "_blank"
 
-        if "homework" in tag.find("div").find_all()[2].text.lower():
-            tag.find("div").find_all()[2].clear()
-            tag.find("div").find_all()[2].append("Homework")
-        elif "assessment" in tag.find("div").find_all()[2].text.lower():
-            tag.find("div").find_all()[2].clear()
-            tag.find("div").find_all()[2].append("Assessment Task")
-        else:
-            tag.find("div").find_all()[2].clear()
-            tag.find("div").find_all()[2].append("Other")
+            for subject, subject_value in friendly_subject_names.items():
+                if subject in tag.find("div").find_all()[2].text:
+                    tag.find("div").find_all()[0].string.replace_with(subject_value + " - " + tag.find("div").find_all()[0].text)
+                    break
 
-        elements.append(tag)
+            if "homework" in tag.find("div").find_all()[2].text.lower():
+                tag.find("div").find_all()[2].clear()
+                tag.find("div").find_all()[2].append("Homework")
+            elif "assessment" in tag.find("div").find_all()[2].text.lower():
+                tag.find("div").find_all()[2].clear()
+                tag.find("div").find_all()[2].append("Assessment Task")
+            else:
+                tag.find("div").find_all()[2].clear()
+                tag.find("div").find_all()[2].append("Other")
 
-    return map(str, elements)
+            elements.append(tag)
+
+        return map(str, elements)
+    except AttributeError:
+        return []
 
 # Returns whether a note is valid or not | BOOLEAN
 def note_is_valid(note):
