@@ -104,10 +104,12 @@ document.getElementById("messages").addEventListener("scroll", function() {
   if (lastScrollTop > 2000 || getting_more) {
     return;
   }
-  console.log("get more")
   getting_more = true;
   axios.get('api/get-more-messages?amount=100&from=' + (messages_loaded + 100)).then((_res) => {
     let messages_recieved;
+    el = document.getElementById("messages");
+    lastScrollHeight = el.scrollHeight;
+    lastScrollTop = el.scrollTop;
     if (_res.data.length > 0) {
       if (messages_loaded == 1) {
         messages_recieved = _res.data;
