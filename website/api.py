@@ -124,8 +124,6 @@ def note_is_valid(note):
 
 def get_recent_messages(current_user):
     recent_messages = []
-    from_zone = tz.tzutc()
-    to_zone = tz.tzlocal()
     for message in Message.query.all()[-100:]:
         if message.username == current_user.sbName:
             dates = convert_date(Message.query.filter_by(id=message.id).first().date)
