@@ -144,7 +144,10 @@ def convert_date(date):
     datetime = date.astimezone(to_zone)
     fulldate = datetime.strftime('%A, %d %B %Y - %H:%M:%S')
     if datetime.date() == datetime.now().date():
-        datetime = datetime.strftime('%I:%M%p')
+        if current_user.setting_timestamp_hour_type == "12":
+            datetime = datetime.strftime('%I:%M%p')
+        else:
+            datetime = datetime.strftime('%H:%M')
     else:
         datetime = datetime.strftime('%d/%m/%Y')
     return [datetime, fulldate]
@@ -213,6 +216,11 @@ def update_setting():
         if new_setting == "hide" or new_setting == "show":
             valid_setting = True
             User.query.filter_by(sbID=current_user.sbID).update(dict(setting_deleted_messages=new_setting))
+            db.session.commit()
+    if setting_type == "timestamp-hour-type":
+        if new_setting == "24" or new_setting == "12":
+            valid_setting = True
+            User.query.filter_by(sbID=current_user.sbID).update(dict(setting_timestamp_hour_type=new_setting))
             db.session.commit()
     
     if valid_setting and current_user.setting_alerts == "high":

@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     notes =  db.relationship('Note')
     setting_alerts = db.Column(db.String(64), default='high')
     setting_deleted_messages = db.Column(db.String(64), default='hide')
+    setting_timestamp_hour_type = db.Column(db.String(64), default='12')
     sbName = db.Column(db.String(128))
 
 class Note(db.Model):
