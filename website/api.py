@@ -70,6 +70,9 @@ def get_timetable(response, current_user):
         except:
             elements.append(tag)
 
+    if len(elements) == 0:
+        return None
+
     return map(str, elements)
 
 # Returns upcoming due work found on the homepage | LIST(HTML)
@@ -110,10 +113,11 @@ def get_upcoming_due_work(response, current_user):
                 tag.find("div").find_all()[2].append("Other")
 
             elements.append(tag)
-
+        if len(elements) == 0:
+            return None
         return map(str, elements)
     except AttributeError:
-        return []
+        return None
 
 def check_if_down(response):
     if "<img src=\"/portrait.php?id=" in response.text:
