@@ -45,8 +45,8 @@ socket.on('chatmessage', function(data) {
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
-  var converter = new showdown.Converter();
-  var messages = document.getElementsByClassName("message")
+  let converter = new showdown.Converter();
+  let messages = document.getElementsByClassName("message")
   messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
   messages[messages.length - 1].lastChild.style.display = 'inline';
   if (document.getElementById("my-username").innerText == document.getElementById(data.id).getElementsByClassName("username")[0].innerText) {
@@ -89,7 +89,7 @@ document.getElementById('messages').scrollTop = document.getElementById('message
 document.getElementById('no-more').style.display = "block";
 
 $('body').on('keydown', function() {
-  var input = $('#messageinput');
+  let input = $('#messageinput');
   if(!input.is(':focus')) {
       input.focus();
   }
@@ -143,7 +143,7 @@ document.getElementById("messages").addEventListener("scroll", function() {
       let button = document.getElementById('no-more')
       button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
 
-      var converter = new showdown.Converter();
+      let converter = new showdown.Converter();
       document.getElementById(new_message.id).innerHTML = converter.makeHtml(document.getElementById(new_message.id).innerHTML);
       document.getElementById(new_message.id).lastChild.style.display = 'inline';
       if (data.mine) {
