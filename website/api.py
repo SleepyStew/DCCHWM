@@ -71,7 +71,7 @@ def get_timetable(response, current_user):
             elements.append(tag)
 
     if len(elements) == 0:
-        return None
+        return []
 
     return map(str, elements)
 
@@ -114,10 +114,10 @@ def get_upcoming_due_work(response, current_user):
 
             elements.append(tag)
         if len(elements) == 0:
-            return None
+            return []
         return map(str, elements)
     except AttributeError:
-        return None
+        return []
 
 def check_if_down(response):
     if "<img src=\"/portrait.php?id=" in response.text:
