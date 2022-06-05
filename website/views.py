@@ -62,7 +62,7 @@ def information():
 def quicknotes():
     return render_template("notes.html", user=current_user)
 
-@views.route('/chatroom', methods=['GET'])
+@views.route('/discussion', methods=['GET'])
 @login_required
 def chatroom():
     recent_messages = get_recent_messages(current_user)
