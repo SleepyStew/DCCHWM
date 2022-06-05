@@ -114,13 +114,10 @@ def get_upcoming_due_work(response, current_user):
 
             elements.append(tag)
         if len(elements) == 0:
-            print("debug 1")
-            return []
-        print("debug 2")
+            return None
         return map(str, elements)
     except AttributeError:
-        print("debug 3")
-        return []
+        return None
 
 def check_if_down(response):
     if "<img src=\"/portrait.php?id=" in response.text:
