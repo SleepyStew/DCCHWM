@@ -17,6 +17,12 @@ function editNote(noteId) {
     editbox.id = noteId + "-edit";
     editbox.maxLength = 1024;
 
+    editbox.addEventListener("input", (event) => {
+        let el = event.target;
+        el.style.height = "unset";
+        el.style.height = el.scrollHeight + 2 + "px";
+    })
+
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
     savebutton.classList.add("btn-primary");
@@ -60,3 +66,11 @@ function cancelEdit(noteId) {
     document.getElementById("note-" + noteId).style.display = "block";
     document.getElementById(noteId + "-edit").remove()
 }
+
+document.body.addEventListener("load", () => {
+    document.querySelector("#note").addEventListener("input", (event) => {
+        let el = event.target;
+        el.style.height = "unset";
+        el.style.height = el.scrollHeight + 2 + "px";
+    })
+})
