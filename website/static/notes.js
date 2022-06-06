@@ -81,7 +81,7 @@ function moveUpNote(noteId) {
     let noteIdAbove = document.getElementById(noteId).previousElementSibling.previousElementSibling.id
     axios.post('api/move-note', {
         note_id_1: noteId,
-        note_id_2: noteIdAbove
+        note_id_2: Number(noteIdAbove)
     }).then((_res) => {
         document.location = document.URL;
     });
@@ -91,7 +91,7 @@ function moveDownNote(noteId) {
     let noteIdBelow = document.getElementById(noteId).nextElementSibling.nextElementSibling.id
     axios.post('api/move-note', {
         note_id_1: noteId,
-        note_id_2: noteIdBelow
+        note_id_2: Number(noteIdBelow)
     }).then((_res) => {
         document.location = document.URL;
     });
