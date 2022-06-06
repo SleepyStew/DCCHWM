@@ -6,6 +6,11 @@ function deleteNote(noteId) {
     });
 }
 
+function updateHeight(el) {
+    el.style.height = "unset";
+    el.style.height = el.scrollHeight + 2 + "px";
+}
+
 function editNote(noteId) {
     let note = document.querySelector("#note-" + noteId);
     let unformatted_note = document.querySelector("#note-plain-" + noteId);
@@ -18,11 +23,9 @@ function editNote(noteId) {
     editbox.maxLength = 1024;
 
     editbox.addEventListener("input", (event) => {
-        let el = event.target;
-        el.style.height = "unset";
-        el.style.height = el.scrollHeight + 2 + "px";
+        updateHeight(event.target);
     })
-    editbox.dispatchEvent(new Event("input"));
+    updateHeight(editbox);
 
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
@@ -70,8 +73,6 @@ function cancelEdit(noteId) {
 
 window.addEventListener("load", () => {
     document.querySelector("#note").addEventListener("input", (event) => {
-        let el = event.target;
-        el.style.height = "unset";
-        el.style.height = el.scrollHeight + 2 + "px";
+        updateHeight(event.target);
     })
 })
