@@ -12,7 +12,7 @@ function updateHeight(el) {
 }
 
 function editNote(noteId) {
-    let note = document.querySelector("#" + noteId);
+    let note = document.getElementById(noteId);
     let unformatted_note = document.querySelector("#note-plain-" + noteId);
     
     let editbox = document.createElement("textarea");
