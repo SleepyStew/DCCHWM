@@ -25,7 +25,6 @@ function editNote(noteId) {
     editbox.addEventListener("input", (event) => {
         updateHeight(event.target);
     })
-    updateHeight(editbox);
 
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
@@ -49,6 +48,7 @@ function editNote(noteId) {
     note.parentNode.insertBefore(cancelbutton, note.nextSibling);
     note.parentNode.insertBefore(savebutton, note.nextSibling);
     note.parentNode.insertBefore(editbox, note.nextSibling);
+    updateHeight(editbox);
 
     note.style.display = "none";
 }
