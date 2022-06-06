@@ -306,3 +306,5 @@ def move_note():
         Note.query.filter_by(id=note_1).update(dict(id=note_2))
         Note.query.filter_by(id=note_2).update(dict(id=note_1))
         db.session.commit()
+        return json.dumps({'success': True})
+    return json.dumps({'success': False})
