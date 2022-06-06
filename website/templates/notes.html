@@ -15,7 +15,7 @@
 <ul class="list-group list-group-flush d-block" id="notes">
     {% for note in user.notes %}
     <p style="display: none;" id="note-plain-{{ note.id }}">{{ note.content }}</p>
-    <li class="list-group-item rounded-2 my-2 text-break" id="note-{{ note.id }}">
+    <li class="list-group-item rounded-2 my-2 text-break" id="{{ note.id }}">
         <script>
             var converter = new showdown.Converter();
             converter.setOption('simpleLineBreaks', true)

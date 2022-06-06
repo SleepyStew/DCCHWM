@@ -294,3 +294,15 @@ def get_more_messages():
     response = make_response(json.dumps(recent_messages), 200)
     response.mimetype = "text/plain"
     return response
+
+@api.route("/move-note", methods=['POST'])
+@login_required
+def move_note():
+    note_1 = request.form.get('note_id_1')
+    note_2 = request.form.get('note_id_2')
+    note_1_db = Note.query.get(note_1)
+    note_2_db = Note.query.get(note_2)
+    if note_1_db and note_1_db.userID == current_user.sbID and note_2_db and note_2_db.userID == current_user.sbID:
+        Note.query.filter_by(id=note_1).update(dict(id=note_2))
+        Note.query.filter_by(id=note_2).update(dict(id=note_1))
+        db.session.commit()
