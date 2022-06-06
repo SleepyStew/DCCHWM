@@ -295,7 +295,7 @@ def get_more_messages():
     response.mimetype = "text/plain"
     return response
 
-@api.route("/move-note", methods=['POST'])
+@api.route("/move-note", methods=[' POST'])
 @login_required
 def move_note():
     note_1 = json.loads(request.data)['note_id_1']
@@ -303,9 +303,9 @@ def move_note():
     note_1_db = Note.query.get(note_1)
     note_2_db = Note.query.get(note_2)
     if note_1_db and note_1_db.userID == current_user.sbID and note_2_db and note_2_db.userID == current_user.sbID:
-        Note.query.filter_by(id=note_1).update(dict(id=9999999999999))
+        Note.query.filter_by(id=note_1).update(dict(id=0))
         Note.query.filter_by(id=note_2).update(dict(id=note_1))
-        Note.query.filter_by(id=note_1).update(dict(id=note_2))
+        Note.query.filter_by(id=0).update(dict(id=note_2))
         db.session.commit()
         return json.dumps({'success': True})
     return json.dumps({'success': False})
