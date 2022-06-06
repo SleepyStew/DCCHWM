@@ -303,8 +303,9 @@ def move_note():
     note_1_db = Note.query.get(note_1)
     note_2_db = Note.query.get(note_2)
     if note_1_db and note_1_db.userID == current_user.sbID and note_2_db and note_2_db.userID == current_user.sbID:
-        Note.query.filter_by(id=note_1).update(dict(id=note_2))
+        Note.query.filter_by(id=note_1).update(dict(id=9999999999999))
         Note.query.filter_by(id=note_2).update(dict(id=note_1))
+        Note.query.filter_by(id=note_1).update(dict(id=note_2))
         db.session.commit()
         return json.dumps({'success': True})
     return json.dumps({'success': False})
