@@ -298,8 +298,8 @@ def get_more_messages():
 @api.route("/move-note", methods=['POST'])
 @login_required
 def move_note():
-    note_1 = request.form.get('note_id_1')
-    note_2 = request.form.get('note_id_2')
+    note_1 = json.loads(request.data)['note_id_1']
+    note_2 = json.loads(request.data)['note_id_2']
     note_1_db = Note.query.get(note_1)
     note_2_db = Note.query.get(note_2)
     if note_1_db and note_1_db.userID == current_user.sbID and note_2_db and note_2_db.userID == current_user.sbID:
