@@ -22,6 +22,7 @@ function editNote(noteId) {
         el.style.height = "unset";
         el.style.height = el.scrollHeight + 2 + "px";
     })
+    editbox.style.height = "unset";
     editbox.style.height = editbox.scrollHeight + 2 + "px";
 
     let savebutton = document.createElement("button");
