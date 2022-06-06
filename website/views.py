@@ -56,7 +56,7 @@ def dashboard():
         ziptable = zip(timetable, timetable_headers)
     else:
         ziptable = None
-    print(ziptable)
+    print(list(ziptable[0]))
     return render_template("dashboard.html", user=current_user, timetable=ziptable, duework=duework, schoolbox_is_down=schoolbox_is_down)
 
 @views.route('/information')
