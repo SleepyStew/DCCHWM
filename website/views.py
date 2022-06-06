@@ -51,8 +51,7 @@ def dashboard():
         return redirect(url_for('auth.login'))
     timetable_headers = ["<div class=\"timetable-top\">Homegroup<br>8:40am-8:55am</div>", "<div class=\"timetable-top\">Period 1<br>9:00am-10:10am</div>", "<div class=\"timetable-top\">Period 2<br>10:30am-11:40am</div>", "<div class=\"timetable-top\">Period 3<br>11:45am-12:55pm</div>", "<div class=\"timetable-top\">Period 4<br>1:50pm-3:05pm</div>"]
     print(timetable)
-    print(list(timetable))
-    print(len(timetable))
+    print(list(timetable).__len__)
     if len(list(timetable)) != 0:
         ziptable = zip(timetable, timetable_headers)
     else:
