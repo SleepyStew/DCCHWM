@@ -101,15 +101,15 @@ def get_upcoming_due_work(response, current_user):
                 if subject in tag.find("div").find_all()[2].text:
                     tag.find("div").find_all()[0].string.replace_with(subject_value + " - " + tag.find("div").find_all()[0].text)
                     break
-
+            
+            tag.find("div").find_all()[2].clear()
             if "homework" in tag.find("div").find_all()[2].text.lower():
-                tag.find("div").find_all()[2].clear()
                 tag.find("div").find_all()[2].append("Homework")
             elif "assessment" in tag.find("div").find_all()[2].text.lower():
-                tag.find("div").find_all()[2].clear()
                 tag.find("div").find_all()[2].append("Assessment Task")
+            elif "class work" in tag.find("div").find_all()[2].text.lower():
+                tag.find("div").find_all()[2].append("Class Work")
             else:
-                tag.find("div").find_all()[2].clear()
                 tag.find("div").find_all()[2].append("Other")
 
             elements.append(tag)
