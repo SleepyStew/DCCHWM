@@ -295,7 +295,7 @@ def get_more_messages():
     response.mimetype = "text/plain"
     return response
 
-@api.route("/move-note", methods=[' POST'])
+@api.route("/move-note", methods=['POST'])
 @login_required
 def move_note():
     note_1 = json.loads(request.data)['note_id_1']
