@@ -22,6 +22,7 @@ function editNote(noteId) {
         el.style.height = "unset";
         el.style.height = el.scrollHeight + 2 + "px";
     })
+    editbox.style.height = editbox.scrollHeight + 2 + "px";
 
     let savebutton = document.createElement("button");
     savebutton.classList.add("btn");
@@ -67,7 +68,7 @@ function cancelEdit(noteId) {
     document.getElementById(noteId + "-edit").remove()
 }
 
-document.body.addEventListener("load", () => {
+window.addEventListener("load", () => {
     document.querySelector("#note").addEventListener("input", (event) => {
         let el = event.target;
         el.style.height = "unset";
