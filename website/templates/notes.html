@@ -19,8 +19,8 @@
         <script>
             var converter = new showdown.Converter();
             converter.setOption('simpleLineBreaks', true)
-            document.getElementById('note-{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
-            document.getElementById('note-{{ note.id }}').lastChild.style.display = 'inline';
+            document.getElementById('{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
+            document.getElementById('{{ note.id }}').lastChild.style.display = 'inline';
         </script>
         <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 90px;" onClick="moveUpNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Move Up" src="/static/icons/north.svg" class="me-2 icon edit-button"/></button>
         <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 60px;" onClick="moveDownNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Move Down" src="/static/icons/south.svg" class="me-2 icon edit-button"/></button>
