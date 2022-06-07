@@ -13,21 +13,22 @@
 
 <h1 class="text-light fw-bold">Quick Notes</h1>
 <ul class="list-group list-group-flush d-block" id="notes">
-    {% for note in user.notes %}
-    <p style="display: none;" id="note-plain-{{ note.id }}">{{ note.content }}</p>
-    <li class="list-group-item rounded-2 my-2 text-break" id="{{ note.id }}">
-        <script>
-            var converter = new showdown.Converter();
-            converter.setOption('simpleLineBreaks', true)
-            document.getElementById('{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
-            document.getElementById('{{ note.id }}').lastChild.style.display = 'inline';
-        </script>
-        <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 90px;" onClick="moveUpNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Move Up" src="/static/icons/north.svg" class="me-2 icon edit-button"/></button>
-        <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 60px;" onClick="moveDownNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Move Down" src="/static/icons/south.svg" class="me-2 icon edit-button"/></button>
-        <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 30px;" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
-        <button type="button" class="btn-close position-absolute end-0" style="padding-right: 20px;" alt="Delete Note" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"></button>
-    </li>
-    {% endfor %}
+    <div class="draggingContainer">
+        {% for note in notes %}
+        <p style="display: none;" id="note-plain-{{ note.id }}">{{ note.content }}</p>
+        <li class="list-group-item rounded-2 my-2 text-break" id="{{ note.id }}">
+            <script>
+                var converter = new showdown.Converter();
+                converter.setOption('simpleLineBreaks', true)
+                document.getElementById('{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
+                document.getElementById('{{ note.id }}').lastChild.style.display = 'inline';
+            </script>
+            <button type="button" class="bg-transparent border-0 position-absolute end-0 rearrange-button" style="padding-right: 65px;"><img alt="Rearrange" src="/static/icons/reorder.svg" class="me-2 icon edit-button"/></button>
+            <button type="button" class="bg-transparent border-0 position-absolute end-0" style="padding-right: 30px;" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img alt="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button"/></button>
+            <button type="button" class="btn-close position-absolute end-0" style="padding-right: 20px;" alt="Delete Note" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"></button>
+        </li>
+        {% endfor %}
+    </div>
 </ul>
 <form method="POST" class="mt-2" action="/api/create-note">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

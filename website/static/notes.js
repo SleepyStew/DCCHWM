@@ -77,22 +77,63 @@ window.addEventListener("load", () => {
     })
 })
 
-function moveUpNote(noteId) {
-    let noteIdAbove = document.getElementById(noteId).previousElementSibling.previousElementSibling.id
-    axios.post('api/move-note', {
-        note_id_1: noteId,
-        note_id_2: Number(noteIdAbove)
+function updateDisplayOrder() {
+    let notes = document.getElementsByClassName("list-group-item")
+    let noteIds = Array.from(notes).map(note => note.id)
+    axios.post('api/update-note-display-order', {
+        order: noteIds,
     }).then((_res) => {
         document.location = document.URL;
     });
 }
 
-function moveDownNote(noteId) {
-    let noteIdBelow = document.getElementById(noteId).nextElementSibling.nextElementSibling.id
-    axios.post('api/move-note', {
-        note_id_1: noteId,
-        note_id_2: Number(noteIdBelow)
-    }).then((_res) => {
-        document.location = document.URL;
+let cards = document.querySelectorAll('.list-group-item');
+let lists = document.querySelectorAll('.list-group');
+
+cards.forEach((card)=>{
+    registerEventsOnCard(card);
+});
+
+lists.forEach((list)=>{
+    list.addEventListener('dragover', (e)=>{
+        e.preventDefault();
+        let draggingCard = document.querySelector('.dragging');
+        let cardAfterDraggingCard = getCardAfterDraggingCard(list, e.clientY);
+        if(cardAfterDraggingCard){
+                cardAfterDraggingCard.parentNode.insertBefore(draggingCard, cardAfterDraggingCard);
+        } else{
+            list.appendChild(draggingCard);
+        }
+        
+    });
+});
+
+function getCardAfterDraggingCard(list, yDraggingCard){
+
+    let listCards = [...list.querySelectorAll('.list-group-item:not(.dragging)')];
+
+    return listCards.reduce((closestCard, nextCard)=>{
+        let nextCardRect = nextCard.getBoundingClientRect();
+        let offset = yDraggingCard - nextCardRect.top - nextCardRect.height /2;
+
+        if(offset < 0 && offset > closestCard.offset){
+            return {offset, element: nextCard}
+        } else{
+            return closestCard;
+        }
+    
+    }, {offset: Number.NEGATIVE_INFINITY}).element;
+
+}
+
+function registerEventsOnCard(card){
+    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragstart', (e)=>{
+        card.classList.add('dragging');
+    });
+
+
+    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragend', (e)=>{
+        card.classList.remove('dragging');
+        updateDisplayOrder()
     });
 }

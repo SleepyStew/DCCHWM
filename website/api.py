@@ -207,7 +207,8 @@ def create_note():
     note = request.form.get('note').strip()
 
     if note_is_valid(note):
-        new_note = Note(content=note, userID=current_user.sbID)
+        display_order = Note.query.filter_by(userID=current_user.sbID).count() + 1
+        new_note = Note(content=note, userID=current_user.sbID, displayOrder=display_order)
         db.session.add(new_note)
         db.session.commit()
         if current_user.setting_alerts == "high":
@@ -295,17 +296,17 @@ def get_more_messages():
     response.mimetype = "text/plain"
     return response
 
-@api.route("/move-note", methods=['POST'])
+@api.route("/update-note-display-order", methods=['POST'])
 @login_required
 def move_note():
-    note_1 = json.loads(request.data)['note_id_1']
-    note_2 = json.loads(request.data)['note_id_2']
-    note_1_db = Note.query.get(note_1)
-    note_2_db = Note.query.get(note_2)
-    if note_1_db and note_1_db.userID == current_user.sbID and note_2_db and note_2_db.userID == current_user.sbID:
-        Note.query.filter_by(id=note_1).update(dict(id=0))
-        Note.query.filter_by(id=note_2).update(dict(id=note_1))
-        Note.query.filter_by(id=0).update(dict(id=note_2))
+    new_order = list(json.loads(request.data)['order'])
+    legit_request = True
+    for note in new_order:
+        if not Note.query.filter_by(id=note).first().userID == current_user.sbID:
+            legit_request = False
+    if legit_request:
+        for i in range(len(new_order)):
+            Note.query.filter_by(id=new_order[i]).update(dict(displayOrder=i+1))
         db.session.commit()
         return json.dumps({'success': True})
     return json.dumps({'success': False})

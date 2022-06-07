@@ -60,7 +60,8 @@ def information():
 @views.route('/quick-notes', methods=['GET'])
 @login_required
 def quicknotes():
-    return render_template("notes.html", user=current_user)
+    notes = Note.query.filter_by(userID=current_user.sbID).order_by(Note.displayOrder.asc()).all()
+    return render_template("notes.html", user=current_user, notes=notes)
 
 @views.route('/discussion', methods=['GET'])
 @login_required

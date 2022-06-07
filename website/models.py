@@ -16,6 +16,7 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userID = db.Column(db.Integer, db.ForeignKey('user.sbID'))
     content = db.Column(db.String(512))
+    displayOrder = db.Column(db.Integer)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
 
 class Message(db.Model):
