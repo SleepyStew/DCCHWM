@@ -11,5 +11,5 @@ li:hover button {
   opacity: 0.5;
 }
 .list-group-item.dragging {
-  opacity: 0.4;
+  opacity: 0.7;
 }
