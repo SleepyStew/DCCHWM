@@ -127,12 +127,12 @@ function getCardAfterDraggingCard(list, yDraggingCard){
 }
 
 function registerEventsOnCard(card){
-    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragstart', (e)=>{
+    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragstart', ()=>{
         card.classList.add('dragging');
     });
 
 
-    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragend', (e)=>{
+    card.getElementsByClassName("rearrange-button")[0].addEventListener('dragend', ()=>{
         card.classList.remove('dragging');
         updateDisplayOrder()
     });

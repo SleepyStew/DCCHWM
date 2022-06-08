@@ -39,7 +39,7 @@ function closeAlerts(event) {
   	}
 }
 
-function openAlerts(event) {
+function openAlerts() {
 	if (!alerts_open) {
 		alerts_open = true;
 		document.getElementById("alerts").style.width = "40%";

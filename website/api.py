@@ -46,7 +46,7 @@ friendly_subject_names = {
 # Returns basic 5 subject "today" timetable | LIST(HTML)
 def get_timetable(response, current_user):
 
-    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+    if check_if_logged_out(response):
         return "logout"
 
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -78,7 +78,7 @@ def get_timetable(response, current_user):
 # Returns upcoming due work found on the homepage | LIST(HTML)
 def get_upcoming_due_work(response, current_user):
 
-    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+    if check_if_logged_out(response):
         return "logout"
 
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -121,6 +121,11 @@ def get_upcoming_due_work(response, current_user):
         return map(str, elements)
     except AttributeError:
         return None
+
+def check_if_logged_out(response):
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return True
+    return False
 
 def check_if_down(response):
     if "<img src=\"/portrait.php?id=" in response.text:
@@ -301,7 +306,7 @@ def move_note():
     new_order = list(json.loads(request.data)['order'])
     legit_request = True
     for note in new_order:
-        if not Note.query.filter_by(id=note).first().userID == current_user.sbID:
+        if Note.query.filter_by(id=note).first().userID != current_user.sbID:
             legit_request = False
     if legit_request:
         for i in range(len(new_order)):
@@ -320,7 +325,7 @@ def get_alerts():
 
     response = requests.get("https://schoolbox.donvale.vic.edu.au/messages", cookies=cookies)
 
-    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+    if check_if_logged_out(response):
         return "logout"
 
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
