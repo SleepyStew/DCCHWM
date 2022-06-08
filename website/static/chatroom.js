@@ -42,7 +42,7 @@ socket.on('chatmessage', function(data) {
   new_message.classList.add("list-group-item")
   new_message.id = data.id
   console.log("message: " + data.message)
-  new_message.innerText = data.message
+  new_message.textContent = data.message
   new_message.prepend(date_element)
   new_message.prepend(username_element)
   console.log(new_message)
