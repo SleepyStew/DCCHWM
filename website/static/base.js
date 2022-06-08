@@ -49,6 +49,7 @@ function openAlerts(event) {
 		axios.get('api/get-alerts').then((_res) => {
 			let alerts = _res.data;
 			let alert_div = document.getElementById("alerts");
+			alert_div.innerHTML = "<h2 class=\"text-white\" style=\"text-align: center;\">Notifications</h2>";
 			alert_div.innerHTML = alerts;
 		});
 	} else {
