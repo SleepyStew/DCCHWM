@@ -36,15 +36,17 @@ socket.on('chatmessage', function(data) {
   date_element.innerText = " " + data.datetime
   date_element.classList.add("date")
   date_element.style.display = "inline"
-  date_element.innerHTML += "<br>"
   date_element.title = data.fulldate
   let new_message = document.createElement('div')
   new_message.classList.add("message")
   new_message.classList.add("list-group-item")
   new_message.id = data.id
   new_message.innerText = data.message
+  new_message.innerHTML += "<br>"
+  console.log(new_message.innerHTML);
   new_message.innerHTML = converter.makeHtml(new_message.innerHTML)
   new_message.lastChild.style.display = 'inline';
+  console.log(new_message.innerHTML);
   new_message.prepend(date_element)
   new_message.prepend(username_element)
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
