@@ -12,11 +12,11 @@
 <h1 class="text-light fw-bold">Discussion</h1>
 <div id="messages" class="text-light mb-3"><p id="no-more" style="color: #8a8a8a; padding-top: 0; text-align: center;"></p>{% for message in recent_messages %}{% if not (message['deleted'] == True and user.setting_deleted_messages == "hide") %}<div class="message list-group-item" id="{{ message['id'] }}" style="display: none;"><span class="username" style="display: inline;">{{ message['username'] }}</span><span class="date" style="display: inline;" title="{{ message['fulldate'] }}"> {{ message['datetime'] }}</span><br>{{ message['message'] | string }}{% if (message['mine'] and not message['deleted']) %}<button type="button" class="btn-close position-absolute end-0 me-2 delete-message" alt="Delete Note"></button>{% endif %}</div>{% endif %}{% endfor %}</div>
 <script>
-    console.log(document.getElementsByClassName("message"))
     var converter = new showdown.Converter();
     converter.setOption('simpleLineBreaks', true)
     var messages = document.getElementsByClassName("message")
     for (var i = 0; i < messages.length; i++) {
+        console.log(messages[i].innerHTML)
         messages[i].innerHTML = converter.makeHtml(messages[i].innerHTML)
         messages[i].lastChild.style.display = 'inline';
     }
