@@ -46,6 +46,7 @@ socket.on('chatmessage', function(data) {
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
   let converter = new showdown.Converter();
+  converter.setOption('simpleLineBreaks', true)
   let messages = document.getElementsByClassName("message")
   messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
   messages[messages.length - 1].lastChild.style.display = 'inline';
@@ -144,6 +145,7 @@ document.getElementById("messages").addEventListener("scroll", function() {
       button.parentNode.insertBefore(button, document.getElementById('messages').firstChild);
 
       let converter = new showdown.Converter();
+      converter.setOption('simpleLineBreaks', true)
       document.getElementById(new_message.id).innerHTML = converter.makeHtml(document.getElementById(new_message.id).innerHTML);
       document.getElementById(new_message.id).lastChild.style.display = 'inline';
       if (data.mine) {
