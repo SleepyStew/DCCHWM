@@ -115,3 +115,9 @@
 .gradient-10 {
   color: var(--bs-green);
 }
+.row.unread {
+  opacity: 1;
+}
+.row {
+  opacity: 0.8;
+}
