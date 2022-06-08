@@ -3,6 +3,7 @@ document.getElementById("logo").addEventListener("click", () => {
 });
 
 let nav_open = false;
+let alerts_open = false;
 
 /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 function openNav() {
@@ -27,4 +28,37 @@ function closeNav(event) {
   	}
 }
 
+function closeAlerts(event) {
+	if (alerts_open) {
+		event.stopPropagation();
+		alerts_open = false;
+		document.getElementById("alerts").style.width = "0";
+		document.getElementById("alerts").style.padding = "0";
+		document.getElementById("alerts").style.paddingTop = "0";
+		document.getElementById("alerts-btn").style.marginRight = "0";
+  	}
+}
+
+function openAlerts(event) {
+	if (!alerts_open) {
+		alerts_open = true;
+		document.getElementById("alerts").style.width = "30vw";
+		document.getElementById("alerts").style.padding = "30px";
+		document.getElementById("alerts").style.paddingTop = "15px";
+		document.getElementById("alerts-btn").style.marginRight = "30vw";
+		axios.get('api/get-alerts').then((_res) => {
+			let alerts = _res.data;
+			let alert_div = document.getElementById("alerts");
+			alert_div.innerHTML = alerts;
+		});
+	} else {
+		alerts_open = false;
+		document.getElementById("alerts").style.width = "0";
+		document.getElementById("alerts").style.padding = "0";
+		document.getElementById("alerts").style.paddingTop = "0";
+		document.getElementById("alerts-btn").style.marginRight = "0";
+	}
+}
+
 document.body.addEventListener('click', (event) => {closeNav(event)}, true); 
+document.body.addEventListener('click', (event) => {closeAlerts(event)}, true); 

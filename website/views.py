@@ -20,7 +20,7 @@ import sys
 import json
 from dateutil import tz
 from datetime import datetime
-from .api import get_recent_messages, convert_date
+from .api import get_recent_messages, convert_date, get_alerts
 
 views = Blueprint('views', __name__)  
 

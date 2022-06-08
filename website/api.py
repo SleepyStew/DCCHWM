@@ -309,3 +309,41 @@ def move_note():
         db.session.commit()
         return json.dumps({'success': True})
     return json.dumps({'success': False})
+
+@api.route("/get-alerts", methods=['GET'])
+@login_required
+def get_alerts():
+
+    cookies = { 
+        'PHPSESSID': f'{current_user.sbCookie}',
+    }
+
+    response = requests.get("https://schoolbox.donvale.vic.edu.au/messages", cookies=cookies)
+
+    if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
+        return "logout"
+
+    soup = bs4.BeautifulSoup(response.text, 'html.parser')
+
+    elements = []
+
+    for tag in soup.find(attrs={'id': 'content'}).find_all("li"):
+        tag.name = "div"
+        tag.find("div")["style"] = "padding: 10px; margin-bottom: 10px;"
+        tag.find("div").find("a")['href']
+
+        # remove the img tag
+        tag.find("div").find("a").find("img").extract()
+
+        for atag in tag.find_all("a"):
+            try:
+                atag['href'] = "https://schoolbox.donvale.vic.edu.au" + atag['href']
+                atag['style'] = "text-decoration: none;"
+                atag['target'] = "_blank"
+            except:
+                continue
+
+        elements.append(tag)
+    if len(elements) == 0:
+        return ""
+    return "".join(list(map(str, elements)))

@@ -10,6 +10,18 @@
     padding-top: 16px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
   }
+
+  .alerts {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    right: 0;
+    background-color: #23272A; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 16px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  }
   
   /* The sidebar links */
   .sidebar a {
@@ -53,6 +65,10 @@
   #main {
     transition: margin-left .5s; /* If you want a transition effect */
     padding: 20px;
+  }
+
+  #alerts-btn {
+    transition: margin-right .5s; /* If you want a transition effect */
   }
   
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
