@@ -335,6 +335,9 @@ def get_alerts():
         # remove the img tag
         tag.find("div").find("a").find("img").extract()
 
+        # get parent of tag
+        tag.find("div").find(attrs={'class': 'meta'}).find("time").string.replace_with(tag.parent.parent.find_previous_sibling('h2').string + " at " + tag.find("div").find(attrs={'class': 'meta'}).find("time").string)
+
         for atag in tag.find_all("a"):
             try:
                 atag['href'] = "https://schoolbox.donvale.vic.edu.au" + atag['href']
