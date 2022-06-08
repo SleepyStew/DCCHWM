@@ -45,7 +45,7 @@ function openAlerts(event) {
 		document.getElementById("alerts").style.width = "30vw";
 		document.getElementById("alerts").style.padding = "30px";
 		document.getElementById("alerts").style.paddingTop = "15px";
-		document.getElementById("alerts-btn").style.marginRight = "30vw";
+		document.getElementById("alerts-btn").style.marginRight = "40%";
 		axios.get('api/get-alerts').then((_res) => {
 			let alerts = _res.data;
 			let alert_div = document.getElementById("alerts");
