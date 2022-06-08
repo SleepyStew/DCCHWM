@@ -44,11 +44,13 @@ socket.on('chatmessage', function(data) {
   new_message.innerText = data.message
   new_message.prepend(date_element)
   new_message.prepend(username_element)
+  console.log(new_message)
   new_message.innerHTML = converter.makeHtml(new_message.innerHTML)
   new_message.lastChild.style.display = 'inline';
+  console.log(new_message)
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-  
+
   if (document.getElementById("my-username").innerText == document.getElementById(data.id).getElementsByClassName("username")[0].innerText) {
     messages[messages.length - 1].classList.add("mine")
     messages[messages.length - 1].children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
