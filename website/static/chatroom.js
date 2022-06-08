@@ -48,10 +48,7 @@ socket.on('chatmessage', function(data) {
   new_message.lastChild.style.display = 'inline';
   document.getElementById('messages').insertBefore(new_message, new_message.nextSibling)
   document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-
-  let messages = document.getElementsByClassName("message")
-  messages[messages.length - 1].innerHTML = converter.makeHtml(messages[messages.length - 1].innerHTML);
-  messages[messages.length - 1].lastChild.style.display = 'inline';
+  
   if (document.getElementById("my-username").innerText == document.getElementById(data.id).getElementsByClassName("username")[0].innerText) {
     messages[messages.length - 1].classList.add("mine")
     messages[messages.length - 1].children[0].innerHTML += "<button type=\"button\" class=\"btn-close position-absolute end-0 me-2 delete-message\" alt=\"Delete Note\"></button>"
