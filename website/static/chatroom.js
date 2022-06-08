@@ -136,7 +136,7 @@ document.getElementById("messages").addEventListener("scroll", function() {
       new_message.classList.add("message")
       new_message.classList.add("list-group-item")
       new_message.id = data.id
-      new_message.innerText = data.message
+      new_message.textContent = data.message
       new_message.prepend(date_element)
       new_message.prepend(username_element)
       document.getElementById('messages').insertBefore(new_message, document.getElementById('messages').firstChild)
