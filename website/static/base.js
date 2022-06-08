@@ -42,7 +42,7 @@ function closeAlerts(event) {
 function openAlerts(event) {
 	if (!alerts_open) {
 		alerts_open = true;
-		document.getElementById("alerts").style.width = "30vw";
+		document.getElementById("alerts").style.width = "40%";
 		document.getElementById("alerts").style.padding = "30px";
 		document.getElementById("alerts").style.paddingTop = "15px";
 		document.getElementById("alerts-btn").style.marginRight = "40%";
