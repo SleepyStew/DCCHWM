@@ -55,7 +55,7 @@
   document.getElementById("custom-js").value = document.getElementById("custom-javascript-default").innerText;
   document.getElementById("custom-js").onkeypress = function(e) {
    var key = e.charCode || e.keyCode || 0;     
-   if (key == 13) {
+   if ((key === 13 && !e.shiftKey)) {
      e.preventDefault();
    }
  } 
