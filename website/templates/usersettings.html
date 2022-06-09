@@ -2,6 +2,22 @@
 {% block title %}Settings{% endblock %}
 {% block content %}
 
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0-dev.20220608/min/vs/editor/editor.main.min.css" integrity="sha512-uptazpYnJxsHAyGYIKKZuMSJT5aZu96oKNbkN4UwFc6VEXbBlAVRfU9NNej9lBNrZxohXGJmS1LwrXPIs5jAqA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
+    var require = {
+      paths: {
+        'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0-dev.20220608/min/vs'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0-dev.20220608/min/vs/loader.min.js" integrity="sha512-mLsCxxSIlSjCyx7ppGaj8xmdAX71nVWidhlnEOdoQJJ71LElvSy9q4FP6huOUQwKmAKdvXsQn6KdlbsuONNyGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0-dev.20220608/min/vs/editor/editor.main.nls.min.js" integrity="sha512-Ae8BxN0/74HosdIwYX8uJdMwSyv9iyYWt6MdVE8LSYh5IXKA8vWumZ5A0jfflZOzJKUN1v8qLmk/L+iyryM3Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.0-dev.20220608/min/vs/editor/editor.main.min.js" integrity="sha512-/XRQqszp2LEw3N2IPO2DspBwAIoooMYYkvFu/R1SA7bSs/W+YX77W5JO2ToIDy6aHqESJ/3rTVSBZoiagdw1wg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer type="text/javascript" src="/static/usersettings.js"></script>
+  <link rel="stylesheet" href="/static/usersettings.css">
+</head>
+
 <h1 class="text-light">Settings</h1>
 <br>
 <h2 class="text-light">Labels/Alerts</h2>
@@ -43,15 +59,14 @@
 <h2 class="text-light">Custom Javascript</h4>
 <h4 class="text-light">This will be run on all pages.</h2>
 <h4 class="text-light">Do not edit the field below unless you know what you are doing!</h2>
-<form method="POST" action="/api/update-setting">
+<form id="custom-js-form" method="POST" action="/api/update-setting">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <div class="input-group">
     <input type="hidden" name="setting_type" value="custom-javascript"></input>
-    <textarea id="custom-js" class="form-control" style="border-radius: 5px;" name="new_setting"></textarea>
+    <input id="custom-js-field" name="new_setting" style="display: none;">
+      <div id="custom-js" name="new_setting" style="height: 30vh; width: 40vw;"></div>
+    </input>
   </div>
-  <button type="submit" class="btn btn-primary mt-3">Save</button>
+  <button id="submit-custom-js" onclick="submit_custom_js()" class="btn btn-primary mt-3">Save</button>
 </form>
-<script>
-  document.getElementById("custom-js").value = document.getElementById("custom-javascript-default").innerText;
-</script>
 {% endblock %}
