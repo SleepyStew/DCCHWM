@@ -243,6 +243,13 @@ def update_setting():
             valid_setting = True
             User.query.filter_by(sbID=current_user.sbID).update(dict(setting_timestamp_hour_type=new_setting))
             db.session.commit()
+    if setting_type == "custom-javascript":
+        if len(new_setting) < 2048:
+            valid_setting = True
+            User.query.filter_by(sbID=current_user.sbID).update(dict(customJavascript=new_setting))
+            db.session.commit()
+        else:
+            flash("Custom Javascript can not be longer than 2048 characters.", category="error")
     
     if valid_setting and current_user.setting_alerts == "high":
         flash("Successfully updated setting.", category="success")
