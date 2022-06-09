@@ -3,7 +3,7 @@ window.submit_custom_js = function submit_custom_js() {
     document.getElementById('custom-js-form').submit();
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("load", function(){
     const editor = monaco.editor.create(document.getElementById('custom-js'), {
         value: document.getElementById('custom-javascript-default').innerText,
         language: 'javascript',
