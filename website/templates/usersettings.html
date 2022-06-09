@@ -39,6 +39,7 @@
     </select>
   </div>
 </form>
+<div id="custom-javascript-default" style="display: none;">{{ user.customJavascript }}</div>
 <h2 class="text-light">Custom Javascript</h4>
 <h4 class="text-light">This will be run on all pages.</h2>
 <h4 class="text-light">Do not edit the field below unless you know what you are doing!</h2>
@@ -46,8 +47,17 @@
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <div class="input-group">
     <input type="hidden" name="setting_type" value="custom-javascript"></input>
-    <input type="text" name="content"></input>
+    <input id="custom-js" class="form-control" style="border-radius: 5px;" type="text" name="content"></input>
   </div>
   <button type="submit" class="btn btn-primary mt-3">Save</button>
 </form>
+<script>
+  document.getElementById("custom-js").value = document.getElementById("custom-javascript-default");
+  document.getElementById("custom-js").onkeypress = function(e) {
+   var key = e.charCode || e.keyCode || 0;     
+   if (key == 13) {
+     e.preventDefault();
+   }
+ } 
+</script>
 {% endblock %}
