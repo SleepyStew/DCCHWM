@@ -33,10 +33,21 @@
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <div class="input-group">
     <input type="hidden" name="setting_type" value="timestamp-hour-type"></input>
-    <select class="custom-select rounded p-2" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
+    <select class="custom-select rounded p-2 mb-4" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
       <option value="12" {% if user.setting_timestamp_hour_type == "12" %}selected{% endif %}>Show 12h time.</option>
       <option value="24" {% if user.setting_timestamp_hour_type == "24" %}selected{% endif %}>Show 24h time.</option>
     </select>
   </div>
+</form>
+<h4 class="text-light">Custom Javascript</h4>
+<h2>This will be run on all pages.</h2>
+<h2>Do not edit the field below unless you know what you are doing!</h2>
+<form method="POST" action="/api/update-setting">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <div class="input-group">
+    <input type="hidden" name="setting_type" value="custom-javascript"></input>
+    <input type="text" name="content"></input>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Save</button>
 </form>
 {% endblock %}
