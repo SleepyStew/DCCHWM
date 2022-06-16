@@ -3,7 +3,7 @@
     "short_name": "CoolBox",
     "description": "A website made to help you keep track of anything DCC.",
     "theme_color": "#2C2F33",
-    "background_color": "#2C2F33",
+    "background_color": "#5865F2",
     "display": "standalone",
     "orientation": "portrait",
     "scope": "/",
