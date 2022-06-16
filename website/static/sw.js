@@ -9,6 +9,20 @@ if (workbox) {
     }),
   );
 
+  // cache images
+  workbox.routing.registerRoute(
+    /\.(?:png|jpg|jpeg|svg|gif)$/,
+    workbox.strategies.cacheFirst({
+      cacheName: 'images',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 60,
+          maxAgeSeconds: 24 * 60 * 60, // 1 Day
+        }),
+      ],
+    }),
+  );
+
   workbox.routing.registerRoute(
     new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
     workbox.strategies.cacheFirst({
