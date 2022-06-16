@@ -19,7 +19,7 @@
               </div>
             <input type="image" id="logo" class="" src="/static/pngs/logo.png" alt="Donvale Christian College" style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%); width: 50px; height: auto;">
             {% if user.is_authenticated %}
-            <button id="alerts-btn" style="margin-left: auto; height: calc(100% + 1rem);width: 95px; background-color: transparent;margin-top: -.5rem;margin-bottom: -.5rem;position: relative;border: none;" onclick="openAlerts()">
+            <button id="alerts-btn" style="right: 0;height: 100%;width: 95px; background-color: transparent;position: absolute;border: none;" onclick="openAlerts()">
                 <img src="/static/icons/bell.svg" style="max-height: 100%;max-width: 100%;width: 35%;height: auto;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;filter:invert(0.9)" alt="Notifications">
             </button>
             {% endif %}
