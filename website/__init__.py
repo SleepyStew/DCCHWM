@@ -49,6 +49,7 @@ def create_app():
     from .views import views
     from .auth import auth
     from .api import api
+    from .pwa import pwa
     from .views import MyAdminIndexView, DefaultModelView
 
     admin = Admin(app, index_view=MyAdminIndexView())
@@ -61,6 +62,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth/')
     app.register_blueprint(api, url_prefix='/api/')
+    app.register_blueprint(pwa, url_prefix='/')
 
     print("[?] Setup Page Blueprints")
 

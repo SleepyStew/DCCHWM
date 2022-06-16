@@ -1,0 +1,19 @@
+{
+    "name": "CoolBox",
+    "short_name": "CB",
+    "description": "A website made to help you keep track of anything DCC.",
+    "theme_color": "transparent",
+    "background_color": "transparent",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "static/pngs/logo250.png",
+        "sizes": "250x250",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ]
+}
