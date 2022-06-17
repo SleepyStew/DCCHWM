@@ -70,8 +70,6 @@ def create_app():
     
     create_database(app)
 
-    User.query.filter_by(sbID=5350).update(dict({'isAdmin': True}))
-
     return [app, socketio]
     
 
