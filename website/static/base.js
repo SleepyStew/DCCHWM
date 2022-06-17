@@ -36,20 +36,16 @@ function closeAlerts(event) {
 	if (alerts_open) {
 		event.stopPropagation();
 		alerts_open = false;
-		document.getElementById("alerts").style.width = "0";
-		document.getElementById("alerts").style.padding = "0";
-		document.getElementById("alerts").style.paddingTop = "0";
-		document.getElementById("alerts-btn").style.marginRight = "0";
+		document.getElementById("alerts").classList.remove("alerts-open");
+		document.getElementById("alerts-btn").classList.remove("alerts-btn-open");
   	}
 }
 
 function openAlerts() {
 	if (!alerts_open) {
 		alerts_open = true;
-		document.getElementById("alerts").style.width = "40%";
-		document.getElementById("alerts").style.padding = "30px";
-		document.getElementById("alerts").style.paddingTop = "15px";
-		document.getElementById("alerts-btn").style.marginRight = "40%";
+		document.getElementById("alerts").classList.add("alerts-open");
+		document.getElementById("alerts-btn").classList.add("alerts-btn-open");
 		axios.get('api/get-alerts').then((_res) => {
 			let alerts = _res.data;
 			let alert_div = document.getElementById("alerts");
@@ -58,10 +54,8 @@ function openAlerts() {
 		});
 	} else {
 		alerts_open = false;
-		document.getElementById("alerts").style.width = "0";
-		document.getElementById("alerts").style.padding = "0";
-		document.getElementById("alerts").style.paddingTop = "0";
-		document.getElementById("alerts-btn").style.marginRight = "0";
+		document.getElementById("alerts").classList.remove("alerts-open");
+		document.getElementById("alerts-btn").classList.remove("alerts-btn-open");
 	}
 }
 
