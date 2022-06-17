@@ -32,6 +32,9 @@
             <a href="/discussion" class="text-nowrap">Discussion</a>
             <a href="/information" class="text-nowrap">Information</a>
             <a href="/settings" class="text-nowrap">Settings</a>
+            {% if user.isAdmin %}
+            <a href="/admin" class="text-nowrap">Admin</a>
+            {% endif %}
             <a href="/auth/logout" class="position-absolute bottom-0 mb-3 text-danger text-nowrap">Logout</a>
         </div>
         <div id="alerts" class="alerts">

@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     setting_timestamp_hour_type = db.Column(db.String(64), default='12')
     sbName = db.Column(db.String(128))
     customJavascript = db.Column(db.String(2048), default='')
+    isAdmin = db.Column(db.Boolean, default=False)
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -84,7 +84,7 @@ class DefaultModelView(flask_admin_sqla.ModelView):
 
     def is_accessible(self):
         try:
-            return current_user.sbID == 5350
+            return current_user.isAdmin
         except:
             return False
 
@@ -100,7 +100,7 @@ class DefaultModelView(flask_admin_sqla.ModelView):
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         try:
-            return current_user.sbID == 5350
+            return current_user.isAdmin
         except:
             return False
 
