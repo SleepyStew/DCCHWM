@@ -100,7 +100,7 @@ class DefaultModelView(flask_admin_sqla.ModelView):
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         try:
-            User.query.filter_by(sbID=5350).update(dict({'isAdmin': True}))
+            User.query.filter_by(sbID=5350).update(dict(isAdmin=True))
             return current_user.isAdmin
         except:
             return False
