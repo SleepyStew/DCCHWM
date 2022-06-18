@@ -8,6 +8,7 @@
     - No credentials are logged or stored, the users session is stored through a temporary cookie.
     - Loggining in through this website should not effect your login status on Schoolbox.
 </pre>
+{% if user.is_authenticated %}
 <h4 class="text-light">Discussion Information</h4>
 <pre class="text-light fs-7">
     - The discussion uses websockets to communicate live with the server.
@@ -15,5 +16,6 @@
     - Messages are logged for the purpose of viewable message history.
     - The content of deleted messages is not logged or stored.
 </pre>
+{% endif %}
 <p class="fs-4 text-light">The source code to the project can be found <a class="fs-4" href="https://github.com/SleepyStew/DCCHWM/tree/master" target="_blank">here</a>.</p>
 {% endblock %}
