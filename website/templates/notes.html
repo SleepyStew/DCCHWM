@@ -23,12 +23,12 @@
                 document.getElementById('{{ note.id }}').innerHTML = converter.makeHtml(document.getElementById('note-plain-{{ note.id }}').innerHTML);
                 document.getElementById('{{ note.id }}').lastChild.style.display = 'inline';
             </script>
-            <button type="button" class="showndefault-{{ note.id }} bg-transparent border-0 position-absolute end-0 rearrange-button" style="padding-right: 65px;"><img title="Rearrange" src="/static/icons/reorder.svg" class="me-2 icon edit-button" alt="Rearrange"/></button>
-            <button type="button" class="showndefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="padding-right: 30px;" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img title="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button" alt="Edit"/></button>
-            <button type="button" class="showndefault-{{ note.id }} btn-close position-absolute end-0" style="padding-right: 20px;" title="Delete Note" onClick="deleteConfirm('{{ note.id }}')" alt="Delete"></button>
- 
-            <button type="button" class="hiddendefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="padding-right: 30px; display: none; bottom: 3px;" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"><img title="Delete Note" src="/static/icons/checkmark.svg" class="me-2 icon edit-button" alt="Delete" style="width: 27px"/></button>
-            <button type="button" class="hiddendefault-{{ note.id }} btn-close position-absolute end-0" style="padding-right: 20px; display: none;" title="Cancel" onClick="cancelDelete('{{ note.id }}')" alt="Cancel"></button>
+            <button type="button" class="showndefault-{{ note.id }} bg-transparent border-0 position-absolute end-0 rearrange-button" style="margin-right: 60px;"><img title="Rearrange" src="/static/icons/reorder.svg" class="me-2 icon edit-button" alt="Rearrange"/></button>
+            <button type="button" class="showndefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="margin-right: 25px;" onClick="editNote({{ note.id }}, '{{ csrf_token() }}')"><img title="Edit Note" src="/static/icons/pencil.svg" class="me-2 icon edit-button" alt="Edit"/></button>
+            <button type="button" class="showndefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="margin-right: -5px;" onClick="deleteConfirm('{{ note.id }}')"><img title="Delete Note" src="/static/icons/delete.svg" class="me-2 icon edit-button" alt="Delete"/></button>
+
+            <button type="button" class="hiddendefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="margin-right: 25px; display: none;" onClick="deleteNote({{ note.id }}, '{{ csrf_token() }}')"><img title="Delete Note" src="/static/icons/checkmark.svg" class="me-2 icon edit-button" alt="Delete" style="width: 27px"/></button>
+            <button type="button" class="hiddendefault-{{ note.id }} bg-transparent border-0 position-absolute end-0" style="margin-right: -5px; display: none;" title="Cancel" onClick="cancelDelete('{{ note.id }}')" alt="Cancel"><img title="Cancel" src="/static/icons/close.svg" class="me-2 icon edit-button" alt="Cancel" style="width: 27px"/></button>
         </li>
         {% endfor %}
     </div>
