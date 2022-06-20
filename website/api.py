@@ -246,7 +246,7 @@ def update_setting():
     if setting_type == "custom-javascript":
         if len(new_setting) < 2048:
             valid_setting = True
-            User.query.filter_by(sbID=current_user.sbID).update(dict(customJavascript=new_setting))
+            User.query.filter_by(sbID=current_user.sbID).update(dict(customJavascript=new_setting.replace("\\n", "\n")))
             db.session.commit()
         else:
             flash("Custom Javascript can not be longer than 2048 characters.", category="error")

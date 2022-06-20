@@ -74,6 +74,19 @@ def chatroom():
 def settings():
     return render_template("usersettings.html", user=current_user)
 
+@views.route("/recover", methods=['GET'])
+@login_required
+def recover():
+    lines = []
+    customjs = User.query.filter_by(sbID=current_user.sbID).first().customJavascript
+    for line in customjs.splitlines():
+        lines.append("// " + line)
+
+    User.query.filter_by(sbID=current_user.sbID).update(dict(customJavascript="\n".join(lines)))
+    db.session.commit()
+    flash("Your custom Javascript has been commented out.", category="success")
+    return redirect(url_for('views.settings'))
+
 @app.errorhandler(429)
 def too_many_requests(e):
     return render_template("ratelimit.html", user=current_user)
