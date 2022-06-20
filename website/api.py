@@ -296,6 +296,9 @@ def joined():
 
 @socketio.on('disconnect')
 def disconnect():
+
+    print(str(connections), file=sys.stderr)
+
     if current_user.is_authenticated:
         for connection in connections:
             if connection['id'] == request.sid:
