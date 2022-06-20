@@ -165,3 +165,11 @@ document.getElementById("messages").addEventListener("scroll", function() {
     messages_loaded += 100
     getting_more = false;
 })});
+
+if (!Notification) {
+  alert('Desktop notifications not available in your browser.');
+  return;
+}
+
+if (Notification.permission !== 'granted')
+Notification.requestPermission();
