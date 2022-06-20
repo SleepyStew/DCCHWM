@@ -148,7 +148,7 @@ function deleteConfirm(id) {
 }
 
 function cancelDelete(id) {
-    document.querySelectorAll('.hiddendefault-' + id).Array.forEach(function(el) {
+    document.querySelectorAll('.hiddendefault-' + id).forEach(function(el) {
         el.style.display = "none"
     })
     document.querySelectorAll('.showndefault-' + id).forEach(function(el) {
