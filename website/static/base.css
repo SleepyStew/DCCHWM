@@ -134,3 +134,14 @@
   .alerts {width: 65% !important;right: -65%;}
   .alerts-btn-open {margin-right: 65% !important;}
 }
+
+code {
+  font-size: 0.875em;
+  background: #2C2F33;
+  border: #23272A;
+  display: block;
+  padding: 12px;
+  border-radius: 5px;
+  border-width: 2px;
+  color: #fff !important;
+}
