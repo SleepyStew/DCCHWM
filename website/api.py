@@ -294,14 +294,12 @@ def joined():
 
     print(str(connections), file=sys.stderr)
 
-@socketio.on('disconnect')
-def disconnect():
-    if current_user.is_authenticated:
-        for connection in connections:
-            if connection['id'] == request.sid:
-                connections.pop(connections.index(connection))
-
-    print(str(connections), file=sys.stderr)
+    @socketio.on('disconnect')
+    def disconnect():
+        if current_user.is_authenticated:
+            for connection in connections:
+                if connection['id'] == request.sid:
+                    connections.pop(connections.index(connection))
 
 @api.route("/get-more-messages", methods=['GET'])
 @login_required
