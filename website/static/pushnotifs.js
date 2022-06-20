@@ -21,7 +21,7 @@ socket.on("messageAlert", function(data) {
             body: 'Hey! ' + data.mentioner + ' mentioned you in Discussion.'
         });
         notification.onclick = function() {
-            window.open(document.location.origin + '/discussion/');
+            window.open(document.location.origin + '/discussion');
         }};
     }
 });
