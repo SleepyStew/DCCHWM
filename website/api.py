@@ -273,7 +273,7 @@ def chat_message(message):
         emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate}, broadcast=True)
 
         for connection in connections:
-            if "@" + connection['sbName'] in message['message']:
+            if "@" + connection['sbName'].lower() in message['message'].lower():
                 socketio.emit('messageAlert', {'mentioner': current_user.sbName}, room=connection['id'])
 
 @socketio.on('deletemessage', namespace='/discussion')
