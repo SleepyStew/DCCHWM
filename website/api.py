@@ -288,15 +288,12 @@ def delete_message(id):
 connections = []
 
 @socketio.on('connect')
-def joined():
+def connect():
     if current_user.is_authenticated:
         connections.append({'sbName': current_user.sbName, 'id': request.sid, 'sbID': current_user.sbID})
 
-    print(str(connections), file=sys.stderr)
-
 @socketio.on('disconnect')
 def disconnect():
-    print(request.sid, file=sys.stderr)
     for connection in connections:
         if connection['id'] == request.sid:
             connections.pop(connections.index(connection))
