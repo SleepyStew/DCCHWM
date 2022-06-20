@@ -138,20 +138,20 @@ function registerEventsOnCard(card){
     });
 }
 
-function deleteConfirm() {
-    document.getElementsByClassName("showndefault").Array.forEach(function(el) {
+function deleteConfirm(id) {
+    document.querySelectorAll('.showndefault-' + id).forEach(function(el) {
         el.style.display = "none"
     })
-    document.getElementsByClassName("hiddendefault").Array.forEach(function(el) {
+    document.querySelectorAll('.hiddendefault-' + id).forEach(function(el) {
         el.style.display = "unset"
     })
 }
 
-function cancelDelete() {
-    document.getElementsByClassName("showndefault").Array.forEach(function(el) {
-        el.style.display = "unset"
-    })
-    document.getElementsByClassName("hiddendefault").Array.forEach(function(el) {
+function cancelDelete(id) {
+    document.querySelectorAll('.hiddendefault-' + id).Array.forEach(function(el) {
         el.style.display = "none"
+    })
+    document.querySelectorAll('.showndefault-' + id).forEach(function(el) {
+        el.style.display = "unset"
     })
 }
