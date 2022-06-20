@@ -18,11 +18,10 @@ socket.on("messageAlert", function(data) {
         else {
         var notification = new Notification('You\'ve been mentioned.', {
             icon: document.location.origin + '/static/pngs/logo.png',
-            body: 'Hey! ' + data.mentioner + ' mentioned you in Discussion.',
-            link: document.location.origin + '/discussion/'
+            body: 'Hey! ' + data.mentioner + ' mentioned you in Discussion.'
         });
         notification.onclick = function() {
-            window.open('http://stackoverflow.com/a/13328397/1269037');
+            window.open(document.location.origin + '/discussion/');
         }};
     }
 });
