@@ -143,7 +143,7 @@ function deleteConfirm(id) {
         el.style.display = "none"
     })
     document.querySelectorAll('.hiddendefault-' + id).forEach(function(el) {
-        el.style.display = "unset"
+        el.style.display = ""
     })
 }
 
@@ -152,6 +152,6 @@ function cancelDelete(id) {
         el.style.display = "none"
     })
     document.querySelectorAll('.showndefault-' + id).forEach(function(el) {
-        el.style.display = "unset"
+        el.style.display = ""
     })
 }
