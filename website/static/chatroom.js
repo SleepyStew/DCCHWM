@@ -1,6 +1,6 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
-const socket = io.connect(document.location.origin);
+const socket = io.connect(document.location.origin + "/discussion");
 
 let setting_deleted_messages = document.getElementById('show-deleted-messages').innerText;
 

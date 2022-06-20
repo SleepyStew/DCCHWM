@@ -256,7 +256,7 @@ def update_setting():
 
     return redirect(url_for('views.settings'))
 
-@socketio.on('chatmessage')
+@socketio.on('chatmessage', namespace='/discussion')
 def chat_message(message):
     if current_user.is_authenticated and message['message']:
         if len(message['message']) > 1024:
@@ -272,7 +272,7 @@ def chat_message(message):
         fulldate = dates[1]
         emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate}, broadcast=True)
 
-@socketio.on('deletemessage')
+@socketio.on('deletemessage', namespace='/discussion')
 def delete_message(id):
     if current_user.is_authenticated:
         message = Message.query.get(id)
