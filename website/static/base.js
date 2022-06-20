@@ -1,6 +1,6 @@
 if('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('/sw.js');
-};
+}
 
 document.getElementById("logo").addEventListener("click", () => {
 	document.location = document.location.origin

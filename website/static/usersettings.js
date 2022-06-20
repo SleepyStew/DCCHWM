@@ -9,7 +9,7 @@ window.addEventListener("load", function(){
         }
     });
     window.submit_custom_js = function submit_custom_js() {
-        document.getElementById('custom-js-field').value = editor.getValue().replaceAll("\n", "\\n");;
+        document.getElementById('custom-js-field').value = editor.getValue().replaceAll("\n", "\\n");
         document.getElementById('custom-js-form').submit();
     }
     
