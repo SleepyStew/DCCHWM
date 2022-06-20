@@ -10,7 +10,7 @@ from .models import Note, User, Message
 from . import db
 import markdown
 import re
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room
 from . import socketio
 import sys
 from . import app
@@ -272,6 +272,10 @@ def chat_message(message):
         fulldate = dates[1]
         emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate}, broadcast=True)
 
+        for connection in connections:
+            if "@" + connection['sbName'] in message['message']:
+                socketio.emit('messageAlert', {'mentioner': current_user.sbName}, room=connection['id'])
+
 @socketio.on('deletemessage', namespace='/discussion')
 def delete_message(id):
     if current_user.is_authenticated:
@@ -280,6 +284,24 @@ def delete_message(id):
             Message.query.filter_by(id=message.id).update(dict(content="[message deleted]", deleted=True))
             db.session.commit()
             emit('deletemessage', {"id": id}, broadcast=True)
+
+connections = []
+
+@socketio.on('connect')
+def joined():
+    if current_user.is_authenticated:
+        connections.append({'sbName': current_user.sbName, 'id': request.sid, 'sbID': current_user.sbID})
+
+    print(str(connections), file=sys.stderr)
+
+@socketio.on('disconnect')
+def disconnected():
+    if current_user.is_authenticated:
+        for i in range(len(connections)):
+            if connections[i]['id'] == request.sid:
+                connections.pop(i)
+
+    print(str(connections), file=sys.stderr)
 
 @api.route("/get-more-messages", methods=['GET'])
 @login_required

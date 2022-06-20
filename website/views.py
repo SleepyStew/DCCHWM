@@ -1,3 +1,4 @@
+from argparse import Namespace
 import re
 from unicodedata import category
 from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash, jsonify
@@ -21,6 +22,7 @@ import json
 from dateutil import tz
 from datetime import datetime
 from .api import get_recent_messages, convert_date, get_alerts
+from flask_socketio import SocketIO, emit
 
 views = Blueprint('views', __name__)  
 
