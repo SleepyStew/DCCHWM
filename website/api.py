@@ -294,7 +294,7 @@ def joined():
 
     print(str(connections), file=sys.stderr)
 
-@socketio.on('disconnect')
+@socketio.on('client_disconnecting')
 def disconnect():
 
     print(str(connections), file=sys.stderr)
