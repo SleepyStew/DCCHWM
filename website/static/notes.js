@@ -137,3 +137,21 @@ function registerEventsOnCard(card){
         updateDisplayOrder()
     });
 }
+
+function deleteConfirm() {
+    document.getElementsByClassName("showndefault").Array.forEach(function(el) {
+        el.style.display = "none"
+    })
+    document.getElementsByClassName("hiddendefault").Array.forEach(function(el) {
+        el.style.display = "unset"
+    })
+}
+
+function cancelDelete() {
+    document.getElementsByClassName("showndefault").Array.forEach(function(el) {
+        el.style.display = "unset"
+    })
+    document.getElementsByClassName("hiddendefault").Array.forEach(function(el) {
+        el.style.display = "none"
+    })
+}
