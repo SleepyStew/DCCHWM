@@ -118,8 +118,8 @@
   overflow-x: hidden;
   transition: 0.5s;
   right: -40%;
-  padding-top: 15px !important;
   padding: 30px;
+  padding-top: 15px !important;
 }
 
 .alerts-open {
