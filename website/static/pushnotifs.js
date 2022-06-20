@@ -26,4 +26,8 @@ socket.on("messageAlert", function(data) {
     }
 });
 
+window.onbeforeunload = function () {
+	socket.emit('client_disconnecting', {});
+}
+
 console.log("Loaded Push Notifications.");
