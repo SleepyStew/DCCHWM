@@ -114,10 +114,8 @@
   width: 40%;
   height: 100%;
   z-index: 1;
-  right: 0;
   background-color: #23272A;
   overflow-x: hidden;
-  padding-top: 16px;
   transition: 0.5s;
   right: -40%;
   padding-top: 15px !important;
