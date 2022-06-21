@@ -11,18 +11,18 @@ socket.on("messageAlert", function(data) {
         alert('Desktop notifications not available in your browser.');
     } else {
         if (Notification.permission !== 'granted')
-        Notification.requestPermission();
+            Notification.requestPermission();
         
         if (Notification.permission !== 'granted')
-        Notification.requestPermission();
+            Notification.requestPermission();
         else {
-        var notification = new Notification('You\'ve been mentioned.', {
-            icon: document.location.origin + '/static/pngs/logo.png',
-            body: 'Hey! ' + data.mentioner + ' mentioned you in Discussion.'
-        });
+            let notification = new Notification('You\'ve been mentioned.', {
+                icon: document.location.origin + '/static/pngs/logo.png',
+                body: 'Hey! ' + data.mentioner + ' mentioned you in Discussion.'
+            });
         notification.onclick = function() {
             window.open(document.location.origin + '/discussion');
-        }};
+        }}
     }
 });
 
