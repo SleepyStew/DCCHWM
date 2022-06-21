@@ -144,4 +144,5 @@ code {
   border-radius: 5px;
   border-width: 2px;
   color: #fff !important;
+  overflow-x: auto;
 }
