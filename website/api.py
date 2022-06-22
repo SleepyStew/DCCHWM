@@ -211,7 +211,9 @@ def edit_note():
 def create_note():
     note = request.form.get('note').strip()
 
-    if note_is_valid(note):
+    if len(Note.query.filter_by(userID=current_user.sbID).all()) >= 50:
+        flash("You have reached the maximum of 50 notes.", category="error")
+    elif note_is_valid(note):
         display_order = Note.query.filter_by(userID=current_user.sbID).count() + 1
         new_note = Note(content=note, userID=current_user.sbID, displayOrder=display_order)
         db.session.add(new_note)
