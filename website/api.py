@@ -310,16 +310,10 @@ def get_more_messages():
     if len(Message.query.all()) + int(amount) < int(start_from):
         return json.dumps({})
     for message in Message.query.all()[-int(start_from):][:int(amount)]:
-        if message.username == current_user.sbName:
-            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
-            datetime = dates[0]
-            fulldate = dates[1]
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
-        else:
-            dates = convert_date(Message.query.filter_by(id=message.id).first().date)
-            datetime = dates[0]
-            fulldate = dates[1]
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+        dates = convert_date(Message.query.filter_by(id=message.id).first().date)
+        datetime = dates[0]
+        fulldate = dates[1]
+        recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": message.username == current_user.sbName, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
     response = make_response(json.dumps(recent_messages), 200)
     response.mimetype = "text/plain"
     return response
