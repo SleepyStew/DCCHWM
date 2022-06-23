@@ -26,6 +26,7 @@ def create_app():
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.url_map.strict_slashes = False
     db.init_app(app)
     csrf = CSRFProtect()
     csrf.init_app(app) # Compliant
