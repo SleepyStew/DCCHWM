@@ -10,7 +10,7 @@ from . import audit_log
 
 auth = Blueprint('auth', __name__)  
 
-@auth.route('/login', methods=['POST', 'GET'])
+@auth.route('/login/', methods=['POST', 'GET'])
 @limiter.limit("15 per minute")
 def login():
     if current_user.is_authenticated:
@@ -67,7 +67,7 @@ def login():
 
     return render_template("login.html", user=current_user)
 
-@auth.route('/logout')
+@auth.route('/logout/')
 def logout():
     if current_user.is_authenticated:
         if current_user.setting_alerts == "high":

@@ -37,7 +37,7 @@ def root():
     else:
         return redirect(url_for('auth.login'))
 
-@views.route('/dashboard')
+@views.route('/dashboard/')
 @login_required
 def dashboard():
     cookies = { 
@@ -55,28 +55,28 @@ def dashboard():
     ziptable = zip(timetable, timetable_headers)
     return render_template("dashboard.html", user=current_user, timetable=ziptable, duework=duework, schoolbox_is_down=schoolbox_is_down)
 
-@views.route('/information')
+@views.route('/information/')
 def information():
     return render_template("information.html", user=current_user)
 
-@views.route('/quick-notes', methods=['GET'])
+@views.route('/quick-notes/', methods=['GET'])
 @login_required
 def quicknotes():
     notes = Note.query.filter_by(userID=current_user.sbID).order_by(Note.displayOrder.asc()).all()
     return render_template("notes.html", user=current_user, notes=notes)
 
-@views.route('/discussion', methods=['GET'])
+@views.route('/discussion/', methods=['GET'])
 @login_required
 def chatroom():
     recent_messages = get_recent_messages(current_user)
     return render_template("chatroom.html", user=current_user, recent_messages=recent_messages)
 
-@views.route('/settings', methods=['GET'])
+@views.route('/settings/', methods=['GET'])
 @login_required
 def settings():
     return render_template("usersettings.html", user=current_user)
 
-@views.route("/recover", methods=['GET'])
+@views.route("/recover/", methods=['GET'])
 @login_required
 def recover():
     lines = []
