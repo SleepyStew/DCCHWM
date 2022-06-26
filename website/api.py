@@ -375,8 +375,3 @@ def get_alerts():
     if len(elements) == 0:
         return ""
     return "".join(list(map(str, elements)))
-
-@api.route("/test", methods=['GET'])
-@login_required
-def test():
-    return jsonify({"success": True})
