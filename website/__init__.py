@@ -1,17 +1,17 @@
-from flask import Flask, flash, session
-from flask_sqlalchemy import SQLAlchemy
-from os import path
-from flask_login import LoginManager, current_user
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-from flask_migrate import Migrate
-from dotenv import load_dotenv, find_dotenv
+from datetime import datetime
 from os import environ
-from flask_wtf.csrf import CSRFProtect
+from os import path
+
+from dotenv import load_dotenv, find_dotenv
+from flask import Flask
+from flask_admin import Admin
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from datetime import datetime
+from flask_login import LoginManager
+from flask_migrate import Migrate
 from flask_socketio import SocketIO
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 
 load_dotenv(find_dotenv())
 

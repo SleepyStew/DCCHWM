@@ -1,21 +1,15 @@
-from dataclasses import replace
-from re import S, sub
-from unicodedata import category
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response, jsonify
-from flask_login import login_user, login_required, logout_user, current_user
-import requests
-import bs4
 import json
-from .models import Note, User, Message
-from . import db
-import markdown
-import re
-from flask_socketio import SocketIO, emit, join_room
-from . import socketio
-import sys
-from . import app
+
+import bs4
+import requests
 from dateutil import tz
-from datetime import datetime
+from flask import Blueprint, request, flash, redirect, url_for, make_response
+from flask_login import login_required, current_user
+from flask_socketio import emit
+
+from . import db
+from . import socketio
+from .models import Note, User, Message
 
 api = Blueprint('api', __name__)
 

@@ -1,28 +1,17 @@
-from argparse import Namespace
-import re
-from unicodedata import category
-from flask import Blueprint, render_template, redirect, url_for, send_from_directory, request, flash, jsonify
-from flask_login import login_user, login_required, logout_user, current_user
-import flask_login
-from sqlalchemy import false
-from .api import get_upcoming_due_work
-from . import db
-from .models import User, Note, Message
-from .api import get_timetable
-from .auth import logout_current_user
+import requests
+from flask import Blueprint, render_template, redirect, url_for, send_from_directory, flash
 from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla as flask_admin_sqla
-from .api import note_is_valid, check_if_down
+from flask_login import login_required, current_user
+
 from . import app
-import requests
-from . import socketio
-from flask_socketio import SocketIO
-import sys
-import json
-from dateutil import tz
-from datetime import datetime
-from .api import get_recent_messages, convert_date, get_alerts
-from flask_socketio import SocketIO, emit
+from . import db
+from .api import check_if_down
+from .api import get_recent_messages
+from .api import get_timetable
+from .api import get_upcoming_due_work
+from .auth import logout_current_user
+from .models import User, Note
 
 views = Blueprint('views', __name__)  
 

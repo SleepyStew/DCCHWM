@@ -1,12 +1,11 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-import flask_login
 import requests
-from .models import User
-from . import db
-from flask_login import login_user, login_required, logout_user, current_user
-from . import limiter
-from datetime import datetime
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_user, logout_user, current_user
+
 from . import audit_log
+from . import db
+from . import limiter
+from .models import User
 
 auth = Blueprint('auth', __name__)  
 
