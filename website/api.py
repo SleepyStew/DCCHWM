@@ -355,7 +355,6 @@ def get_alerts():
     for tag in soup.find(attrs={'id': 'content'}).find_all("li"):
         tag.name = "div"
         tag.find("div")["style"] = "padding: 10px; margin-bottom: 10px;"
-        tag.find("div").find("a")['href']
 
         # remove the img tag
         tag.find("div").find("a").find("img").extract()
