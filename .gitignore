@@ -1,2 +1,5 @@
 /website/.env
 /website/schoolbox.db
+/audit.log
+/.idea/*
+/migrations/*
