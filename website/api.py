@@ -1,7 +1,7 @@
 from dataclasses import replace
 from re import S, sub
 from unicodedata import category
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
 import requests
 import bs4
@@ -17,7 +17,7 @@ from . import app
 from dateutil import tz
 from datetime import datetime
 
-api = Blueprint('api', __name__)  
+api = Blueprint('api', __name__)
 
 friendly_subject_names = {
     "Homegroup": "Homegroup",
@@ -52,12 +52,12 @@ def get_timetable(response, current_user):
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
     elements = []
-    
+
     for tag in soup.find_all(attrs={'class': 'timetable-subject'}):
 
         if len(tag.find_all()) == 2:
             tag.append(soup.new_tag("br"))
-        
+
         tag.find_all()[0]['style'] = "display: inline; text-decoration: none;"
         tag.find_all()[0]['target'] = "_blank"
         for subject, subject_value in friendly_subject_names.items():
@@ -101,7 +101,7 @@ def get_upcoming_due_work(response, current_user):
                 if subject in tag.find("div").find_all()[2].text:
                     tag.find("div").find_all()[0].string.replace_with(subject_value + " - " + tag.find("div").find_all()[0].text)
                     break
-            
+
             if "homework" in tag.find("div").find_all()[2].text.lower():
                 tag.find("div").find_all()[2].clear()
                 tag.find("div").find_all()[2].append("Homework")
@@ -252,7 +252,7 @@ def update_setting():
             db.session.commit()
         else:
             flash("Custom Javascript can not be longer than 2048 characters.", category="error")
-    
+
     if valid_setting and current_user.setting_alerts == "high":
         flash("Successfully updated setting.", category="success")
 
@@ -339,7 +339,7 @@ def move_note():
 @login_required
 def get_alerts():
 
-    cookies = { 
+    cookies = {
         'PHPSESSID': f'{current_user.sbCookie}',
     }
 
@@ -375,3 +375,8 @@ def get_alerts():
     if len(elements) == 0:
         return ""
     return "".join(list(map(str, elements)))
+
+@api.route("/test", methods=['GET'])
+@login_required
+def test():
+    return jsonify({"success": True})
