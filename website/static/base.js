@@ -2,10 +2,6 @@ if('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('/sw.js');
 }
 
-document.getElementById("logo").addEventListener("click", () => {
-	document.location = document.location.origin
-});
-
 let nav_open = false;
 let alerts_open = false;
 
@@ -14,11 +10,11 @@ function openNav() {
 	if (!nav_open) {
 		nav_open = true;
 		document.getElementById("mySidebar").style.width = "250px";
-		document.getElementById("main").style.marginLeft = "250px";
+		document.getElementById("navbarButton").style.marginLeft = "250px";
 	} else {
 		nav_open = false;
 		document.getElementById("mySidebar").style.width = "0";
-		document.getElementById("main").style.marginLeft = "0";
+		document.getElementById("navbarButton").style.marginLeft = "0";
 	}
 	
   }
@@ -28,7 +24,7 @@ function closeNav(event) {
 		event.stopPropagation();
 		nav_open = false;
 		document.getElementById("mySidebar").style.width = "0";
-		document.getElementById("main").style.marginLeft = "0"
+		document.getElementById("navbarButton").style.marginLeft = "0"
   	}
 }
 
