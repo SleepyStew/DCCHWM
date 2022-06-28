@@ -19,21 +19,21 @@
                 <button class="openbtn" onclick="openNav()">&#9776;</button>
               </div>
             <input type="image" id="logo" class="" src="/static/pngs/logo.png" alt="Donvale Christian College" style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%); width: 50px; height: auto;">
-            {% if user.is_authenticated %}
+            {% if current_user.is_authenticated %}
             <button id="alerts-btn" style="right: 0;height: 100%;width: 95px; background-color: transparent;position: absolute;border: none;" onclick="openAlerts()">
                 <img src="/static/icons/bell.svg" style="max-height: 100%;max-width: 100%;width: 35%;height: auto;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;filter:invert(0.9)" alt="Notifications">
             </button>
             {% endif %}
         </nav>
-        
-        {% if user.is_authenticated %}
+
+        {% if current_user.is_authenticated %}
         <div id="mySidebar" class="sidebar">
             <a href="/dashboard" class="text-nowrap">Dashboard</a>
             <a href="/quick-notes" class="text-nowrap">Quick Notes</a>
             <a href="/discussion" class="text-nowrap">Discussion</a>
             <a href="/information" class="text-nowrap">Information</a>
             <a href="/settings" class="text-nowrap">Settings</a>
-            {% if user.isAdmin %}
+            {% if current_user.isAdmin %}
             <a href="/admin" class="text-nowrap">Admin</a>
             {% endif %}
             <a href="/auth/logout" class="position-absolute bottom-0 mb-3 text-danger text-nowrap">Logout</a>
@@ -47,7 +47,7 @@
             <a href="/information" class="text-nowrap">Information</a>
         </div>
         {% endif %}
-        
+
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}

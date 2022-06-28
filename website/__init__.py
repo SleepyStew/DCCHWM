@@ -19,6 +19,7 @@ db = SQLAlchemy()
 migrate = Migrate(db)
 DB_NAME = "schoolbox.db"
 
+
 def create_app():
     global limiter, app, socketio
     app = Flask(__name__)
@@ -29,19 +30,19 @@ def create_app():
     app.url_map.strict_slashes = False
     db.init_app(app)
     csrf = CSRFProtect()
-    csrf.init_app(app) # Compliant
+    csrf.init_app(app)  # Compliant
     print("[?] Setup config and initialised database.")
 
-    limiter = Limiter(app=app, key_func = get_remote_address, default_limits = ["60/minute"])
+    limiter = Limiter(app=app, key_func=get_remote_address, default_limits=["60/minute"])
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    print ("[?] Setup Login Manager")
+    print("[?] Setup Login Manager")
 
     from .models import User, Note, Message
-    
+
     @login_manager.user_loader
     def load_user(id):
         user = User.query.filter_by(id=id).first()
@@ -68,16 +69,17 @@ def create_app():
     print("[?] Setup Page Blueprints")
 
     migrate = Migrate(app, db, render_as_batch=True)
-    
+
     create_database(app)
 
     return [app, socketio]
-    
+
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print("[?] Created database.")
+
 
 def audit_log(audit):
     print(audit)

@@ -26,8 +26,8 @@
   <div class="input-group">
     <input type="hidden" name="setting_type" value="alerts"></input>
     <select class="custom-select rounded p-2 mb-4" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
-      <option value="high" {% if user.setting_alerts == "high" %}selected{% endif %}>Show alerts for almost every action.</option>
-      <option value="low" {% if user.setting_alerts == "low" %}selected{% endif %}>Only show important alerts, don't show an alert for every action.</option>
+      <option value="high" {% if current_user.setting_alerts == "high" %}selected{% endif %}>Show alerts for almost every action.</option>
+      <option value="low" {% if current_user.setting_alerts == "low" %}selected{% endif %}>Only show important alerts, don't show an alert for every action.</option>
     </select>
   </div>
 </form>
@@ -38,8 +38,8 @@
   <div class="input-group">
     <input type="hidden" name="setting_type" value="deleted-messages"></input>
     <select class="custom-select rounded p-2" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
-      <option value="show" {% if user.setting_deleted_messages == "show" %}selected{% endif %}>Show deleted messages.</option>
-      <option value="hide" {% if user.setting_deleted_messages == "hide" %}selected{% endif %}>Hide deleted messages.</option>
+      <option value="show" {% if current_user.setting_deleted_messages == "show" %}selected{% endif %}>Show deleted messages.</option>
+      <option value="hide" {% if current_user.setting_deleted_messages == "hide" %}selected{% endif %}>Hide deleted messages.</option>
     </select>
   </div>
 </form>
@@ -49,12 +49,12 @@
   <div class="input-group">
     <input type="hidden" name="setting_type" value="timestamp-hour-type"></input>
     <select class="custom-select rounded p-2 mb-4" id="inputGroupSelect04" name="new_setting" onchange="this.form.submit()" style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
-      <option value="12" {% if user.setting_timestamp_hour_type == "12" %}selected{% endif %}>Show 12h time.</option>
-      <option value="24" {% if user.setting_timestamp_hour_type == "24" %}selected{% endif %}>Show 24h time.</option>
+      <option value="12" {% if current_user.setting_timestamp_hour_type == "12" %}selected{% endif %}>Show 12h time.</option>
+      <option value="24" {% if current_user.setting_timestamp_hour_type == "24" %}selected{% endif %}>Show 24h time.</option>
     </select>
   </div>
 </form>
-<div id="custom-javascript-default" style="display: none;">{{ user.customJavascript }}</div>
+<div id="custom-javascript-default" style="display: none;">{{ current_user.customJavascript }}</div>
 <h2 class="text-light">Custom Javascript</h4>
 <h4 class="text-light">This will be run on all pages.</h2>
 <h4 class="text-light">Do not edit the field below unless you know what you are doing!</h2>

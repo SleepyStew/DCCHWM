@@ -7,7 +7,8 @@ from . import db
 from . import limiter
 from .models import User
 
-auth = Blueprint('auth', __name__)  
+auth = Blueprint('auth', __name__)
+
 
 @auth.route('/login', methods=['POST', 'GET'])
 @limiter.limit("15 per minute")
@@ -15,13 +16,13 @@ def login():
     if current_user.is_authenticated:
         flash('You are already logged in. Please logout from the sidebar to return to the login page.', category='success')
         return redirect(url_for('views.root'))
-    if request.method == 'POST':        
+    if request.method == 'POST':
         data = request.form
 
         # Error handling
-        if data.get('username') == None:
+        if data.get('username') is None:
             return redirect(url_for('auth.login'))
-        if data.get('password') == None:
+        if data.get('password') is None:
             return redirect(url_for('auth.login'))
 
         if len(data.get('username').split(" ")) < 2 and len(data.get('username').split(".")) < 2:
@@ -49,10 +50,9 @@ def login():
                     db.session.commit()
                     user_login = User.query.filter_by(sbID=sbid).first()
                 else:
-                    user_login = User(sbID=sbid, id = str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID')), sbName=name)
+                    user_login = User(sbID=sbid, id=str(login.cookies.get('PHPSESSID')), sbCookie=str(login.cookies.get('PHPSESSID')), sbName=name)
                     db.session.add(user_login)
                     db.session.commit()
-                    
 
                 login_user(user_login, remember=True)
 
@@ -64,7 +64,8 @@ def login():
             else:
                 flash("An error occured.", category="error")
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html")
+
 
 @auth.route('/logout')
 def logout():
@@ -76,13 +77,14 @@ def logout():
         flash('You are not logged in.', category='error')
     return redirect(url_for('auth.login'))
 
+
 def logout_current_user():
     if current_user.is_authenticated:
         # Extra layer of security
         User.query.filter_by(sbID=current_user.sbID).update(dict(sbCookie="Logged Out"))
-        
+
         db.session.commit()
-        
+
         audit_log(f"Logout | {current_user.sbID}")
-        
+
         logout_user()

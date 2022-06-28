@@ -37,9 +37,9 @@ friendly_subject_names = {
     "Community Life": "ComLife"
 }
 
+
 # Returns basic 5 subject "today" timetable | LIST(HTML)
 def get_timetable(response, current_user):
-
     if check_if_logged_out(response):
         return "logout"
 
@@ -69,9 +69,9 @@ def get_timetable(response, current_user):
 
     return map(str, elements)
 
+
 # Returns upcoming due work found on the homepage | LIST(HTML)
 def get_upcoming_due_work(response, current_user):
-
     if check_if_logged_out(response):
         return "logout"
 
@@ -116,15 +116,18 @@ def get_upcoming_due_work(response, current_user):
     except AttributeError:
         return None
 
+
 def check_if_logged_out(response):
     if "userNameInput.placeholder = 'Sample.User@donvale.vic.edu.au';" in response.text:
         return True
     return False
 
+
 def check_if_down(response):
     if "<img src=\"/portrait.php?id=" in response.text:
         return True
     return False
+
 
 # Returns whether a note is valid or not | BOOLEAN
 def note_is_valid(note):
@@ -136,6 +139,7 @@ def note_is_valid(note):
         return False
     return True
 
+
 def get_recent_messages(current_user):
     recent_messages = []
     for message in Message.query.all()[-100:]:
@@ -143,16 +147,23 @@ def get_recent_messages(current_user):
             dates = convert_date(Message.query.filter_by(id=message.id).first().date)
             datetime = dates[0]
             fulldate = dates[1]
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+            recent_messages.append(
+                {"id": message.id, "message": message.content, "username": message.username, "mine": True, "deleted": message.deleted, "datetime": datetime,
+                 "fulldate": fulldate})
         else:
             dates = convert_date(Message.query.filter_by(id=message.id).first().date)
             datetime = dates[0]
             fulldate = dates[1]
-            recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+            recent_messages.append(
+                {"id": message.id, "message": message.content, "username": message.username, "mine": False, "deleted": message.deleted, "datetime": datetime,
+                 "fulldate": fulldate})
     return recent_messages
+
 
 from_zone = tz.tzutc()
 to_zone = tz.tzlocal()
+
+
 def convert_date(date):
     date = date.replace(tzinfo=from_zone)
     datetime = date.astimezone(to_zone)
@@ -165,6 +176,7 @@ def convert_date(date):
     else:
         datetime = datetime.strftime('%d/%m/%Y')
     return [datetime, fulldate]
+
 
 #########################################
 # Function above this | Endpoints below #
@@ -184,6 +196,7 @@ def delete_note():
         return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+
 # Endpoint for editing notes
 @api.route('/edit-note', methods=['POST'])
 @login_required
@@ -198,6 +211,7 @@ def edit_note():
             flash("Note successfully edited.", category="success")
         return json.dumps({'success': True})
     return json.dumps({'success': False})
+
 
 # Endpoint for creating notes
 @api.route('/create-note', methods=['POST'])
@@ -215,6 +229,7 @@ def create_note():
         if current_user.setting_alerts == "high":
             flash("Successfully saved note.", category="success")
     return redirect(url_for('views.quicknotes'))
+
 
 @api.route('/update-setting', methods=['POST'])
 @login_required
@@ -252,6 +267,7 @@ def update_setting():
 
     return redirect(url_for('views.settings'))
 
+
 @socketio.on('chatmessage', namespace='/discussion')
 def chat_message(message):
     if current_user.is_authenticated and message['message']:
@@ -266,11 +282,13 @@ def chat_message(message):
         dates = convert_date(Message.query.filter_by(id=message_store.id).first().date)
         datetime = dates[0]
         fulldate = dates[1]
-        emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate}, broadcast=True)
+        emit('chatmessage', {"id": message_store.id, "message": message['message'], "username": current_user.sbName, "datetime": datetime, "fulldate": fulldate},
+             broadcast=True)
 
         for connection in connections:
             if "@" + connection['sbName'].lower() in message['message'].lower():
                 socketio.emit('messageAlert', {'mentioner': current_user.sbName}, room=connection['id'])
+
 
 @socketio.on('deletemessage', namespace='/discussion')
 def delete_message(id):
@@ -281,18 +299,22 @@ def delete_message(id):
             db.session.commit()
             emit('deletemessage', {"id": id}, broadcast=True)
 
+
 connections = []
+
 
 @socketio.on('connect')
 def connect():
     if current_user.is_authenticated:
         connections.append({'sbName': current_user.sbName, 'id': request.sid, 'sbID': current_user.sbID})
 
+
 @socketio.on('disconnect')
 def disconnect():
     for connection in connections:
         if connection['id'] == request.sid:
             connections.pop(connections.index(connection))
+
 
 @api.route("/get-more-messages", methods=['GET'])
 @login_required
@@ -309,10 +331,13 @@ def get_more_messages():
         dates = convert_date(Message.query.filter_by(id=message.id).first().date)
         datetime = dates[0]
         fulldate = dates[1]
-        recent_messages.append({"id": message.id, "message": message.content, "username": message.username, "mine": message.username == current_user.sbName, "deleted": message.deleted, "datetime": datetime, "fulldate": fulldate})
+        recent_messages.append(
+            {"id": message.id, "message": message.content, "username": message.username, "mine": message.username == current_user.sbName, "deleted": message.deleted,
+             "datetime": datetime, "fulldate": fulldate})
     response = make_response(json.dumps(recent_messages), 200)
     response.mimetype = "text/plain"
     return response
+
 
 @api.route("/update-note-display-order", methods=['POST'])
 @login_required
@@ -324,15 +349,15 @@ def move_note():
             legit_request = False
     if legit_request:
         for i in range(len(new_order)):
-            Note.query.filter_by(id=new_order[i]).update(dict(displayOrder=i+1))
+            Note.query.filter_by(id=new_order[i]).update(dict(displayOrder=i + 1))
         db.session.commit()
         return json.dumps({'success': True})
     return json.dumps({'success': False})
 
+
 @api.route("/get-alerts", methods=['GET'])
 @login_required
 def get_alerts():
-
     cookies = {
         'PHPSESSID': f'{current_user.sbCookie}',
     }
@@ -354,7 +379,8 @@ def get_alerts():
         tag.find("div").find("a").find("img").extract()
 
         # get parent of tag
-        tag.find("div").find(attrs={'class': 'meta'}).find("time").string.replace_with(tag.parent.parent.find_previous_sibling('h2').string + " at " + tag.find("div").find(attrs={'class': 'meta'}).find("time").string)
+        tag.find("div").find(attrs={'class': 'meta'}).find("time").string.replace_with(
+            tag.parent.parent.find_previous_sibling('h2').string + " at " + tag.find("div").find(attrs={'class': 'meta'}).find("time").string)
 
         for atag in tag.find_all("a"):
             try:
