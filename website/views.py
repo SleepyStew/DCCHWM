@@ -82,6 +82,10 @@ def recover():
 def too_many_requests(e):
     return render_template("ratelimit.html", user=current_user)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html", user=current_user)
+
 class DefaultModelView(flask_admin_sqla.ModelView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
