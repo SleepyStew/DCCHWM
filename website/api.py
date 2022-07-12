@@ -30,6 +30,7 @@ friendly_subject_names = {
     "OuEd": "Outdoor Ed",
     "Outdoor Edu": "Outdoor Ed",
     "PE": "PE",
+    "Research": "Research Science",
     "RS": "Research Science",
     "Sci": "Science",
     "Sport": "Sport",
