@@ -35,6 +35,7 @@ friendly_subject_names = {
     "Sci": "Science",
     "Sport": "Sport",
     "Vis": "VisCom",
+    "Commerce": "Commerce",
     "Community Life": "ComLife"
 }
 
